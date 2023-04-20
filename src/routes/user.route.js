@@ -1,6 +1,8 @@
 const route = require('express').Router();
-const userControler = require('../controllers/user.controller');
+const userController = require('../controllers/user.controller');
 
-route.post("/", userControler.create);
+route.post("/", userController.createService);
+route.get("/", userController.findAll);
+route.get("/:id", userController.findById);
 
 module.exports = route;
