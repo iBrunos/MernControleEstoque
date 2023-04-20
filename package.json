@@ -1,8 +1,9 @@
 {
   "name": "merncontroleestoque",
   "version": "1.0.0",
-  "description": "API for Happy Mackup",
+  "description": "API for Happy Makeup",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index",
     "dev": "nodemon index"
