@@ -6,7 +6,7 @@ const login = async (req, res) => {
 
     try{
         const user = await loginService(email);
-        console.log(user.password)
+    
         if (!user){
             return res.status(404).send({message: "User or Password not found"})
         }
@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
         const token = generateToken(user.id)
         
-        res.send(token)
+        res.send({token})
     }catch(err){
         res.status(500).send(err.message)
     }
