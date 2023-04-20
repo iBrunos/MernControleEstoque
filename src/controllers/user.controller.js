@@ -1,5 +1,5 @@
 import userService from "../services/user.service.js";
-import bcrypt from 'bcrypt';
+
 const createService = async (req, res) => {
   try {
     const { username, password, level, email, phone } = req.body;
@@ -10,19 +10,21 @@ const createService = async (req, res) => {
       });
     }
 
-    const createUser = await userService.createService(req.body);
+
+    const createUser = await userService.createService(req.body).catch((err) => console.log(err.message));
     if (!createUser) {
       return res.status(400).send({
         message: "Error creating User",
       });
     }
-    const hashedPassword = await bcrypt.hash(password, 8);
+    
+   
     res.status(201).send({
       message: "User created successfully",
       user: {
-        id: createUser._id,
+        id: createUser.id,
         username,
-        hashedPassword,
+        password,
         level,
         email,
         phone,
