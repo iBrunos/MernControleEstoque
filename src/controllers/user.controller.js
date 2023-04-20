@@ -28,7 +28,6 @@ const createService = async (req, res) => {
         }
     });
 };
-
 const findAll = async (req, res) => {
     const users = await userService.findAllService()
 
@@ -57,5 +56,33 @@ const findById = async (req, res) => {
     res.send(user)
 
 }
+const update = async (req, res) => {
+    const { user, password, level, email, phone } = req.body;
+    
+    // Verificando se todos os campos foram enviados
+    if (!user && !password && !level && !email && !phone) {
+        res.status(400).send({
+            message: "Submit at least one field for update"
+        });
+    };
+    const id = req.params.id;
 
-module.exports = { createService, findAll, findById}
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).send({
+            message: "Invalid ID"
+        });
+    }
+
+    const userFind = await userService.findByIdService(id)
+    if(!userFind){
+        return res.status(400).send({
+            message: "User not found"
+        });
+    }
+
+    await userService.updateService(id, user, password, level, email, phone)
+    res.send({
+        message: "User successfully updated"
+    })
+}
+module.exports = { createService, findAll, findById, update};
