@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import StoreIcon from "@mui/icons-material/Store";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
@@ -9,52 +8,32 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
-function getCurrentUserId() {
-    const userId = localStorage.getItem('userId');
-    console.log(userId);
-    return userId ? parseInt(userId, 10) : null; // retorna null se o ID do usuário não foi armazenado no localStorage
-  }
-
 const user = localStorage.getItem("username");
 const email = localStorage.getItem("email");
+const level = localStorage.getItem("level");
+
 // Profile Dropdown
 const ProfileDropDown = () => {
-    const navigate = useNavigate();
-    const [isGerente, setIsGerente] = useState(false);
-    const [state, setState] = useState(false);
-    const profileRef = useRef(null);
-  
-    useEffect(() => {
-      const handleDropDown = (e) => {
-        if (profileRef.current && !profileRef.current.contains(e.target)) {
-          setState(false);
-        }
-      };
-      document.addEventListener("click", handleDropDown);
-      return () => {
-        document.removeEventListener("click", handleDropDown);
-      };
-    }, []);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const token = localStorage.getItem('token');
-          const config = {
-            headers: { Authorization: `Bearer ${token}` }
-          };
-          const response = await axios.get('https://api-happy-makeup.onrender.com/user', config);
-          const users = response.data;
-          const currentUser = users.find((user) => user.id === getCurrentUserId());
-          // Assuming that getCurrentUserId() is defined somewhere and returns the ID of the currently logged in user
-          setIsGerente(currentUser.level === "Gerente");
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }, []);
-  
+  const navigate = useNavigate();
+  const [isGerente, setIsGerente] = useState(false);
+  const [state, setState] = useState(false);
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    setIsGerente(level === "Gerente");
+  }, []);
+
+  useEffect(() => {
+    const handleDropDown = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setState(false);
+      }
+    };
+    document.addEventListener("click", handleDropDown);
+    return () => {
+      document.removeEventListener("click", handleDropDown);
+    };
+  }, []);
     const navigateToLogout = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("email");
