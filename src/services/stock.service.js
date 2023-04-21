@@ -1,16 +1,19 @@
 import Stock from '../models/Stock.js';
 
-const createService = (body) => Exit.create(body)
+const createService = (body) => Stock.create(body);
 
-const findAllService = () => Exit.find();
+const findAllService = () => Stock.find();
 
-const findByIdService = (id) => Exit.findById(id);
+const findByIdService = (id) => Stock.findById(id);
 
-const updateService = (id, product, quantity) => Entry.findOneAndUpdate({_id: id},{product, quantity});
+const updateService = (id, product, quantity) => Stock.findOneAndUpdate({_id: id}, {product, quantity});
+
+const deleteService = (id) => Stock.findOneAndDelete({_id: id});
 
 export default {
     createService,
     findAllService,
     findByIdService,
-    updateService
+    updateService,
+    deleteService // nova função de delete
 };

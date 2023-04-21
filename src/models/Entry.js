@@ -7,7 +7,7 @@ const EntrySchema = new mongoose.Schema({
       unique: true,
     },
     observation: {
-      type: mongoose.Schema.Types.Text,
+      type: String,
       required: false,
       unique: false,
     },

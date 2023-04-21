@@ -93,4 +93,4 @@ const update = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
-export default { createService, findAll, findById, update ,deleteUser};
+export default { createService, findAll, findById, update , deleteUser};
