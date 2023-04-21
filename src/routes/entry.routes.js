@@ -5,8 +5,8 @@ import { authMiddleware } from "../middlewares/auth.middlewares.js";
 const router = Router();
 
 router.post("/", authMiddleware, entryController.createService);
-router.get("/", entryController.findAll);
-router.get("/:id", validId, validUser, entryController.findById);
-router.patch("/:id", validId, validUser, entryController.update)
-router.delete('/:id', entryController.deleteEntry);
+router.get("/", authMiddleware,entryController.findAll);
+router.get("/:id", authMiddleware,validId, validUser, entryController.findById);
+router.patch("/:id", authMiddleware,validId, validUser, entryController.update)
+router.delete('/:id', authMiddleware,entryController.deleteEntry);
 export default router;
