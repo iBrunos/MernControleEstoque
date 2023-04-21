@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import moment from "moment";
 import unidecode from "unidecode";
 
 export default function FormProducts() {
@@ -14,58 +15,31 @@ export default function FormProducts() {
   const [inserted_by, setInserted_by] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const changePageTitle = (newTitle) => {
-    document.title = newTitle;
-  };
-  changePageTitle("Happy Makeup | Cadastro");
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
+  const API_URL = 'https://api-happy-makeup.onrender.com/product';
+
+
 
   const fetchItems = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     // definir o cabeçalho `Authorization` com o token JWT
     const config = {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get('https://api-happy-makeup.onrender.com/product', config);
+      const response = await axios.get(API_URL, config);
       setItems(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-  
-  const formatPrice = (price) => {
-    if (typeof price !== "string") {
-      price = price.toString();
-    }
-  
-    // Substitui o ponto ou a vírgula pelo caractere de separador de decimais adequado
-    price = price.replace(/[.,]/g, ",");
-  
-    // Adiciona as casas decimais faltantes, se necessário
-    if (!price.includes(",")) {
-      price += ",00";
-    } else {
-      const decimalPart = price.split(",")[1];
-      if (decimalPart.length === 1) {
-        price += "0";
-      }
-    }
-  
-    return price;
-  };
-  
-  function transformStringToNumber(stringNumber) {
-    // Remove quaisquer espaços em branco antes ou depois da string
-    const cleanedString = stringNumber.trim();
-    // Converte a string em um número usando parseFloat()
-    const number = parseFloat(cleanedString.replace(",", "."));
-    return number;
-  }
+
+  useEffect(() => {
+
+    fetchItems();
+  }, []);
+
 
   const addItem = async (e) => {
     e.preventDefault();
@@ -82,7 +56,7 @@ export default function FormProducts() {
     };
     newItem.inserted_by = user;
     const response = await axios.post(
-      "http://localhost:3000/product",
+      API_URL,
       newItem,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -93,22 +67,21 @@ export default function FormProducts() {
     setBrand("");
     setDescription("");
   };
-
-  const deleteItem = async (id) => {
+  const deleteItem = async (_id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:3000/product/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      setItems(items.filter((item) => item.id !== id));
+      await axios.delete(`${API_URL}/${_id}`, { headers: { Authorization: `Bearer ${token}` } });
+      setItems(items.filter((item) => item._id !== _id));
     } catch (error) {
       console.error(error);
     }
   };
 
-  const editItem = async (id) => {
+  const editItem = async (_id) => {
     const token = localStorage.getItem('token');
 
-    setEditingItem(id);
-    const response = await axios.get(`http://localhost:3000/product/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    setEditingItem(_id);
+    const response = await axios.get(`${API_URL}/${_id}`, { headers: { Authorization: `Bearer ${token}` } });
     const item = response.data;
     setProduct(item.product);
     setPrice(transformStringToNumber(item.price));
@@ -131,12 +104,12 @@ export default function FormProducts() {
     const token = localStorage.getItem('token');
 
     const response = await axios.put(
-      `http://localhost:3000/product/${editingItem}`,
+      `${API_URL}/${editingItem}`,
       updatedItem,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setItems(
-      items.map((item) => (item.id === editingItem ? response.data : item))
+      items.map((item) => (item._id === editingItem ? response.data : item))
     );
     setProduct("");
     setPrice("");
@@ -147,9 +120,10 @@ export default function FormProducts() {
     fetchItems();
   };
 
+
   return (
     <>
-      <Header />
+ <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
         className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
@@ -255,12 +229,12 @@ export default function FormProducts() {
                   return null;
                 })
                 .map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item._id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.product}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      R$: {item.price}
+                      R$: {item.price.$numberDecimal}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.brand}
@@ -273,7 +247,7 @@ export default function FormProducts() {
                     </td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
-                        onClick={() => editItem(item.id)}
+                        onClick={() => editItem(item._id)}
                         className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
                       >
                         <EditIcon className="mr-1" />
@@ -294,5 +268,5 @@ export default function FormProducts() {
         </div>
       </div>
     </>
-  );
-}
+);
+};

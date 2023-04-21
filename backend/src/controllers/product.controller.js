@@ -6,7 +6,7 @@ const createService = async (req, res) => {
     // Verificando se todos os campos foram enviados
     if (!product || !price || !brand || !description || !inserted_by) {
       res.status(400).send({
-        message: "Submit all fields for resgistration",
+        message: "Submit all fields for registration ",
       });
     }
 
@@ -17,7 +17,6 @@ const createService = async (req, res) => {
       });
     }
     
-   
     res.status(201).send({
       message: "Product created successfully",
       user: {
