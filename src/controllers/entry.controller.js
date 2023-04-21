@@ -2,6 +2,7 @@ import entryService from "../services/entry.service.js";
 
 const createService = async (req, res) => {
     try {
+
         const { product, observation, amount, entry_price, inserted_by, type } = req.body;
         // Verificando se todos os campos foram enviados
         if (!product || !amount || !entry_price || !inserted_by || !type) {
