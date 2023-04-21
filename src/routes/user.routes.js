@@ -8,5 +8,5 @@ router.post("/", userController.createService);
 router.get("/", userController.findAll);
 router.get("/:id", validId, validUser, userController.findById);
 router.patch("/:id", validId, validUser, userController.update)
-
+router.delete('/:id', userController.deleteUser);
 export default router;

@@ -9,8 +9,11 @@ const StockSchema = new mongoose.Schema({
     quantity: { 
         type: mongoose.Types.Decimal128, 
         default: 0 
-    }, timestamps: true });
+    }
+}, {
+    timestamps: { createdAt: true, updatedAt: true }
+});
 
-const Stock = mongoose.model("User", StockSchema);
+const Stock = mongoose.model("Stock", StockSchema);
 
 export default Stock;

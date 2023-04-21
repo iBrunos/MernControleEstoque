@@ -18,12 +18,12 @@ const ProductSchema = new mongoose.Schema({
         type: String,
     },
     inserted_by: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         require: true,
     }
 
 })
 
-const Product = mongoose.model("User", ProductSchema);
+const Product = mongoose.model("Products", ProductSchema);
 
 export default Product;

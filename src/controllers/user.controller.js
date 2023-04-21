@@ -34,6 +34,16 @@ const createService = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+      await userService.findByIdAndDelete(id);
+      res.status(204).end();
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
 const findAll = async (req, res) => {
   try {
     const user = await userService.findAllService();
@@ -83,4 +93,4 @@ const update = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
-export default { createService, findAll, findById, update };
+export default { createService, findAll, findById, update ,deleteUser};
