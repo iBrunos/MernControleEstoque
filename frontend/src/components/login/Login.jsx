@@ -53,11 +53,11 @@ export default function Login() {
     const newItem = { email, password };
     const response = await axios.post("https://api-happy-makeup.onrender.com/auth", newItem);
     const data = response.data;
-
+    console.log(data)
     if (data.message === "Login realizado com sucesso.") {
       localStorage.setItem("token", data.token);
       localStorage.setItem("email", data.email);
-      localStorage.setItem("user", data.user);
+      localStorage.setItem("username", data.username);
       localStorage.setItem("userId", data.id);
       navigate("/user/estoque");
       // substitua '/nextpage' pelo caminho do formulário desejado

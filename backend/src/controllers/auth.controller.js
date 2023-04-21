@@ -24,7 +24,7 @@ const login = async (req, res) => {
             message: "Login realizado com sucesso.",
             token,
             id: user.id,
-            user: user.user,
+            user: user.username,
             email: user.email
           });
     }catch(err){

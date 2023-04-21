@@ -15,7 +15,7 @@ function getCurrentUserId() {
     return userId ? parseInt(userId, 10) : null; // retorna null se o ID do usuário não foi armazenado no localStorage
   }
 
-const user = localStorage.getItem("user");
+const user = localStorage.getItem("username");
 const email = localStorage.getItem("email");
 // Profile Dropdown
 const ProfileDropDown = () => {
@@ -43,7 +43,7 @@ const ProfileDropDown = () => {
           const config = {
             headers: { Authorization: `Bearer ${token}` }
           };
-          const response = await axios.get('http://localhost:3000/user', config);
+          const response = await axios.get('https://api-happy-makeup.onrender.com/user', config);
           const users = response.data;
           const currentUser = users.find((user) => user.id === getCurrentUserId());
           // Assuming that getCurrentUserId() is defined somewhere and returns the ID of the currently logged in user
