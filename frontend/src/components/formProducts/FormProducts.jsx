@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../header/Header";
 import EditIcon from "@mui/icons-material/Edit";
@@ -31,7 +31,7 @@ export default function FormProducts() {
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get('http://localhost:3000/product', config);
+      const response = await axios.get('https://api-happy-makeup.onrender.com/product', config);
       setItems(response.data);
     } catch (error) {
       console.error(error);

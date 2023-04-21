@@ -59,6 +59,7 @@ export default function Login() {
       localStorage.setItem("email", data.email);
       localStorage.setItem("username", data.username);
       localStorage.setItem("userId", data.id);
+      localStorage.setItem("level", data.level);
       navigate("/user/estoque");
       // substitua '/nextpage' pelo caminho do formulário desejado
       window.location.reload();
