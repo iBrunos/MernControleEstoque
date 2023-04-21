@@ -95,7 +95,7 @@ export default function Login() {
                   <input
                     type="email"
                     value={email}
-                    placeholder="Usuário"
+                    placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                     id="input__login"
