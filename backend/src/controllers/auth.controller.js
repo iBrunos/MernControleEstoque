@@ -25,7 +25,7 @@ const login = async (req, res) => {
             token,
             id: user.id,
             username: user.username,
-            email: user.email
+            email: user.email,
             level: user.level
           });
     }catch(err){
