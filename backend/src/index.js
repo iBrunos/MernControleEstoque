@@ -8,17 +8,19 @@ import exitRoute from "./routes/exit.routes.js"
 import stockRoute from "./routes/stock.routes.js"
 import productRoute from "./routes/product.routes.js"
 import userRoute from "./routes/user.routes.js"
-
+import cors from 'cors';
 
 dotenv.config();
 
 const port = process.env.PORT || 3000;
 const app = express();
 
+app.use(cors({
+    origin: 'https://api-happy-makeup.onrender.com'
+  }));
 connectDatabase();
 //ROTAS
 app.use(express.json())
-
 app.use("/product", productRoute)
 app.use("/user", userRoute)
 app.use("/stock", stockRoute)
