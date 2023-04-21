@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 export default function Login() {
-  const [user, setUser] = useState("");
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
@@ -31,7 +32,7 @@ export default function Login() {
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
     if (!rememberMe) {
-      const credentials = { user, password };
+      const credentials = { email, password };
       localStorage.setItem("credentials", JSON.stringify(credentials));
     } else {
       localStorage.removeItem("credentials");
@@ -41,7 +42,7 @@ export default function Login() {
   useEffect(() => {
     const savedCredentials = JSON.parse(localStorage.getItem("credentials"));
     if (savedCredentials) {
-      setUser(savedCredentials.user);
+      setEmail(savedCredentials.email);
       setPassword(savedCredentials.password);
       setRememberMe(true);
     }
@@ -49,7 +50,7 @@ export default function Login() {
 
   const login = async (e) => {
     e.preventDefault();
-    const newItem = { user, password };
+    const newItem = { email, password };
     const response = await axios.post("https://api-happy-makeup.onrender.com/auth", newItem);
     const data = response.data;
 
@@ -63,7 +64,7 @@ export default function Login() {
       window.location.reload();
     } else {
       setPassword("");
-      setUser("");
+      setEmail("");
       alert(data.message);
     }
   };
@@ -92,12 +93,13 @@ export default function Login() {
               <div className="flex flex-col">
                 <form onSubmit={login} className="space-y-4 md:space-y-6">
                   <input
-                    type="text"
-                    value={user}
+                    type="email"
+                    value={email}
                     placeholder="Usuário"
-                    onChange={(e) => setUser(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                     id="input__login"
+                    required
                   />
                   <input
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
@@ -106,6 +108,7 @@ export default function Login() {
                     placeholder="Senha"
                     onChange={(e) => setPassword(e.target.value)}
                     id="input__password"
+                    required
                   />
                   <div className="flex items-center justify-between">
                     <div className="flex items-start">
