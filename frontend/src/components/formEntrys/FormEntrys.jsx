@@ -130,6 +130,7 @@ export default function FormProducts() {
     e.preventDefault();
     const username = localStorage.getItem('username');
     const updatedItem = {
+      _id: editingItem,
       product,
       observation,
       amount,

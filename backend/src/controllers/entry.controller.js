@@ -82,6 +82,7 @@ const findById = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { _id, product, observation, amount, entry_price, inserted_by, type } = req.body;
+        console.log("id: ", _id)
         console.log("product:", product);
         console.log("observation:", observation);
         console.log("amount:", amount);
@@ -105,6 +106,7 @@ const update = async (req, res) => {
             inserted_by,
             type
         );
+        console.log("a")
         res.send({
             message: "Entry successfully updated",
         });
