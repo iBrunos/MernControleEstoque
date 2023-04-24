@@ -210,67 +210,70 @@ export default function FormProducts() {
       </div>
       <div className="bg-white mx-auto px-4 md:px-8">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
-          <table className="w-full table-auto text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-              <tr>
-                <th className="py-3 px-6">Produto</th>
-                <th className="py-3 px-6">Preço</th>
-                <th className="py-3 px-6">Marca</th>
-                <th className="py-3 px-6">Descrição</th>
-                <th className="py-3 px-6">Funcionário</th>
-                <th className="py-3 px-6">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 divide-y">
-  {items
-    .filter((item) => {
-      const searchTermUnidecoded = unidecode(searchTerm?.toLowerCase() || '');
-      const itemUserUnidecoded = unidecode(item.product?.toLowerCase() || '');
-      if (searchTermUnidecoded === "") {
-        return true;
-      } else if (itemUserUnidecoded.includes(searchTermUnidecoded)) {
-        return true;
-      }
-      return false;
-    })
-    .map((item) => (
-      <tr key={item._id}>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {item.product}
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          R$: {item.price}
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {item.brand}
-        </td>
-        <td className="px-6 py-4 whitespace-normal break-words w-[50rem]">
-          {item.description}
-        </td>
-        <td className="px-8 py-4 whitespace-nowrap">
-          {item.inserted_by}
-        </td>
-        <td className=" px-6 whitespace-nowrap">
-          <button
-            onClick={() => editItem(item._id)}
-            className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
-          >
-            <EditIcon className="mr-1" />
-            Editar
-          </button>
-          <button
-            onClick={() => deleteItem(item._id)}
-            className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-          >
-            <DeleteForeverIcon className="mr-1" />
-            Deletar
-          </button>
-        </td>
-      </tr>
-    ))}
-</tbody>
-
-          </table>
+          {items.length === 0 ? (
+            <p className="text-gray-800 text-4xl font-extralight text-center "> Nenhum item encontrado.</p>
+          ) : (
+            <table className="w-full table-auto text-sm text-left">
+              <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                <tr>
+                  <th className="py-3 px-6">Produto</th>
+                  <th className="py-3 px-6">Preço</th>
+                  <th className="py-3 px-6">Marca</th>
+                  <th className="py-3 px-6">Descrição</th>
+                  <th className="py-3 px-6">Funcionário</th>
+                  <th className="py-3 px-6">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 divide-y">
+                {items
+                  .filter((item) => {
+                    const searchTermUnidecoded = unidecode(searchTerm?.toLowerCase() || '');
+                    const itemUserUnidecoded = unidecode(item.product?.toLowerCase() || '');
+                    if (searchTermUnidecoded === "") {
+                      return true;
+                    } else if (itemUserUnidecoded.includes(searchTermUnidecoded)) {
+                      return true;
+                    }
+                    return false;
+                  })
+                  .map((item) => (
+                    <tr key={item._id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item.product}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        R$: {item.price}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item.brand}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words w-[50rem]">
+                        {item.description}
+                      </td>
+                      <td className="px-8 py-4 whitespace-nowrap">
+                        {item.inserted_by}
+                      </td>
+                      <td className=" px-6 whitespace-nowrap">
+                        <button
+                          onClick={() => editItem(item._id)}
+                          className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
+                        >
+                          <EditIcon className="mr-1" />
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => deleteItem(item._id)}
+                          className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+                        >
+                          <DeleteForeverIcon className="mr-1" />
+                          Deletar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>

@@ -18,8 +18,8 @@ export default function FormProducts() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const API_URL = 'https://api-happy-makeup.onrender.com/entry';
-  //const API_URL = 'http://localhost:3000/entry';
+  //const API_URL = 'https://api-happy-makeup.onrender.com/entry';
+  const API_URL = 'http://localhost:3000/entry';
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
@@ -102,14 +102,13 @@ export default function FormProducts() {
   };
 
   const deleteItem = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     try {
       await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      setItems(items.filter((item) => item.id !== id));
+      setItems(items.filter((item) => item._id !== id));
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
   };
 
   const editItem = async (id) => {
@@ -256,20 +255,23 @@ export default function FormProducts() {
       </div>
       <div className="bg-white mx-auto px-4 md:px-8">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
-          <table className="w-full table-auto text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-              <tr>
-                <th className="py-3 px-6">Produto</th>
-                <th className="py-3 px-6">Observação</th>
-                <th className="py-3 px-6">Quantidade</th>
-                <th className="py-3 px-2">Preço de Entrada</th>
-                <th className="py-3 px-6">Funcionário</th>
-                <th className="py-3 px-6">Criado</th>
-                <th className="py-3 px-6">Editado</th>
-                <th className="py-3 px-6">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 divide-y">
+          {items.length === 0 ? (
+            <p className="text-gray-800 text-4xl font-extralight text-center "> Nenhum item encontrado.</p>
+          ) : (
+            <table className="w-full table-auto text-sm text-left">
+              <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                <tr>
+                  <th className="py-3 px-6">Produto</th>
+                  <th className="py-3 px-6">Observação</th>
+                  <th className="py-3 px-6">Quantidade</th>
+                  <th className="py-3 px-2">Preço de Entrada</th>
+                  <th className="py-3 px-6">Funcionário</th>
+                  <th className="py-3 px-6">Criado</th>
+                  <th className="py-3 px-6">Editado</th>
+                  <th className="py-3 px-6">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 divide-y">
               {items
                 .filter((item) => {
                   const searchTermUnidecoded = unidecode(
@@ -319,9 +321,9 @@ export default function FormProducts() {
                         Editar
                       </button>
                       <button
-                        onClick={() => deleteItem(item.id)}
-                        className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-                      >
+                          onClick={() => deleteItem(item._id)}
+                          className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+                        >
                         <DeleteForeverIcon className="mr-1" />
                         Deletar
                       </button>
@@ -329,7 +331,8 @@ export default function FormProducts() {
                   </tr>
                 ))}
             </tbody>
-          </table>
+            </table>
+          )}
         </div>
       </div>
     </>

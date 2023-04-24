@@ -39,7 +39,7 @@ const deleteEntry = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await entryService.findByIdAndDelete(id);
+        await entryService.deleteService(id);
         res.status(204).end();
     } catch (error) {
         res.status(500).json({ message: error.message });
