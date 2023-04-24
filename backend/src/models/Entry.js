@@ -8,7 +8,7 @@ const EntrySchema = new mongoose.Schema({
     },
     observation: {
       type: String,
-      required: false,
+
       unique: false,
     },
     amount: {

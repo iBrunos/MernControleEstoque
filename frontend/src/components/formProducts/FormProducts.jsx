@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import moment from "moment";
 import unidecode from "unidecode";
 
 export default function FormProducts() {
@@ -19,6 +18,10 @@ export default function FormProducts() {
   //const API_URL = 'https://api-happy-makeup.onrender.com/product';
   const API_URL = 'http://localhost:3000/product';
 
+  const changePageTitle = (newTitle) => {
+    document.title = newTitle;
+  };
+  changePageTitle("Happy Makeup | Cadastro");
 
   const fetchItems = async () => {
     const token = localStorage.getItem("token");

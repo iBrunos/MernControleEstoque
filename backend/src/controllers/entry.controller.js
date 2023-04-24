@@ -50,7 +50,7 @@ const findAll = async (req, res) => {
         const entry = await entryService.findAllService();
 
         if (entry.length === 0) {
-            return res.status(400).send({
+            return res.status(204).send({
                 message: "There are no registered entrys",
             });
         }

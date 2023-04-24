@@ -5,7 +5,7 @@ const createService = async (req, res) => {
     const { product, observation, amount, exit_price, inserted_by, type } = req.body;
     // Verificando se todos os campos foram enviados
     if (!product || !amount || !exit_price || !inserted_by || !type) {
-      res.status(400).send({
+      res.status(204).send({
         message: "Submit all fields for resgistration",
       });
     }

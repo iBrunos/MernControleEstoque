@@ -17,6 +17,10 @@ export default function FormProducts() {
   const [type, setType] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const API_URL = 'https://api-happy-makeup.onrender.com/entry';
+  //const API_URL = 'http://localhost:3000/entry';
+
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
@@ -35,7 +39,7 @@ export default function FormProducts() {
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get("http://localhost:3000/entry", config);
+      const response = await axios.get(API_URL, config);
       setItems(response.data);
     } catch (error) {
       console.error(error);
@@ -65,34 +69,6 @@ export default function FormProducts() {
     return date;
   }
 
-  const formatPrice = (price) => {
-    if (typeof price !== "string") {
-      price = price.toString();
-    }
-  
-    // Substitui o ponto ou a vírgula pelo caractere de separador de decimais adequado
-    price = price.replace(/[.,]/g, ",");
-  
-    // Adiciona as casas decimais faltantes, se necessário
-    if (!price.includes(",")) {
-      price += ",00";
-    } else {
-      const decimalPart = price.split(",")[1];
-      if (decimalPart.length === 1) {
-        price += "0";
-      }
-    }
-  
-    return price;
-  };
-
-  function transformStringToNumber(stringNumber) {
-    // Remove quaisquer espaços em branco antes ou depois da string
-    const cleanedString = stringNumber.trim();
-    // Converte a string em um número usando parseFloat()
-    const number = parseFloat(cleanedString.replace(",", "."));
-    return number;
-  }
 
   const addItem = async (e) => {
     e.preventDefault();
@@ -104,15 +80,17 @@ export default function FormProducts() {
       product,
       observation,
       amount,
-      entryPrice: formatPrice(entryPrice),
+      entryPrice,
       inserted_by,
       type
     };
     newItem.inserted_by = user;
     newItem.type = "Entrada";
-    const response = await axios.post("http://localhost:3000/entry", newItem, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.post(
+      API_URL,
+      newItem,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
     setItems([...items, response.data]);
     setProduct("");
@@ -126,9 +104,7 @@ export default function FormProducts() {
   const deleteItem = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:3000/entry/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       setItems(items.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
@@ -140,9 +116,7 @@ export default function FormProducts() {
     const token = localStorage.getItem("token");
 
     setEditingItem(id);
-    const response = await axios.get(`http://localhost:3000/entry/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
     const item = response.data;
     setProduct(item.product);
     setObservation(item.observation);
@@ -167,7 +141,7 @@ export default function FormProducts() {
     const token = localStorage.getItem("token");
 
     const response = await axios.put(
-      `http://localhost:3000/entry/${editingItem}`,
+      `${API_URL}/${editingItem}`,
       updatedItem,
       { headers: { Authorization: `Bearer ${token}` } }
     );
