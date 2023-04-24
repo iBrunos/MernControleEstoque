@@ -1,19 +1,18 @@
 import Exit from '../models/Exit.js';
 
-const createService = (body) => Exit.create(body)
+const createService = (body) => Exit.create(body);
 
 const findAllService = () => Exit.find();
 
 const findByIdService = (id) => Exit.findById(id);
 
-const updateService = (id, product, observation, amount, exit_price, inserted_by, type) => Exit.findOneAndUpdate({_id: id},{product, observation, amount, exit_price, inserted_by, type});
+const updateService = (id, product, observation, amount, entry_price, inserted_by, type) => Exit.findOneAndUpdate({_id: id}, {product, observation, amount, entry_price, inserted_by, type });
 
 const deleteService = (id) => Exit.findOneAndDelete({_id: id});
-
 export default {
     createService,
     findAllService,
     findByIdService,
     updateService,
-    deleteService
+    deleteService // nova função de delete
 };

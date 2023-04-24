@@ -13,10 +13,14 @@ export default function FormProducts() {
   const [observation, setObservation] = useState("");
   const [inserted_by, setInserted_by] = useState("");
   const [amount, setAmount] = useState("");
-  const [exitPrice, setExitPrice] = useState("");
+  const [exit_price, setExit_price] = useState("");
   const [type, setType] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  //const API_URL = 'https://api-happy-makeup.onrender.com/exit';
+  const API_URL = 'http://localhost:3000/exit';
+
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
@@ -35,7 +39,7 @@ export default function FormProducts() {
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get("http://localhost:3000/exit", config);
+      const response = await axios.get(API_URL, config);
       setItems(response.data);
     } catch (error) {
       console.error(error);
@@ -65,124 +69,97 @@ export default function FormProducts() {
     return date;
   }
 
-  const formatPrice = (price) => {
-    if (typeof price !== "string") {
-      price = price.toString();
-    }
-  
-    // Substitui o ponto ou a vírgula pelo caractere de separador de decimais adequado
-    price = price.replace(/[.,]/g, ",");
-  
-    // Adiciona as casas decimais faltantes, se necessário
-    if (!price.includes(",")) {
-      price += ",00";
-    } else {
-      const decimalPart = price.split(",")[1];
-      if (decimalPart.length === 1) {
-        price += "0";
-      }
-    }
-  
-    return price;
-  };
-
-  function transformStringToNumber(stringNumber) {
-    // Remove quaisquer espaços em branco antes ou depois da string
-    const cleanedString = stringNumber.trim();
-    // Converte a string em um número usando parseFloat()
-    const number = parseFloat(cleanedString.replace(",", "."));
-    return number;
-  }
 
   const addItem = async (e) => {
     e.preventDefault();
 
-    const user = localStorage.getItem("user");
+    const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
 
     const newItem = {
       product,
       observation,
       amount,
-      exitPrice: formatPrice(exitPrice),
+      exit_price,
       inserted_by,
-      type,
+      type
     };
-    newItem.inserted_by = user;
+    newItem.inserted_by = username;
     newItem.type = "Saída";
-    const response = await axios.post("http://localhost:3000/exit", newItem, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.post(
+      API_URL,
+      newItem,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
     setItems([...items, response.data]);
     setProduct("");
     setObservation("");
     setAmount("");
-    setExitPrice("");
+    setExit_price("");
     setType("Saída");
     fetchItems();
   };
 
   const deleteItem = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:3000/exit/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setItems(items.filter((item) => item.id !== id));
+      await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      setItems(items.filter((item) => item._id !== id));
     } catch (error) {
       console.error(error);
     }
   };
 
   const editItem = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     setEditingItem(id);
-    const response = await axios.get(`http://localhost:3000/exit/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+
+
     const item = response.data;
+
     setProduct(item.product);
     setObservation(item.observation);
     setAmount(item.amount);
-    setExitPrice(transformStringToNumber(item.exit_price));
+    setExit_price(item.exit_price);
     setInserted_by(item.inserted_by);
   };
-
   const updateItem = async (e) => {
     e.preventDefault();
-    const user = localStorage.getItem("user");
+    const username = localStorage.getItem('username');
     const updatedItem = {
+      _id: editingItem,
       product,
       observation,
       amount,
-      exitPrice: formatPrice(exitPrice),
+      exit_price,
       inserted_by,
-      type,
+      type
     };
+    updatedItem.inserted_by = username;
     updatedItem.type = "Saída";
-    updatedItem.inserted_by = user;
-    console.log(updatedItem);
-    const token = localStorage.getItem("token");
+
+    const token = localStorage.getItem('token');
 
     const response = await axios.put(
-      `http://localhost:3000/exit/${editingItem}`,
+      `${API_URL}/${editingItem}`,
       updatedItem,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setItems(
-      items.map((item) => (item.id === editingItem ? response.data : item))
+      items.map((item) => (item._id === editingItem ? response.data : item))
     );
-    setProduct("");
     setObservation("");
     setAmount("");
-    setExitPrice("");
+    setExit_price("");
     setInserted_by("");
     setType("Saída");
     setEditingItem(null);
     fetchItems();
   };
+
   return (
     <>
       <Header />
@@ -239,9 +216,9 @@ export default function FormProducts() {
         />
         <input
           type="number"
-          value={exitPrice}
+          value={exit_price}
           placeholder="Preço de Saída"
-          onChange={(e) => setExitPrice(e.target.value)}
+          onChange={(e) => setExit_price(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           required
         />
@@ -282,20 +259,23 @@ export default function FormProducts() {
       </div>
       <div className="bg-white mx-auto px-4 md:px-8">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
-          <table className="w-full table-auto text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-              <tr>
-                <th className="py-3 px-6">Produto</th>
-                <th className="py-3 px-6">Observação</th>
-                <th className="py-3 px-6">Quantidade</th>
-                <th className="py-3 px-2">Preço de Saída</th>
-                <th className="py-3 px-6">Funcionário</th>
-                <th className="py-3 px-6">Criado</th>
-                <th className="py-3 px-6">Editado</th>
-                <th className="py-3 px-6">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 divide-y">
+          {items.length === 0 ? (
+            <p className="text-gray-800 text-4xl font-extralight text-center "> Nenhum item encontrado.</p>
+          ) : (
+            <table className="w-full table-auto text-sm text-left">
+              <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                <tr>
+                  <th className="py-3 px-6">Produto</th>
+                  <th className="py-3 px-6">Observação</th>
+                  <th className="py-3 px-6">Quantidade</th>
+                  <th className="py-3 px-2">Preço de Saida</th>
+                  <th className="py-3 px-6">Funcionário</th>
+                  <th className="py-3 px-6">Criado</th>
+                  <th className="py-3 px-6">Editado</th>
+                  <th className="py-3 px-6">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 divide-y">
               {items
                 .filter((item) => {
                   const searchTermUnidecoded = unidecode(
@@ -338,16 +318,16 @@ export default function FormProducts() {
                     </td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
-                        onClick={() => editItem(item.id)}
+                        onClick={() => editItem(item._id)}
                         className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
                       >
                         <EditIcon className="mr-1" />
                         Editar
                       </button>
                       <button
-                        onClick={() => deleteItem(item.id)}
-                        className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-                      >
+                          onClick={() => deleteItem(item._id)}
+                          className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+                        >
                         <DeleteForeverIcon className="mr-1" />
                         Deletar
                       </button>
@@ -355,7 +335,8 @@ export default function FormProducts() {
                   </tr>
                 ))}
             </tbody>
-          </table>
+            </table>
+          )}
         </div>
       </div>
     </>
