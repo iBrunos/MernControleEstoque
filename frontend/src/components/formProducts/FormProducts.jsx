@@ -146,8 +146,9 @@ export default function FormProducts() {
           required
         />
         <input
-          type="text"
-          pattern="[0-9]*[.]?[0-9]*"
+          type="number"
+          inputMode="decimal"
+          lang="en-US"
           value={price}
           placeholder="Preço"
           onChange={(e) => setPrice(e.target.value)}
@@ -157,6 +158,7 @@ export default function FormProducts() {
           step="0.01"
           className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
         />
+
         <input
           type="text"
           value={brand}

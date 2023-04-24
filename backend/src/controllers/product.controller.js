@@ -1,5 +1,4 @@
 import productService from "../services/product.service.js";
-import stockService from "../services/stock.service.js";
 
 const createService = async (req, res) => {
   try {
@@ -13,7 +12,6 @@ const createService = async (req, res) => {
     }
 
     const createProduct = await productService.createService(req.body).catch((err) => console.log(err.message));
-    const createStock = await stockService.createService(req.body).catch((err) => console.log(err.message));
     
     if (!createProduct) {
       return res.status(400).send({
@@ -21,12 +19,6 @@ const createService = async (req, res) => {
       });
     }
     
-    if (!createStock) {
-      return res.status(400).send({
-        message: "Error creating Stock",
-      });
-    }
-
     res.status(201).send({
       message: "Product created successfully",
       user: {
@@ -46,6 +38,7 @@ const deleteService = async (req, res) => {
   try {
     const { id } = req.params;
     await productService.deleteService(id);
+
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ message: error.message });

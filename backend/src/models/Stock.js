@@ -6,6 +6,10 @@ const StockSchema = new mongoose.Schema({
         require: true,
         unique: true,
     },
+    id_product: {
+        type: String,
+        require: true,
+    },
     quantity: { 
         type: Number, 
         default: 0 
