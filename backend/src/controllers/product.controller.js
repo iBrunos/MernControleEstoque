@@ -42,7 +42,6 @@ const deleteService = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 const findAll = async (req, res) => {
   try {
     const product = await productService.findAllService();
@@ -69,7 +68,6 @@ const findById = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
-
 const update = async (req, res) => {
   try {
     const { _id, product, price, brand, description, inserted_by } = req.body;
@@ -80,7 +78,6 @@ const update = async (req, res) => {
         message: "Submit at least one field for update",
       });
     }
-
 
     await productService.updateService(
       _id,
@@ -97,5 +94,4 @@ const update = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
-
 export default { createService, findAll, findById, update, deleteService };

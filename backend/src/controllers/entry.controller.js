@@ -69,15 +69,25 @@ const findAll = async (req, res) => {
 };
 const findById = async (req, res) => {
     try {
-        const entry = req.product;
-        res.send(entry);
+        const id = req.params.id;
+        const product = await entryService.findByIdService(id);
+        if (!product) {
+            return res.status(404).send({ message: "Entry not found" });
+        }
+        res.send(product);
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
 };
 const update = async (req, res) => {
     try {
-        const { product, observation, amount, entry_price, inserted_by, type } = req.body;
+        const { _id, product, observation, amount, entry_price, inserted_by, type } = req.body;
+        console.log("product:", product);
+        console.log("observation:", observation);
+        console.log("amount:", amount);
+        console.log("entry_price:", entry_price);
+        console.log("inserted_by:", inserted_by);
+        console.log("type:", type);
 
         // Verificando se todos os campos foram enviados
         if (!product && !observation && !amount && !entry_price && !inserted_by && !type) {
@@ -85,10 +95,9 @@ const update = async (req, res) => {
                 message: "Submit at least one field for update",
             });
         }
-        const { id } = req;
 
         await entryService.updateService(
-            id,
+            _id,
             product,
             observation,
             amount,

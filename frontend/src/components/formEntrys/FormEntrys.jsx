@@ -112,21 +112,23 @@ export default function FormProducts() {
   };
 
   const editItem = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     setEditingItem(id);
     const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+
+
     const item = response.data;
+
     setProduct(item.product);
     setObservation(item.observation);
     setAmount(item.amount);
     setEntry_price(item.entry_price);
     setInserted_by(item.inserted_by);
   };
-
   const updateItem = async (e) => {
     e.preventDefault();
-    const username = localStorage.getItem("username");
+    const username = localStorage.getItem('username');
     const updatedItem = {
       product,
       observation,
@@ -137,7 +139,8 @@ export default function FormProducts() {
     };
     updatedItem.inserted_by = username;
     updatedItem.type = "Entrada";
-    const token = localStorage.getItem("token");
+
+    const token = localStorage.getItem('token');
 
     const response = await axios.put(
       `${API_URL}/${editingItem}`,
@@ -145,9 +148,8 @@ export default function FormProducts() {
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setItems(
-      items.map((item) => (item.id === editingItem ? response.data : item))
+      items.map((item) => (item._id === editingItem ? response.data : item))
     );
-    setProduct("");
     setObservation("");
     setAmount("");
     setEntry_price("");
@@ -156,6 +158,7 @@ export default function FormProducts() {
     setEditingItem(null);
     fetchItems();
   };
+
   return (
     <>
       <Header />
@@ -314,7 +317,7 @@ export default function FormProducts() {
                     </td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
-                        onClick={() => editItem(item.id)}
+                        onClick={() => editItem(item._id)}
                         className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
                       >
                         <EditIcon className="mr-1" />
