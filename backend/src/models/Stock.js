@@ -7,7 +7,7 @@ const StockSchema = new mongoose.Schema({
         unique: true,
     },
     quantity: { 
-        type: mongoose.Types.Decimal128, 
+        type: Number, 
         default: 0 
     }
 }, {

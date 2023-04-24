@@ -11,8 +11,8 @@ const createService = async (req, res) => {
     }
 
 
-    const createProduct = await stockService.createService(req.body).catch((err) => console.log(err.message));
-    if (!createProduct) {
+    const createStock = await stockService.createService(req.body).catch((err) => console.log(err.message));
+    if (!createStock) {
       return res.status(400).send({
         message: "Error creating User",
       });
@@ -22,7 +22,7 @@ const createService = async (req, res) => {
     res.status(201).send({
       message: "Stock created successfully",
       product: {
-        id: createProduct.id,
+        id: createStock.id,
         product,
         quantity,
 
