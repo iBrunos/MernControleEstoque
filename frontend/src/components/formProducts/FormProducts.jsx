@@ -16,8 +16,8 @@ export default function FormProducts() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const API_URL = 'https://api-happy-makeup.onrender.com/product';
-
+  //const API_URL = 'https://api-happy-makeup.onrender.com/product';
+  const API_URL = 'http://localhost:3000/product';
 
 
   const fetchItems = async () => {
@@ -37,15 +37,35 @@ export default function FormProducts() {
   };
 
   useEffect(() => {
-
     fetchItems();
   }, []);
 
+  const formatPrice = (price) => {
+    if (typeof price !== "string") {
+      price = price.toString();
+    }
+  
+    // Adiciona as casas decimais faltantes, se necessário
+    if (!price.includes(".")) {
+      price += ".00";
+    } else {
+      const decimalPart = price.split(".")[1];
+      if (decimalPart.length === 1) {
+        price += "0";
+      }
+    }
+  
+    // Converte o valor para um número decimal
+    const formattedPrice = price && parseFloat(price.$numberDecimal);
 
+  
+    return formattedPrice;
+  };
+  
   const addItem = async (e) => {
     e.preventDefault();
 
-    const user = localStorage.getItem('user');
+    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
 
     const newItem = {
@@ -55,7 +75,7 @@ export default function FormProducts() {
       description,
       inserted_by
     };
-    newItem.inserted_by = user;
+    newItem.inserted_by = username;
     const response = await axios.post(
       API_URL,
       newItem,
@@ -77,7 +97,7 @@ export default function FormProducts() {
       console.error(error);
     }
   };
-  
+
 
   const editItem = async (id) => {
     const token = localStorage.getItem('token');
@@ -94,7 +114,7 @@ export default function FormProducts() {
 
   const updateItem = async (e) => {
     e.preventDefault();
-    const user = localStorage.getItem('username');
+    const username = localStorage.getItem('username');
     const updatedItem = {
       product,
       price: formatPrice(price),
@@ -102,7 +122,7 @@ export default function FormProducts() {
       description,
       inserted_by
     };
-    updatedItem.inserted_by = user;
+    updatedItem.inserted_by = username;
     const token = localStorage.getItem('token');
 
     const response = await axios.put(
@@ -125,7 +145,7 @@ export default function FormProducts() {
 
   return (
     <>
- <Header />
+      <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
         className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
@@ -144,16 +164,13 @@ export default function FormProducts() {
           value={price}
           placeholder="Preço"
           onChange={(e) => setPrice(e.target.value)}
-          onKeyPress={(event) => {
-            const allowedChars = /[0-9.,]/;
-            const char = String.fromCharCode(event.which);
-            if (!allowedChars.test(char)) {
-              event.preventDefault();
-            }
-          }}
           required
+          min="0"
+          max="9999.99"
+          step="0.01"
           className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
         />
+
         <input
           type="text"
           value={brand}
@@ -168,7 +185,7 @@ export default function FormProducts() {
           placeholder="Descrição"
           onChange={(e) => setDescription(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[25rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 "
-          
+
         />
         <button
           type="submit"
@@ -249,7 +266,7 @@ export default function FormProducts() {
                     </td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
-                        onClick={() => console.log(item._id)}
+                        onClick={() => editItem(item._id)}
                         className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
                       >
                         <EditIcon className="mr-1" />
@@ -270,5 +287,5 @@ export default function FormProducts() {
         </div>
       </div>
     </>
-);
+  );
 };

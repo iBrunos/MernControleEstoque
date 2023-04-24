@@ -3,6 +3,14 @@ import productService from "../services/product.service.js";
 const createService = async (req, res) => {
   try {
     const { product, price, brand, description, inserted_by } = req.body;
+    const item = {
+      product,
+      price,
+      brand,
+      description,
+      inserted_by
+    };
+    console.log('Item:', item);
     // Verificando se todos os campos foram enviados
     if (!product || !price || !brand || !description || !inserted_by) {
       res.status(400).send({
@@ -47,7 +55,7 @@ const findAll = async (req, res) => {
     const product = await productService.findAllService();
 
     if (product.length === 0) {
-      return res.status(400).send({
+      return res.status(204).send({
         message: "There are no registered products",
       });
     }
