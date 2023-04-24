@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema({
         type: String,
     },
     inserted_by: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         require: true,
     }
 

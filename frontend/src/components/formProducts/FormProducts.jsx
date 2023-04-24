@@ -29,6 +29,7 @@ export default function FormProducts() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response = await axios.get(API_URL, config);
+      console.log(response)
       setItems(response.data);
     } catch (error) {
       console.error(error);
@@ -67,21 +68,22 @@ export default function FormProducts() {
     setBrand("");
     setDescription("");
   };
-  const deleteItem = async (_id) => {
+  const deleteItem = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`${API_URL}/${_id}`, { headers: { Authorization: `Bearer ${token}` } });
-      setItems(items.filter((item) => item._id !== _id));
+      await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      setItems(items.filter((item) => item._id !== id));
     } catch (error) {
       console.error(error);
     }
   };
+  
 
-  const editItem = async (_id) => {
+  const editItem = async (id) => {
     const token = localStorage.getItem('token');
 
-    setEditingItem(_id);
-    const response = await axios.get(`${API_URL}/${_id}`, { headers: { Authorization: `Bearer ${token}` } });
+    setEditingItem(id);
+    const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
     const item = response.data;
     setProduct(item.product);
     setPrice(transformStringToNumber(item.price));
@@ -92,7 +94,7 @@ export default function FormProducts() {
 
   const updateItem = async (e) => {
     e.preventDefault();
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem('username');
     const updatedItem = {
       product,
       price: formatPrice(price),
@@ -247,14 +249,14 @@ export default function FormProducts() {
                     </td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
-                        onClick={() => editItem(item._id)}
+                        onClick={() => console.log(item._id)}
                         className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
                       >
                         <EditIcon className="mr-1" />
                         Editar
                       </button>
                       <button
-                        onClick={() => deleteItem(item.id)}
+                        onClick={() => deleteItem(item._id)}
                         className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
                       >
                         <DeleteForeverIcon className="mr-1" />
