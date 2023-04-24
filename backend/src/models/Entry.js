@@ -4,7 +4,7 @@ const EntrySchema = new mongoose.Schema({
     product: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
     },
     observation: {
       type: String,

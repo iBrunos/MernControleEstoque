@@ -13,7 +13,7 @@ export default function FormProducts() {
   const [observation, setObservation] = useState("");
   const [inserted_by, setInserted_by] = useState("");
   const [amount, setAmount] = useState("");
-  const [entryPrice, setEntryPrice] = useState("");
+  const [entry_price, setEntry_price] = useState("");
   const [type, setType] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,18 +73,18 @@ export default function FormProducts() {
   const addItem = async (e) => {
     e.preventDefault();
 
-    const user = localStorage.getItem("user");
+    const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
 
     const newItem = {
       product,
       observation,
       amount,
-      entryPrice,
+      entry_price,
       inserted_by,
       type
     };
-    newItem.inserted_by = user;
+    newItem.inserted_by = username;
     newItem.type = "Entrada";
     const response = await axios.post(
       API_URL,
@@ -96,7 +96,7 @@ export default function FormProducts() {
     setProduct("");
     setObservation("");
     setAmount("");
-    setEntryPrice("");
+    setEntry_price("");
     setType("Entrada");
     fetchItems();
   };
@@ -120,22 +120,22 @@ export default function FormProducts() {
     setProduct(item.product);
     setObservation(item.observation);
     setAmount(item.amount);
-    setEntryPrice(transformStringToNumber(item.entry_price));
+    setEntry_price(item.entry_price);
     setInserted_by(item.inserted_by);
   };
 
   const updateItem = async (e) => {
     e.preventDefault();
-    const user = localStorage.getItem("user");
+    const username = localStorage.getItem("username");
     const updatedItem = {
       product,
       observation,
       amount,
-      entryPrice: formatPrice(entryPrice),
+      entry_price,
       inserted_by,
       type
     };
-    updatedItem.inserted_by = user;
+    updatedItem.inserted_by = username;
     updatedItem.type = "Entrada";
     const token = localStorage.getItem("token");
 
@@ -150,7 +150,7 @@ export default function FormProducts() {
     setProduct("");
     setObservation("");
     setAmount("");
-    setEntryPrice("");
+    setEntry_price("");
     setInserted_by("");
     setType("Entrada");
     setEditingItem(null);
@@ -212,9 +212,9 @@ export default function FormProducts() {
         />
         <input
           type="number"
-          value={entryPrice}
+          value={entry_price}
           placeholder="Preço de Entrada"
-          onChange={(e) => setEntryPrice(e.target.value)}
+          onChange={(e) => setEntry_price(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           required
         />

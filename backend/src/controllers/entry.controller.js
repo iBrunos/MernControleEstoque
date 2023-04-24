@@ -4,6 +4,14 @@ const createService = async (req, res) => {
     try {
 
         const { product, observation, amount, entry_price, inserted_by, type } = req.body;
+        console.log("product:", product);
+        console.log("observation:", observation);
+        console.log("amount:", amount);
+        console.log("entry_price:", entry_price);
+        console.log("inserted_by:", inserted_by);
+        console.log("type:", type);
+
+
         // Verificando se todos os campos foram enviados
         if (!product || !amount || !entry_price || !inserted_by || !type) {
             res.status(400).send({
