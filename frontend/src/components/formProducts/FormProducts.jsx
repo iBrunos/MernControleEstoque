@@ -29,7 +29,7 @@ export default function FormProducts() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response = await axios.get(API_URL, config);
-      console.log(response)
+
       setItems(response.data);
     } catch (error) {
       console.error(error);
@@ -40,28 +40,7 @@ export default function FormProducts() {
     fetchItems();
   }, []);
 
-  const formatPrice = (price) => {
-    if (typeof price !== "string") {
-      price = price.toString();
-    }
-  
-    // Adiciona as casas decimais faltantes, se necessário
-    if (!price.includes(".")) {
-      price += ".00";
-    } else {
-      const decimalPart = price.split(".")[1];
-      if (decimalPart.length === 1) {
-        price += "0";
-      }
-    }
-  
-    // Converte o valor para um número decimal
-    const formattedPrice = price && parseFloat(price.$numberDecimal);
 
-  
-    return formattedPrice;
-  };
-  
   const addItem = async (e) => {
     e.preventDefault();
 
@@ -70,12 +49,13 @@ export default function FormProducts() {
 
     const newItem = {
       product,
-      price: formatPrice(price),
+      price,
       brand,
       description,
       inserted_by
     };
     newItem.inserted_by = username;
+
     const response = await axios.post(
       API_URL,
       newItem,
@@ -104,9 +84,10 @@ export default function FormProducts() {
 
     setEditingItem(id);
     const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+
     const item = response.data;
     setProduct(item.product);
-    setPrice(transformStringToNumber(item.price));
+    setPrice(item.price);
     setBrand(item.brand);
     setDescription(item.description);
     setInserted_by(item.inserted_by);
@@ -116,13 +97,15 @@ export default function FormProducts() {
     e.preventDefault();
     const username = localStorage.getItem('username');
     const updatedItem = {
+      _id: editingItem,
       product,
-      price: formatPrice(price),
+      price,
       brand,
       description,
       inserted_by
     };
     updatedItem.inserted_by = username;
+
     const token = localStorage.getItem('token');
 
     const response = await axios.put(
@@ -160,7 +143,8 @@ export default function FormProducts() {
           required
         />
         <input
-          type="number"
+          type="text"
+          pattern="[0-9]*[.]?[0-9]*"
           value={price}
           placeholder="Preço"
           onChange={(e) => setPrice(e.target.value)}
@@ -170,7 +154,6 @@ export default function FormProducts() {
           step="0.01"
           className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
         />
-
         <input
           type="text"
           value={brand}
@@ -236,53 +219,54 @@ export default function FormProducts() {
               </tr>
             </thead>
             <tbody className="text-gray-600 divide-y">
-              {items
-                .filter((item) => {
-                  const searchTermUnidecoded = unidecode(searchTerm?.toLowerCase() || '');
-                  const itemUserUnidecoded = unidecode(item.product?.toLowerCase() || ''); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
-                  if (searchTermUnidecoded === "") {
-                    return item;
-                  } else if (itemUserUnidecoded.includes(searchTermUnidecoded)) {
-                    return item;
-                  }
-                  return null;
-                })
-                .map((item) => (
-                  <tr key={item._id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item.product}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      R$: {item.price.$numberDecimal}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item.brand}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words w-[50rem]">
-                      {item.description}
-                    </td>
-                    <td className="px-8 py-4 whitespace-nowrap">
-                      {item.inserted_by}
-                    </td>
-                    <td className=" px-6 whitespace-nowrap">
-                      <button
-                        onClick={() => editItem(item._id)}
-                        className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
-                      >
-                        <EditIcon className="mr-1" />
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => deleteItem(item._id)}
-                        className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-                      >
-                        <DeleteForeverIcon className="mr-1" />
-                        Deletar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
+  {items
+    .filter((item) => {
+      const searchTermUnidecoded = unidecode(searchTerm?.toLowerCase() || '');
+      const itemUserUnidecoded = unidecode(item.product?.toLowerCase() || '');
+      if (searchTermUnidecoded === "") {
+        return true;
+      } else if (itemUserUnidecoded.includes(searchTermUnidecoded)) {
+        return true;
+      }
+      return false;
+    })
+    .map((item) => (
+      <tr key={item._id}>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {item.product}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          R$: {item.price}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {item.brand}
+        </td>
+        <td className="px-6 py-4 whitespace-normal break-words w-[50rem]">
+          {item.description}
+        </td>
+        <td className="px-8 py-4 whitespace-nowrap">
+          {item.inserted_by}
+        </td>
+        <td className=" px-6 whitespace-nowrap">
+          <button
+            onClick={() => editItem(item._id)}
+            className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
+          >
+            <EditIcon className="mr-1" />
+            Editar
+          </button>
+          <button
+            onClick={() => deleteItem(item._id)}
+            className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+          >
+            <DeleteForeverIcon className="mr-1" />
+            Deletar
+          </button>
+        </td>
+      </tr>
+    ))}
+</tbody>
+
           </table>
         </div>
       </div>

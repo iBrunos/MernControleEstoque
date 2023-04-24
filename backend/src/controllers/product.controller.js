@@ -3,14 +3,7 @@ import productService from "../services/product.service.js";
 const createService = async (req, res) => {
   try {
     const { product, price, brand, description, inserted_by } = req.body;
-    const item = {
-      product,
-      price,
-      brand,
-      description,
-      inserted_by
-    };
-    console.log('Item:', item);
+
     // Verificando se todos os campos foram enviados
     if (!product || !price || !brand || !description || !inserted_by) {
       res.status(400).send({
@@ -66,26 +59,31 @@ const findAll = async (req, res) => {
 };
 const findById = async (req, res) => {
   try {
-    const product = req.product;
+    const id = req.params.id;
+    const product = await productService.findByIdService(id);
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
     res.send(product);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
+
 const update = async (req, res) => {
   try {
-    const { product, price, brand, description, inserted_by } = req.body;
-
+    const { _id, product, price, brand, description, inserted_by } = req.body;
+    
     // Verificando se todos os campos foram enviados
     if (!product && !price && !brand && !description && !inserted_by) {
       res.status(400).send({
         message: "Submit at least one field for update",
       });
     }
-    const { id, user } = req;
+
 
     await productService.updateService(
-      id,
+      _id,
       product,
       price,
       brand,

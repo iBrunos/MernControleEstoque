@@ -7,8 +7,8 @@ const ProductSchema = new mongoose.Schema({
         unique: true,
     },
     price: { 
-        type: mongoose.Types.Decimal128, 
-        default: 0 
+        type: Number, 
+        require: true,
     },
     brand: {
         type: String,
