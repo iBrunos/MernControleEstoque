@@ -138,7 +138,7 @@ const Header = () => {
           <div className="flex items-center sm:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-pink-500 hover:text-pink-500 hover:bg-black focus:outline-none focus:ring-inset focus:ring-0"
+              className="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-pink-500 hover:bg-black focus:outline-none focus:ring-inset focus:ring-0"
               aria-controls="mobile-menu"
               aria-expanded={isMenuOpen}
               onClick={handleToggleMenu}
