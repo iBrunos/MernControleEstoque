@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import{ useState, useEffect } from "react";
 import axios from "axios";
 import unidecode from "unidecode";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 
 export default function FormProducts() {
   const [items, setItems] = useState([]);

@@ -1,7 +1,7 @@
-import { Router} from "express"
+import express from "express"
 import entryController from "../controllers/entry.controller.js";
 import { authMiddleware } from "../middlewares/auth.middlewares.js";
-const router = Router();
+const router = express.Router();
 
 router.post("/", authMiddleware, entryController.createService);
 router.get("/", authMiddleware, entryController.findAll);

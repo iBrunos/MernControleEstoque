@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import unidecode from "unidecode";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 import moment from "moment";
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
@@ -195,47 +195,47 @@ export default function FormReports() {
           RELÁTORIOS
         </h3>
       </div>
-      <div class="m-1 flex flex-row items-center justify-center">
-        <div class="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div class="p-4 flex items-center">
-            <div class="p-3 rounded-full text-red-500 dark:text-red-100 bg-red-100 dark:bg-red-500 mr-4">
+      <div className="m-1 flex flex-row items-center justify-center">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
+          <div className="p-4 flex items-center">
+            <div className="p-3 rounded-full text-red-500 dark:text-red-100 bg-red-100 dark:bg-red-500 mr-4">
               <ContentPasteGoIcon></ContentPasteGoIcon>
             </div>
             <div>
-              <p class="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 text-lg font-normal text-gray-500">
                 Entradas
               </p>
-              <p class="text-3xl font-bold text-red-700">
+              <p className="text-3xl font-bold text-red-700">
               {"R$: " + entryCount }
               </p>
             </div>
           </div>
         </div>
-        <div class="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div class="p-4 flex items-center">
-            <div class="p-3 rounded-full text-green-500 dark:text-green-100 bg-green-100 dark:bg-green-500 mr-4">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
+          <div className="p-4 flex items-center">
+            <div className="p-3 rounded-full text-green-500 dark:text-green-100 bg-green-100 dark:bg-green-500 mr-4">
               <RequestQuoteIcon></RequestQuoteIcon>
             </div>
             <div>
-              <p class="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 text-lg font-normal text-gray-500">
                 Saídas
               </p>
-              <p class="text-3xl font-bold text-green-700">
+              <p className="text-3xl font-bold text-green-700">
               {"R$: " + exitCount }
               </p>
             </div>
           </div>
         </div>
-        <div class="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div class="p-4 flex items-center">
-            <div class="p-3 rounded-full text-blue-500 dark:text-blue-100 bg-blue-100 dark:bg-blue-500 mr-4">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
+          <div className="p-4 flex items-center">
+            <div className="p-3 rounded-full text-blue-500 dark:text-blue-100 bg-blue-100 dark:bg-blue-500 mr-4">
               <PaidIcon></PaidIcon>
             </div>
             <div>
-              <p class="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 text-lg font-normal text-gray-500">
                 Lucro
               </p>
-              <p class="text-3xl font-bold text-grey-700">
+              <p className="text-3xl font-bold text-grey-700">
               {"R$: " + (exitCount - entryCount)}
               </p>
             </div>

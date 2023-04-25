@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import unidecode from "unidecode";
@@ -65,6 +65,7 @@ export default function FormProducts() {
     setLevel("");
     setEmail("");
     setPhone("");
+    fetchItems();
   };
 
   const deleteItem = async (id) => {
@@ -122,7 +123,6 @@ export default function FormProducts() {
     setPhone("");
     setEditingItem(null);
     fetchItems();
-    window.location.reload();
   };
 
   return (

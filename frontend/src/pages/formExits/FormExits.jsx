@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
@@ -13,18 +13,18 @@ export default function FormProducts() {
   const [observation, setObservation] = useState("");
   const [inserted_by, setInserted_by] = useState("");
   const [amount, setAmount] = useState("");
-  const [entry_price, setEntry_price] = useState("");
+  const [exit_price, setExit_price] = useState("");
   const [type, setType] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  //const API_URL = 'https://api-happy-makeup.onrender.com/entry';
-  const API_URL = 'http://localhost:3000/entry';
+  //const API_URL = 'https://api-happy-makeup.onrender.com/exit';
+  const API_URL = "http://localhost:3000/exit";
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
-  changePageTitle("Happy Makeup | Entradas");
+  changePageTitle("Happy Makeup | Saídas");
 
   useEffect(() => {
     fetchItems();
@@ -69,7 +69,6 @@ export default function FormProducts() {
     return date;
   }
 
-
   const addItem = async (e) => {
     e.preventDefault();
 
@@ -80,31 +79,31 @@ export default function FormProducts() {
       product,
       observation,
       amount,
-      entry_price,
+      exit_price,
       inserted_by,
-      type
+      type,
     };
     newItem.inserted_by = username;
-    newItem.type = "Entrada";
-    const response = await axios.post(
-      API_URL,
-      newItem,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    newItem.type = "Saída";
+    const response = await axios.post(API_URL, newItem, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     setItems([...items, response.data]);
     setProduct("");
     setObservation("");
     setAmount("");
-    setEntry_price("");
-    setType("Entrada");
+    setExit_price("");
+    setType("Saída");
     fetchItems();
   };
 
   const deleteItem = async (id) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-      await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`${API_URL}/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setItems(items.filter((item) => item._id !== id));
     } catch (error) {
       console.error(error);
@@ -112,50 +111,49 @@ export default function FormProducts() {
   };
 
   const editItem = async (id) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     setEditingItem(id);
-    const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-
+    const response = await axios.get(`${API_URL}/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     const item = response.data;
 
     setProduct(item.product);
     setObservation(item.observation);
     setAmount(item.amount);
-    setEntry_price(item.entry_price);
+    setExit_price(item.exit_price);
     setInserted_by(item.inserted_by);
   };
   const updateItem = async (e) => {
     e.preventDefault();
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem("username");
     const updatedItem = {
       _id: editingItem,
       product,
       observation,
       amount,
-      entry_price,
+      exit_price,
       inserted_by,
-      type
+      type,
     };
     updatedItem.inserted_by = username;
-    updatedItem.type = "Entrada";
+    updatedItem.type = "Saída";
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-    const response = await axios.put(
-      `${API_URL}/${editingItem}`,
-      updatedItem,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const response = await axios.put(`${API_URL}/${editingItem}`, updatedItem, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setItems(
       items.map((item) => (item._id === editingItem ? response.data : item))
     );
     setObservation("");
     setAmount("");
-    setEntry_price("");
+    setExit_price("");
     setInserted_by("");
-    setType("Entrada");
+    setType("Saída");
     setEditingItem(null);
     fetchItems();
   };
@@ -213,26 +211,28 @@ export default function FormProducts() {
           onChange={(e) => setAmount(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           min="0"
-          max="9999"
+          max="9999.99"
+          step="0.01"
           required
         />
         <input
           type="number"
           inputMode="decimal"
-          value={entry_price}
-          placeholder="Preço de Entrada"
-          onChange={(e) => setEntry_price(e.target.value)}
+          value={exit_price}
+          placeholder="Preço de Saída"
+          onChange={(e) => setExit_price(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           min="0"
           max="9999.99"
           step="0.01"
           required
         />
+
         <button
           type="submit"
           className="mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
         >
-          {editingItem !== null ? "Salvar Entrada" : "Adicionar Entrada"}
+          {editingItem !== null ? "Salvar Saída" : "Adicionar Saída"}
         </button>
         <section className="flex items-center space-x-2 border rounded-md p-2 ml-36 focus:border-pink-500">
           <svg
@@ -260,13 +260,16 @@ export default function FormProducts() {
       </form>
       <div className="p-0 m-2 text-center">
         <h3 className="text-gray-800 text-4xl font-bold text-center ">
-          ENTRADA DE PRODUTOS
+          SAÍDA DE PRODUTOS
         </h3>
       </div>
       <div className="bg-white mx-auto px-4 md:px-8">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
           {items.length === 0 ? (
-            <p className="text-gray-800 text-4xl font-extralight text-center "> Nenhum item encontrado.</p>
+            <p className="text-gray-800 text-4xl font-extralight text-center ">
+              {" "}
+              Nenhum item encontrado.
+            </p>
           ) : (
             <table className="w-full table-auto text-sm text-left">
               <thead className="bg-gray-50 text-gray-600 font-medium border-b">
@@ -274,7 +277,7 @@ export default function FormProducts() {
                   <th className="py-3 px-6">Produto</th>
                   <th className="py-3 px-6">Observação</th>
                   <th className="py-3 px-6">Quantidade</th>
-                  <th className="py-3 px-2">Preço de Entrada</th>
+                  <th className="py-3 px-2">Preço de Saida</th>
                   <th className="py-3 px-6">Funcionário</th>
                   <th className="py-3 px-6">Criado</th>
                   <th className="py-3 px-6">Editado</th>
@@ -282,65 +285,65 @@ export default function FormProducts() {
                 </tr>
               </thead>
               <tbody className="text-gray-600 divide-y">
-              {items
-                .filter((item) => {
-                  const searchTermUnidecoded = unidecode(
-                    searchTerm?.toLowerCase() || ""
-                  );
-                  const itemUserUnidecoded = unidecode(
-                    item.product?.toLowerCase() || ""
-                  ); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
-                  if (searchTermUnidecoded === "") {
-                    return item;
-                  } else if (
-                    itemUserUnidecoded.includes(searchTermUnidecoded)
-                  ) {
-                    return item;
-                  }
-                  return null;
-                })
-                .map((item) => (
-                  <tr key={item.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item.product}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words w-[40rem]">
-                      {item.observation}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words">
-                      {item.amount}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words">
-                      R$: {item.entry_price}
-                    </td>
-                    <td className="px-8 py-4 whitespace-nowrap">
-                      {item.inserted_by}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.created_at)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.updated_at)}
-                    </td>
-                    <td className=" px-6 whitespace-nowrap">
-                      <button
-                        onClick={() => editItem(item._id)}
-                        className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
-                      >
-                        <EditIcon className="mr-1" />
-                        Editar
-                      </button>
-                      <button
+                {items
+                  .filter((item) => {
+                    const searchTermUnidecoded = unidecode(
+                      searchTerm?.toLowerCase() || ""
+                    );
+                    const itemUserUnidecoded = unidecode(
+                      item.product?.toLowerCase() || ""
+                    ); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
+                    if (searchTermUnidecoded === "") {
+                      return item;
+                    } else if (
+                      itemUserUnidecoded.includes(searchTermUnidecoded)
+                    ) {
+                      return item;
+                    }
+                    return null;
+                  })
+                  .map((item) => (
+                    <tr key={item.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item.product}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words w-[40rem]">
+                        {item.observation}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words">
+                        {item.amount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words">
+                        R$: {item.exit_price}
+                      </td>
+                      <td className="px-8 py-4 whitespace-nowrap">
+                        {item.inserted_by}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words">
+                        {formatDateHours(item.created_at)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-normal break-words">
+                        {formatDateHours(item.updated_at)}
+                      </td>
+                      <td className=" px-6 whitespace-nowrap">
+                        <button
+                          onClick={() => editItem(item._id)}
+                          className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
+                        >
+                          <EditIcon className="mr-1" />
+                          Editar
+                        </button>
+                        <button
                           onClick={() => deleteItem(item._id)}
                           className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
                         >
-                        <DeleteForeverIcon className="mr-1" />
-                        Deletar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
+                          <DeleteForeverIcon className="mr-1" />
+                          Deletar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
             </table>
           )}
         </div>

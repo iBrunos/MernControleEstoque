@@ -1,12 +1,12 @@
-import FormProduct from './components/formProducts/FormProducts';
-import FormUser from './components/formUsers/FormUsers';
-import FormExit from './components/formExits/FormExits';
-import FormEntry from './components/formEntrys/FormEntrys';
-import FormReports from './components/formReports/FormReports';
-import FormStock from './components/formStock/FormStock';
-import Login from './components/login/Login';
+import FormProduct from './pages/formProducts/FormProducts';
+import FormUser from './pages/formUsers/FormUsers';
+import FormExit from './pages/formExits/FormExits';
+import FormEntry from './pages/formEntrys/FormEntrys';
+import FormReports from './pages/formReports/FormReports';
+import FormStock from './pages/formStock/FormStock';
+import Login from './pages/login/Login';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PrivateRoute from "./pages/PrivateRoute/PrivateRoute";
 const Rotas = () => (
   <Router>
     <Routes>

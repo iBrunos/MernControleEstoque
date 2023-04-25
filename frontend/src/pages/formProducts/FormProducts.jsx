@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import unidecode from "unidecode";
@@ -16,7 +16,7 @@ export default function FormProducts() {
   const [searchTerm, setSearchTerm] = useState("");
 
   //const API_URL = 'https://api-happy-makeup.onrender.com/product';
-  const API_URL = 'http://localhost:3000/product';
+  const API_URL = "http://localhost:3000/product";
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
@@ -43,50 +43,52 @@ export default function FormProducts() {
     fetchItems();
   }, []);
 
-
   const addItem = async (e) => {
     e.preventDefault();
 
-    const username = localStorage.getItem('username');
-    const token = localStorage.getItem('token');
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
 
     const newItem = {
       product,
       price,
       brand,
       description,
-      inserted_by
+      inserted_by,
     };
     newItem.inserted_by = username;
 
-    const response = await axios.post(
-      API_URL,
-      newItem,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const response = await axios.post(API_URL, newItem, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     setItems([...items, response.data]);
     setProduct("");
     setPrice("");
     setBrand("");
     setDescription("");
+    fetchItems();
+    
   };
   const deleteItem = async (id) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-      await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`${API_URL}/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setItems(items.filter((item) => item._id !== id));
     } catch (error) {
       console.error(error);
     }
   };
 
-
   const editItem = async (id) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     setEditingItem(id);
-    const response = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    const response = await axios.get(`${API_URL}/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     const item = response.data;
     setProduct(item.product);
@@ -98,24 +100,22 @@ export default function FormProducts() {
 
   const updateItem = async (e) => {
     e.preventDefault();
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem("username");
     const updatedItem = {
       _id: editingItem,
       product,
       price,
       brand,
       description,
-      inserted_by
+      inserted_by,
     };
     updatedItem.inserted_by = username;
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-    const response = await axios.put(
-      `${API_URL}/${editingItem}`,
-      updatedItem,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const response = await axios.put(`${API_URL}/${editingItem}`, updatedItem, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setItems(
       items.map((item) => (item._id === editingItem ? response.data : item))
     );
@@ -127,7 +127,6 @@ export default function FormProducts() {
     setEditingItem(null);
     fetchItems();
   };
-
 
   return (
     <>
@@ -173,7 +172,6 @@ export default function FormProducts() {
           placeholder="Descrição"
           onChange={(e) => setDescription(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 w-[25rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 "
-
         />
         <button
           type="submit"
@@ -213,7 +211,10 @@ export default function FormProducts() {
       <div className="bg-white mx-auto px-4 md:px-8">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
           {items.length === 0 ? (
-            <p className="text-gray-800 text-4xl font-extralight text-center "> Nenhum item encontrado.</p>
+            <p className="text-gray-800 text-4xl font-extralight text-center ">
+              {" "}
+              Nenhum item encontrado.
+            </p>
           ) : (
             <table className="w-full table-auto text-sm text-left">
               <thead className="bg-gray-50 text-gray-600 font-medium border-b">
@@ -229,17 +230,23 @@ export default function FormProducts() {
               <tbody className="text-gray-600 divide-y">
                 {items
                   .filter((item) => {
-                    const searchTermUnidecoded = unidecode(searchTerm?.toLowerCase() || '');
-                    const itemUserUnidecoded = unidecode(item.product?.toLowerCase() || '');
+                    const searchTermUnidecoded = unidecode(
+                      searchTerm?.toLowerCase() || ""
+                    );
+                    const itemUserUnidecoded = unidecode(
+                      item.product?.toLowerCase() || ""
+                    );
                     if (searchTermUnidecoded === "") {
                       return true;
-                    } else if (itemUserUnidecoded.includes(searchTermUnidecoded)) {
+                    } else if (
+                      itemUserUnidecoded.includes(searchTermUnidecoded)
+                    ) {
                       return true;
                     }
                     return false;
                   })
-                  .map((item) => (
-                    <tr key={item._id}>
+                  .map((item, index) => (
+                    <tr key={item._id || index}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.product}
                       </td>
@@ -255,7 +262,7 @@ export default function FormProducts() {
                       <td className="px-8 py-4 whitespace-nowrap">
                         {item.inserted_by}
                       </td>
-                      <td className=" px-6 whitespace-nowrap">
+                      <td className="px-6 whitespace-nowrap">
                         <button
                           onClick={() => editItem(item._id)}
                           className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
@@ -280,4 +287,4 @@ export default function FormProducts() {
       </div>
     </>
   );
-};
+}

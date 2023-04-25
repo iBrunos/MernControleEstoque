@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { HiMenu, HiX } from "react-icons/hi";
+import avatar from "./../../assets/imgs/avatar.png";
 import StoreIcon from "@mui/icons-material/Store";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
@@ -8,209 +10,182 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
-const user = localStorage.getItem("username");
-const email = localStorage.getItem("email");
-const level = localStorage.getItem("level");
-
-// Profile Dropdown
-const ProfileDropDown = () => {
-  const navigate = useNavigate();
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isGerente, setIsGerente] = useState(false);
-  const [state, setState] = useState(false);
-  const profileRef = useRef(null);
-
+  const navigate = useNavigate();
+  const user = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+  const level = localStorage.getItem("level");
+  const navigateToLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
   useEffect(() => {
     setIsGerente(level === "Gerente");
-  }, []);
+  }, [level]);
 
-  useEffect(() => {
-    const handleDropDown = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setState(false);
-      }
-    };
-    document.addEventListener("click", handleDropDown);
-    return () => {
-      document.removeEventListener("click", handleDropDown);
-    };
-  }, []);
-    const navigateToLogout = () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("email");
-      localStorage.removeItem("user");
-      localStorage.removeItem("userId");
-      navigate("/");
-    };
-  
-    const navigateToRelatorios = () => {
-      navigate("/user/relatorios");
-    };
-  
-    const navigateToUsuarios = () => {
-      navigate("/user/usuarios");
-    };
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div className="">
-      <div className="flex items-center space-x-4 ml-1">
-        <button
-          ref={profileRef}
-          className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-4 lg:focus:ring-green-400 z-40"
-          onClick={() => setState(!state)}
-        >
-          <img
-            src="https://cdn.onlinewebfonts.com/svg/img_569204.png"
-            className="w-full h-full rounded-full"
-            alt="#"
-          />
-        </button>
-        <div className="">
-          <span className="block font-semibold text-white m-0">{user}</span>
-          <span className="block text-sm text-white">{email}</span>
-        </div>
-      </div>
-      <ul
-        className={`bg-white lg:absolute right-44 lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md mt-0 z-30 ${
-          state ? "" : "lg:hidden"
-        }`}
-      >
-        <li>
-          {isGerente ? (
-            <button
-              className="block text-gray-600  lg:p-2.5 hover:text-gray-900"
-              onClick={navigateToUsuarios}
-            >
-              <AccountCircleIcon className="mr-3" />
-              Usuários
-            </button>
-          ) : (
-            <button
-              className="block text-gray-600  lg:p-2.5 opacity-75 cursor-not-allowed"
-            >
-              <AccountCircleIcon className="mr-3" />
-              Usuários
-            </button>
-          )}
+    <header className="bg-pink-500 border-b border-b-pink-500">
+      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="flex justify-between h-20">
+          <div className="flex items-center">
+            <Link to="/pt-br" className="flex-shrink-0 flex items-center mr-0">
+              <h1 className="text-4xl font-bold text-white lg:hidden block">
+                HAPPY MAKEUP
+              </h1>
+              <h1 className="text-4xl font-bold text-white hidden lg:block">
+                HAPPY MAKEUP
+              </h1>
+            </Link>
+            <div className="hidden sm:ml-6 sm:flex">
+              <Link
+                to="/user/estoque"
+                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+              >
+                <StoreIcon className="mr-1 font-bold" />
+                Estoque
+              </Link>
+              <Link
+                to="/user/cadastro"
+                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+              >
+                <AppRegistrationIcon className="mr-1 font-bold" />
+                Cadastro
+              </Link>
 
-          <button
-            className="block text-gray-600  lg:p-2.5 hover:text-gray-900"
-            onClick={navigateToRelatorios}
+              <Link
+                to="/user/entradas"
+                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+              >
+                <AddShoppingCartIcon className="mr-1 font-bold" />
+                Entradas
+              </Link>
+              <Link
+                to="/user/saidas"
+                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+              >
+                <RemoveShoppingCartIcon className="mr-1 font-bold" />
+                Saídas
+              </Link>
+
+              {isGerente ? (
+                <Link
+                  to="/user/usuarios"
+                  className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                >
+                  <AccountCircleIcon className="mr-1 font-bold" />
+                  Usuários
+                </Link>
+              ) : (
+                <spam
+                  className="px-3 py-2 text-pink-400 rounded-md font-medium mr-2 text-lg cursor-not-allowed"
+                >
+                  <AccountCircleIcon className="mr-1 font-bold" />
+                  Usuários
+                </spam>
+              )}
+              {isGerente ? (
+                <Link
+                  to="/user/relatorios"
+                  className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                >
+                  <StickyNote2Icon className="mr-1 font-bold" />
+                  Relátorios
+                </Link>
+              ) : (
+                <spam
+                  className="px-3 py-2 text-pink-400 rounded-md font-medium mr-2 text-lg cursor-not-allowed"
+                >
+                  <StickyNote2Icon className="mr-1 font-bold" />
+                  Relatórios
+                </spam>
+              )}
+              <button
+                onClick={navigateToLogout}
+                className="px-3 py-2 text-white rounded-md font-medium text-lg mr-4"
+              >
+                <LogoutIcon className="mr-1 font-bold" />
+                Sair
+              </button>
+              <div className="flex items-center space-x-4 ml-4">
+                <div
+                  className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-green-400 ring-4 z-40"
+                >
+                  <img
+                    src={avatar}
+                    className="w-full h-full rounded-full"
+                    alt="Avatar do Usuário"
+                  />
+                </div>
+                <div className="">
+                  <span className="block font-semibold text-white m-0">
+                    {user}
+                  </span>
+                  <span className="block text-sm text-white">{email}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center sm:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-pink-500 hover:bg-white focus:outline-none focus:ring-inset focus:ring-0"
+              aria-controls="mobile-menu"
+              aria-expanded={isMenuOpen}
+              onClick={handleToggleMenu}
+            >
+              <span className="sr-only">Open main menu</span>
+              {isMenuOpen ? (
+                <HiX className="block h-6 w-6" />
+              ) : (
+                <HiMenu className="block h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <nav
+        className={`sm:hidden ${isMenuOpen ? "block" : "hidden"}`}
+        id="mobile-menu"
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          <Link
+            to="/pt-br/sobre"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            <StickyNote2Icon className="mr-3" />
-            Relatórios
-          </button>
-          <button
-            className="block text-gray-600  lg:p-2.5 hover:text-gray-900"
-            onClick={navigateToLogout}
+            Sobre a Archei
+          </Link>
+          <Link
+            to="/pt-br/oque-fazemos"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            <LogoutIcon className="mr-3" />
-            Sair
-          </button>
-        </li>
-      </ul>
-    </div>
+            O que fazemos
+          </Link>
+          <Link
+            to="/pt-br/nosso-trabalho"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+          >
+            Nosso trabalho
+          </Link>
+          <Link
+            to="/pt-br/contato"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+          >
+            Entre em contato
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 };
 
-export default function Header() {
-  
-  const [menuState, setMenuState] = useState(false);
-  const navigate = useNavigate();
-  const navigateToEstoque = () => navigate("/user/estoque");
-  const navigateToProdutos = () => navigate("/user/cadastro");
-  const navigateToEntradas = () => navigate("/user/entradas");
-  const navigateToSaidas = () => navigate("/user/saidas");
- 
-  return (
-    <>
-      <nav className="bg-pink-500 border-b">
-        <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-2xl mx-auto md:px-8">
-          <div className="flex-none lg:flex-initial">
-            <h1 className="text-4xl font-bold text-white">
-              HAPPY MAKEUP
-            </h1>
-          </div>
-          <div className="flex-1 flex items-center justify-between">
-            <div
-              className={`bg-pink-500 absolute w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none z-10 ${
-                menuState ? "" : "hidden"
-              }`}
-            >
-              <ul className="mt-12 space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
-                <li className="text-white ">
-                  <button
-                    className="mr-6 hover:font-bold font-semibold "
-                    onClick={navigateToEstoque}
-                  >
-                    <StoreIcon className="mr-1 font-bold" />
-                    ESTOQUE
-                  </button>
-                  <button
-                    className="mr-6 hover:font-bold font-semibold"
-                    onClick={navigateToProdutos}
-                  >
-                    <AppRegistrationIcon className="hover:font-bold font-semibold" />
-                    CADASTRO
-                  </button>
-                  <button
-                    className="mr-6 hover:font-bold font-semibold"
-                    onClick={navigateToEntradas}
-                  >
-                    <AddShoppingCartIcon className="mr-1 font-bold" />
-                    ENTRADAS
-                  </button>
-                  <button
-                    className="mr-6 hover:font-bold font-semibold"
-                    onClick={navigateToSaidas}
-                  >
-                    <RemoveShoppingCartIcon className="mr-1 font-bold" />
-                    SAÍDAS
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
-              <ProfileDropDown class="lg:block" />
-              <button
-                className="outline-none text-gray-400 block lg:hidden"
-                onClick={() => setMenuState(!menuState)}
-              >
-                {menuState ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16m-7 6h7"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </>
-  );
-}
+export default Header;

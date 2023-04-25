@@ -8,5 +8,4 @@ router.get("/", authMiddleware, productController.findAll);
 router.get("/:id", authMiddleware, productController.findById);
 router.put("/:id", authMiddleware, productController.update);
 router.delete("/:id",authMiddleware, productController.deleteService);
-
 export default router;

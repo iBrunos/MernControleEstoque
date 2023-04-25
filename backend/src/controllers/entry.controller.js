@@ -4,14 +4,6 @@ const createService = async (req, res) => {
     try {
 
         const { product, observation, amount, entry_price, inserted_by, type } = req.body;
-        console.log("product:", product);
-        console.log("observation:", observation);
-        console.log("amount:", amount);
-        console.log("entry_price:", entry_price);
-        console.log("inserted_by:", inserted_by);
-        console.log("type:", type);
-
-
         // Verificando se todos os campos foram enviados
         if (!product || !amount || !entry_price || !inserted_by || !type) {
             res.status(400).send({
@@ -82,14 +74,6 @@ const findById = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { _id, product, observation, amount, entry_price, inserted_by, type } = req.body;
-        console.log("id: ", _id)
-        console.log("product:", product);
-        console.log("observation:", observation);
-        console.log("amount:", amount);
-        console.log("entry_price:", entry_price);
-        console.log("inserted_by:", inserted_by);
-        console.log("type:", type);
-
         // Verificando se todos os campos foram enviados
         if (!product && !observation && !amount && !entry_price && !inserted_by && !type) {
             res.status(400).send({
@@ -106,7 +90,6 @@ const update = async (req, res) => {
             inserted_by,
             type
         );
-        console.log("a")
         res.send({
             message: "Entry successfully updated",
         });
