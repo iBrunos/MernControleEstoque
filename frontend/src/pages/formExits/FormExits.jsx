@@ -178,23 +178,29 @@ export default function FormProducts() {
               clipRule="evenodd"
             />
           </svg>
-          <select
-            className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
-            value={product}
-            onChange={(e) => setProduct(e.target.value)}
-            required // adicionado o atributo required
-          >
-            <option value="">Selecione um produto</option>
-            {items2.map((item2) => (
-              <option
-                key={item2.id}
-                className="hover:text-pink-500 hover:bg-pink-50"
-                value={item2.product}
+          {items2.length === 0 ? (
+            <p className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer">Cadastre um produto. </p>
+          ) : (
+            <div>
+              <select
+                className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+                required // adicionado o atributo required
               >
-                {item2.product}
-              </option>
-            ))}
-          </select>
+                <option value="">Selecione um produto</option>
+                {items2.map((item2) => (
+                  <option
+                    key={item2.id}
+                    className="hover:text-pink-500 hover:bg-pink-50"
+                    value={item2.product}
+                  >
+                    {item2.product}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         <input
@@ -268,7 +274,7 @@ export default function FormProducts() {
           {items.length === 0 ? (
             <p className="text-gray-800 text-4xl font-extralight text-center ">
               {" "}
-              Nenhum item encontrado.
+              Nenhuma saída encontrada.
             </p>
           ) : (
             <table className="w-full table-auto text-sm text-left">
