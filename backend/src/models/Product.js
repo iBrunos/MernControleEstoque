@@ -31,9 +31,13 @@ ProductSchema.post('save', async function (doc) {
         id_product: doc._id,
         quantity: 0
     });
-    
 
     await stock.save();
+});
+
+// Definir hook de pós-remoção para excluir o documento de Stock associado
+ProductSchema.post('findOneAndDelete', async function (doc) {
+    await Stock.deleteOne({ id_product: doc._id });
 });
 
 const Product = mongoose.model("Products", ProductSchema);

@@ -32,8 +32,8 @@ export default function FormProducts() {
   return (
     <>
       <Header />
-      <form className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0">
-        <section className="flex items-center space-x-2 border rounded-md p-2 ml-[93.7rem] ">
+      <form className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-4 md:pl-8 pt-1 pb-2 md:ml-0">
+        <section className="flex items-center space-x-2 border rounded-md p-2 w-full md:w-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -49,7 +49,7 @@ export default function FormProducts() {
             />
           </svg>
           <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-64 "
+            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-full "
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
             placeholder="Pesquisar"
@@ -58,17 +58,17 @@ export default function FormProducts() {
         </section>
       </form>
       <div className="p-0 m-2 text-center">
-        <h3 className="text-gray-800 text-4xl font-bold text-center ">
+        <h3 className="text-gray-800 text-2xl md:text-4xl font-bold text-center ">
           ESTOQUE DE PRODUTOS
         </h3>
       </div>
-      <div className="bg-white mx-auto w-[116rem]">
+      <div className="bg-white mx-auto w-full md:w-[116rem]">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem] ">
           <table className="w-full table-auto text-sm text-left">
             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
               <tr>
-                <th className="py-3 px-6">Produto</th>
-                <th className="py-3 px-6">Quantidade</th>
+                <th className="py-3 px-3 md:px-6">Produto</th>
+                <th className="py-3 px-3 md:px-6">Quantidade</th>
               </tr>
             </thead>
             <tbody className="text-gray-600 divide-y">

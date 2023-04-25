@@ -33,29 +33,29 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-pink-500 border-b border-b-pink-500">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex justify-between h-20">
+    <header className="bg-pink-500 border-b border-pink-500">
+      <div className="max-w-[120rem]  lg:w-[120rem] sm:w-8">
+        <nav className="flex h-20">
           <div className="flex items-center">
-            <Link to="/pt-br" className="flex-shrink-0 flex items-center mr-0">
-              <h1 className="text-4xl font-bold text-white lg:hidden block">
+            <Link to="/pt-br" className="flex-shrink-0 flex items-center ml-10 mr-40" >
+              <h1 className="text-4xl font-bold text-black lg:hidden block">
                 HAPPY MAKEUP
               </h1>
-              <h1 className="text-4xl font-bold text-white hidden lg:block">
+              <h1 className="text-4xl font-bold text-black hidden lg:block">
                 HAPPY MAKEUP
               </h1>
             </Link>
             <div className="hidden sm:ml-6 sm:flex">
               <Link
                 to="/user/estoque"
-                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
               >
                 <StoreIcon className="mr-1 font-bold" />
                 Estoque
               </Link>
               <Link
                 to="/user/cadastro"
-                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
               >
                 <AppRegistrationIcon className="mr-1 font-bold" />
                 Cadastro
@@ -63,14 +63,14 @@ const Header = () => {
 
               <Link
                 to="/user/entradas"
-                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
               >
                 <AddShoppingCartIcon className="mr-1 font-bold" />
                 Entradas
               </Link>
               <Link
                 to="/user/saidas"
-                className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
               >
                 <RemoveShoppingCartIcon className="mr-1 font-bold" />
                 Saídas
@@ -79,14 +79,14 @@ const Header = () => {
               {isGerente ? (
                 <Link
                   to="/user/usuarios"
-                  className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
                 </Link>
               ) : (
                 <spam
-                  className="px-3 py-2 text-pink-400 rounded-md font-medium mr-2 text-lg cursor-not-allowed"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
@@ -95,29 +95,23 @@ const Header = () => {
               {isGerente ? (
                 <Link
                   to="/user/relatorios"
-                  className="px-3 py-2 text-white rounded-md font-medium mr-2 text-lg"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relátorios
                 </Link>
               ) : (
                 <spam
-                  className="px-3 py-2 text-pink-400 rounded-md font-medium mr-2 text-lg cursor-not-allowed"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
                 </spam>
               )}
-              <button
-                onClick={navigateToLogout}
-                className="px-3 py-2 text-white rounded-md font-medium text-lg mr-4"
-              >
-                <LogoutIcon className="mr-1 font-bold" />
-                Sair
-              </button>
-              <div className="flex items-center space-x-4 ml-4">
+              
+              <div className="flex items-center space-x-4 ml-40">
                 <div
-                  className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-green-400 ring-4 z-40"
+                  className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-pink-500 ring-4 z-40"
                 >
                   <img
                     src={avatar}
@@ -126,18 +120,25 @@ const Header = () => {
                   />
                 </div>
                 <div className="">
-                  <span className="block font-semibold text-white m-0">
+                  <span className="block font-semibold text-black m-0">
                     {user}
                   </span>
-                  <span className="block text-sm text-white">{email}</span>
+                  <span className="block text-sm text-black">{email}</span>
                 </div>
               </div>
+              <button
+                onClick={navigateToLogout}
+                className="px-3 py-2 text-black rounded-md font-medium text-lg ml-[10rem]"
+              >
+                <LogoutIcon className="mr-1 font-bold" />
+                Sair
+              </button>
             </div>
           </div>
           <div className="flex items-center sm:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-pink-500 hover:bg-white focus:outline-none focus:ring-inset focus:ring-0"
+              className="inline-flex items-center justify-center p-2 rounded-md text-pink-500 hover:text-pink-500 hover:bg-black focus:outline-none focus:ring-inset focus:ring-0"
               aria-controls="mobile-menu"
               aria-expanded={isMenuOpen}
               onClick={handleToggleMenu}
