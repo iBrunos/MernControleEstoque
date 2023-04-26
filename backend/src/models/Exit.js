@@ -46,6 +46,14 @@ stock.quantity += doc.amount;
 await stock.save();
 next();
 });
+// hook de pós-remoção para atualizar a quantidade no estoque (Update)
+ExitSchema.post('findOneAndUpdate', async function (doc) {
+  const entry = await Exit.findById(doc._id);
+  const diffAmount = doc.amount - entry.amount;
+  const stock = await Stock.findOne({ product: entry.product });
+  stock.quantity += diffAmount;
+  await stock.save();
+});
 
 
 const Exit = mongoose.model("Exits", ExitSchema);
