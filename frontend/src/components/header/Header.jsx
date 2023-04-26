@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ const Header = () => {
   };
 
   return (
+    
     <header className="bg-pink-500 border-b border-pink-500">
       <div className="max-w-[120rem]  lg:w-[120rem] sm:w-8">
         <nav className="flex h-20">
@@ -48,14 +50,14 @@ const Header = () => {
             <div className="hidden sm:ml-6 sm:flex">
               <Link
                 to="/user/estoque"
-                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <StoreIcon className="mr-1 font-bold" />
                 Estoque
               </Link>
               <Link
                 to="/user/cadastro"
-                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <AppRegistrationIcon className="mr-1 font-bold" />
                 Cadastro
@@ -63,14 +65,14 @@ const Header = () => {
 
               <Link
                 to="/user/entradas"
-                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <AddShoppingCartIcon className="mr-1 font-bold" />
                 Entradas
               </Link>
               <Link
                 to="/user/saidas"
-                className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <RemoveShoppingCartIcon className="mr-1 font-bold" />
                 Saídas
@@ -79,7 +81,7 @@ const Header = () => {
               {isGerente ? (
                 <Link
                   to="/user/usuarios"
-                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                  className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
@@ -93,13 +95,15 @@ const Header = () => {
                 </spam>
               )}
               {isGerente ? (
-                <Link
+                <NavLink
                   to="/user/relatorios"
-                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg"
+                  className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
-                  Relátorios
-                </Link>
+                  Relatórios
+                </NavLink>
+
+
               ) : (
                 <spam
                   className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default"
@@ -108,7 +112,7 @@ const Header = () => {
                   Relatórios
                 </spam>
               )}
-              
+
               <div className="flex items-center space-x-4 ml-40">
                 <div
                   className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-pink-500 ring-4 z-40"
