@@ -218,7 +218,6 @@ export default function FormProducts() {
           className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           min="0"
           max="9999.99"
-          step="0.01"
           required
         />
         <input

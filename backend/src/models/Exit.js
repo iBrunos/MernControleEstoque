@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import Stock from './Stock.js';
 const ExitSchema = new mongoose.Schema({
     product: {
       type: String,
@@ -32,6 +32,21 @@ const ExitSchema = new mongoose.Schema({
       unique: false,
     }
 }, { timestamps: true });
+
+// hook de pós-salvamento para atualizar a quantidade no estoque
+ExitSchema.post('save', async function (doc) {
+  const stock = await Stock.findOne({ product: doc.product });
+  stock.quantity -= doc.amount;
+  await stock.save();
+});
+// hook de pré-remoção para atualizar a quantidade no estoque
+ExitSchema.post('findOneAndDelete', async function (doc, next) {
+const stock = await Stock.findOne({ product: doc.product });
+stock.quantity += doc.amount;
+await stock.save();
+next();
+});
+
 
 const Exit = mongoose.model("Exits", ExitSchema);
 
