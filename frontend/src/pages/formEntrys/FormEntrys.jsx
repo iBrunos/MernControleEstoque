@@ -54,7 +54,7 @@ export default function FormProducts() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response2 = await axios.get(
-        "http://localhost:3000/product",
+        "https://api-happy-makeup.onrender.com/product",
         config2
       );
       setItems2(response2.data);

@@ -35,7 +35,7 @@ export default function FormProducts() {
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get("http://localhost:3000/user", config);
+      const response = await axios.get("https://api-happy-makeup.onrender.com/user", config);
       setItems(response.data);
     } catch (error) {
       console.error(error);
@@ -55,7 +55,7 @@ export default function FormProducts() {
       phone,
     };
 
-    const response = await axios.post("http://localhost:3000/user", newItem, {
+    const response = await axios.post("https://api-happy-makeup.onrender.com/user", newItem, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -71,7 +71,7 @@ export default function FormProducts() {
   const deleteItem = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:3000/user/${id}`, {
+      await axios.delete(`https://api-happy-makeup.onrender.com/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item.id !== id));
@@ -84,7 +84,7 @@ export default function FormProducts() {
     const token = localStorage.getItem("token");
 
     setEditingItem(id);
-    const response = await axios.get(`http://localhost:3000/user/${id}`, {
+    const response = await axios.get(`https://api-happy-makeup.onrender.com/user/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const item = response.data;
@@ -109,7 +109,7 @@ export default function FormProducts() {
     const token = localStorage.getItem("token");
 
     const response = await axios.put(
-      `http://localhost:3000/user/${editingItem}`,
+      `https://api-happy-makeup.onrender.com/user/${editingItem}`,
       updatedItem,
       { headers: { Authorization: `Bearer ${token}` } }
     );
