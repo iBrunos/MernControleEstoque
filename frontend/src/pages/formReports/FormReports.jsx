@@ -159,10 +159,10 @@ export default function FormReports() {
           onChange={(e) => setUser(e.target.value)}
           value={user}
         >
-          <option value="todos">Funcionário</option>
+          <option value="todos">Todos Funcionários</option>
           {itemsUsers.map((users) => (
             <option
-              key={users._id}
+              key={users.id}
               className="hover:text-pink-500 hover:bg-pink-50"
               value={users.username}
             >
