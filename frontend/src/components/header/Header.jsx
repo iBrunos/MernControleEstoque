@@ -88,7 +88,7 @@ const Header = () => {
                 </Link>
               ) : (
                 <spam
-                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
@@ -97,7 +97,7 @@ const Header = () => {
               {isGerente ? (
                 <NavLink
                   to="/user/relatorios"
-                  className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium "
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
@@ -106,7 +106,7 @@ const Header = () => {
 
               ) : (
                 <spam
-                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default"
+                  className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
