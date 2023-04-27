@@ -162,11 +162,11 @@ export default function FormReports() {
           <option value="todos">Funcionário</option>
           {itemsUsers.map((users) => (
             <option
-              key={users.id}
+              key={users._id}
               className="hover:text-pink-500 hover:bg-pink-50"
-              value={users.user}
+              value={users.username}
             >
-              {users.user}
+              {users.username}
             </option>
           ))}
         </select>
