@@ -16,7 +16,6 @@ export default function FormProducts() {
   const [searchTerm, setSearchTerm] = useState("");
 
   //const API_URL = 'https://api-happy-makeup.onrender.com/product';
-  const API_URL = "http://localhost:3000/product";
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;

@@ -18,8 +18,8 @@ export default function FormProducts() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  //const API_URL = 'https://api-happy-makeup.onrender.com/exit';
-  const API_URL = "http://localhost:3000/exit";
+  const API_URL = 'https://api-happy-makeup.onrender.com/exit';
+
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;

@@ -132,7 +132,7 @@ const Header = () => {
               </div>
               <button
                 onClick={navigateToLogout}
-                className="px-3 py-2 text-black rounded-md font-medium text-lg ml-[10rem]"
+                className="text-gray-300 hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[18rem]"
               >
                 <LogoutIcon className="mr-1 font-bold" />
                 Sair

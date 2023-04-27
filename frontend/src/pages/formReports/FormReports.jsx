@@ -95,15 +95,15 @@ export default function FormReports() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const responseEntry = await axios.get(
-        "http://localhost:3000/entry",
+        "https://api-happy-makeup.onrender.com/entry",
         config
       );
       const responseExit = await axios.get(
-        "http://localhost:3000/exit",
+        "https://api-happy-makeup.onrender.com/exit",
         config
       );
       const responseUser = await axios.get(
-        "http://localhost:3000/user",
+        "https://api-happy-makeup.onrender.com/user",
         config
       );
       setItemsEntrys(responseEntry.data);
