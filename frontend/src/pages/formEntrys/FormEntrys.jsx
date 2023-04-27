@@ -63,8 +63,8 @@ export default function FormProducts() {
     }
   };
 
-  function formatDateHours(dateString) {
-    const date = moment(dateString).format("DD/MM/YYYY [às] HH:mm");
+  function formatDateHours() {
+    const date = format("DD/MM/YYYY [às] HH:mm");
     return date;
   }
 
