@@ -132,14 +132,14 @@ export default function FormProducts() {
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
-        className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
+        className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
       >
         <input
           type="text"
           value={product}
           placeholder="Produto"
           onChange={(e) => setProduct(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
           id="input__product"
           required
         />
@@ -154,7 +154,7 @@ export default function FormProducts() {
           min="0"
           max="9999.99"
           step="0.01"
-          className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
         />
 
         <input
@@ -162,7 +162,7 @@ export default function FormProducts() {
           value={brand}
           placeholder="Marca"
           onChange={(e) => setBrand(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
           required
         />
         <input
@@ -170,15 +170,15 @@ export default function FormProducts() {
           value={description}
           placeholder="Descrição"
           onChange={(e) => setDescription(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[25rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 "
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 "
         />
         <button
           type="submit"
-          className="mr-16 border rounded-md  p-2 bg-pink-500 text-white font-medium transition duration-200 hover:bg-pink-600"
+          className="mr-16 border rounded-md lg:mt-0 mt-2 p-2 bg-pink-500 text-white font-medium transition duration-200 hover:bg-pink-600 w-60"
         >
           {editingItem !== null ? "Salvar Produto" : "Adicionar Produto"}
         </button>
-        <section className="flex items-center space-x-2 border rounded-md p-2 ml-64">
+        <section className="flex items-center border rounded-md p-2 lg:ml-36 ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -194,7 +194,7 @@ export default function FormProducts() {
             />
           </svg>
           <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-64 "
+            className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-64 w-32 "
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
             placeholder="Pesquisar"

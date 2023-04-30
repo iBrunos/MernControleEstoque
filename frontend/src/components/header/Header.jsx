@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import avatar from "./../../assets/imgs/avatar.png";
+import logo from "./../../assets/imgs/logoHM.png"
 import StoreIcon from "@mui/icons-material/Store";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
@@ -37,15 +38,13 @@ const Header = () => {
     
     <header className="bg-pink-500 border-b border-pink-500">
       <div className="max-w-[120rem]  lg:w-[120rem] sm:w-8">
-        <nav className="flex h-20">
+        <nav className="flex h-[7rem]">
           <div className="flex items-center">
-            <Link to="/pt-br" className="flex-shrink-0 flex items-center ml-10 mr-40" >
-              <h1 className="text-4xl font-bold text-black lg:hidden block">
-                HAPPY MAKEUP
-              </h1>
-              <h1 className="text-4xl font-bold text-black hidden lg:block">
-                HAPPY MAKEUP
-              </h1>
+            <Link to="/" className=" ml-10 mr-40" >
+              <img className="lg:hidden block w-40" src={logo}>
+              </img>
+              <img className="hidden lg:block w-40" src={logo}>
+              </img>
             </Link>
             <div className="hidden sm:ml-6 sm:flex">
               <Link
@@ -142,7 +141,7 @@ const Header = () => {
           <div className="flex items-center sm:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-pink-500 hover:bg-black focus:outline-none focus:ring-inset focus:ring-0"
+              className="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-pink-500 hover:bg-black focus:outline-none focus:ring-inset focus:ring-0 ml-20"
               aria-controls="mobile-menu"
               aria-expanded={isMenuOpen}
               onClick={handleToggleMenu}
@@ -164,28 +163,40 @@ const Header = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
           <Link
-            to="/pt-br/sobre"
+            to="/user/estoque"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Sobre a Archei
+            Estoque
           </Link>
           <Link
-            to="/pt-br/oque-fazemos"
+            to="/user/cadastro"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            O que fazemos
+            Cadastro
           </Link>
           <Link
-            to="/pt-br/nosso-trabalho"
+            to="/user/entradas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Nosso trabalho
+            Entradas
           </Link>
           <Link
-            to="/pt-br/contato"
+            to="/user/saidas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Entre em contato
+            Saídas
+          </Link>
+          <Link
+            to="/user/usuarios"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+          >
+            Usuários
+          </Link>
+          <Link
+            to="/user/relatorios"
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+          >
+            Relatórios
           </Link>
         </div>
       </nav>

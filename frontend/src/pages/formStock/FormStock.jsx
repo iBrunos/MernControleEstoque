@@ -33,7 +33,7 @@ export default function FormProducts() {
     <>
       <Header />
       <form className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-4 md:pl-8 pt-1 pb-2 md:ml-0">
-        <section className="flex items-center space-x-2 border rounded-md p-2 w-full md:w-auto">
+        <section className="flex items-center  border rounded-md p-2 w-full md:w-auto mr-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"

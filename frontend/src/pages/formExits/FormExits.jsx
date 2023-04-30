@@ -163,7 +163,7 @@ export default function FormProducts() {
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
-        className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
+        className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
       >
         <div className="relative w-80 mr-2 ">
           <svg
@@ -235,7 +235,7 @@ export default function FormProducts() {
 
         <button
           type="submit"
-          className="mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          className="mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600 w-40 lg:w-40"
         >
           {editingItem !== null ? "Salvar Saída" : "Adicionar Saída"}
         </button>
