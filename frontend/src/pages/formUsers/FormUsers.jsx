@@ -20,8 +20,8 @@ export default function FormUsers() {
         document.title = newTitle;
     };
     changePageTitle("Happy Makeup | Usuários");
-    const API_URL = 'http://localhost:3000/user/';
-    //const API_URL = 'https://api-happy-makeup.onrender.com/user';
+    //const API_URL = 'http://localhost:3000/user/';
+    const API_URL = 'https://api-happy-makeup.onrender.com/user';
 
     changePageTitle("Happy Makeup | Cadastro");
 

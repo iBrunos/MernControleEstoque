@@ -37,7 +37,7 @@ const Header = () => {
       headers: { Authorization: `Bearer ${token}` },
     };
     // Faz uma chamada para sua API para obter a imagem do MongoDB
-    axios.get(`http://localhost:3000/user/${userId}`,config).then((response) => {
+    axios.get(`https://api-happy-makeup.onrender.com/${userId}`,config).then((response) => {
       // Converte o buffer da imagem em um array de bytes
     const imageBuffer = response.data.avatar.data; // obtém o buffer de imagem do response
     const blob = new Blob([new Uint8Array(imageBuffer)], { type: "image/png" }); // cria um objeto Blob a partir do buffer
@@ -104,12 +104,12 @@ const Header = () => {
                   Usuários
                 </Link>
               ) : (
-                <spam
+                <span
                   className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
-                </spam>
+                </span>
               )}
               {isGerente ? (
                 <NavLink
@@ -122,12 +122,12 @@ const Header = () => {
 
 
               ) : (
-                <spam
+                <span
                   className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
-                </spam>
+                </span>
               )}
 
               <div className="flex items-center space-x-4 ml-40">
