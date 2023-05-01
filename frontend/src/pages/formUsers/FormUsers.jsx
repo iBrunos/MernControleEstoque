@@ -14,6 +14,8 @@ export default function FormUsers() {
     const [phone, setPhone] = useState("");
     const [editingItem, setEditingItem] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [avatar, setAvatar] = useState(null);
+
     const changePageTitle = (newTitle) => {
         document.title = newTitle;
     };
@@ -45,30 +47,46 @@ export default function FormUsers() {
 
     const addItem = async (e) => {
         e.preventDefault();
-
+      
         const token = localStorage.getItem("token");
-
+      
         const newItem = {
-            username,
-            password,
-            level,
-            email,
-            phone,
+          username,
+          password,
+          level,
+          email,
+          phone,
         };
-
-
-        const response = await axios.post(API_URL, newItem, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        setItems([...items, response.data]);
-        setUsername("");
-        setPassword("");
-        setLevel("");
-        setEmail("");
-        setPhone("");
-        fetchItems();
-
-    };
+      
+        // Create a new FormData object
+        const formData = new FormData();
+        formData.append("avatar", avatar); // Add the image file to the form data
+        formData.append("username", newItem.username);
+        formData.append("password", newItem.password);
+        formData.append("level", newItem.level);
+        formData.append("email", newItem.email);
+        formData.append("phone", newItem.phone);
+      
+        try {
+          const response = await axios.post(API_URL, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            },
+          });
+          setItems([...items, response.data]);
+          setUsername("");
+          setPassword("");
+          setLevel("");
+          setEmail("");
+          setPhone("");
+          setAvatar(null); // Reset the selected image file
+          fetchItems();
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      
     const deleteItem = async (id) => {
         const token = localStorage.getItem("token");
         try {
@@ -192,12 +210,23 @@ export default function FormUsers() {
                     onChange={(e) => setPhone(e.target.value)}
                     className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
                 />
+                <input
+                    type="file"
+                    value={avatar}
+                    accept="image/*"
+                    onChange={(e) => setAvatar(e.target.files[0])}
+                    class="hidden"
+                    placeholder="Insira sua Imagem"
+                    className="mr-2 border-gray-300 border rounded-md outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 pr-[21rem] pb-0"
+                />
                 <button
                     type="submit"
-                    className="mr-16 border rounded-md  p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+                    className=" block mr-16 border rounded-md ml-2 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
                 >
                     {editingItem !== null ? "Salvar Usuário" : "Adicionar Usuário"}
                 </button>
+
+
                 <section className="flex items-center space-x-2 border rounded-md p-2 ml-[23rem] focus:border-pink-500">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -221,6 +250,8 @@ export default function FormUsers() {
                         id="input__pesquisar"
                     />
                 </section>
+
+
             </form>
             <div className="p-0 m-2 text-center">
                 <h3 className="text-gray-800 text-4xl font-bold text-center ">
@@ -229,62 +260,62 @@ export default function FormUsers() {
             </div>
             <div className="bg-white mx-auto px-4 md:px-8">
                 <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
-                        <table className="w-full table-auto text-sm text-left">
-                            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-                                <tr>
-                                    <th className="py-3 px-6">Usuário</th>
-                                    <th className="py-3 px-6">Senha</th>
-                                    <th className="py-3 px-6">Nível de Acesso</th>
-                                    <th className="py-3 px-6">Email</th>
-                                    <th className="py-3 px-6">Telefone</th>
-                                    <th className="py-3 px-6">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-gray-600 divide-y">
-                                {items
-                                    .filter((item) => {
-                                        const searchTermUnidecoded = unidecode(
-                                            searchTerm?.toLowerCase() || ""
-                                        );
-                                        const itemUserUnidecoded = unidecode(
-                                            item.username?.toLowerCase() || ""
-                                        );
-                                        if (searchTermUnidecoded === "") {
-                                            return true;
-                                        } else if (
-                                            itemUserUnidecoded.includes(searchTermUnidecoded)
-                                        ) {
-                                            return true;
-                                        }
-                                        return false;
-                                    })
-                                    .map((item, index) => (
-                                        <tr key={item._id || index}>
-                                            <td className="px-6 py-4">{item.username}</td>
-                                            <td className="px-6 py-4 text-[0.5rem]">{item.password}</td>
-                                            <td className="px-6 py-4">{item.level}</td>
-                                            <td className="px-6 py-4 ">{item.email}</td>
-                                            <td className="px-6 py-4 ">{item.phone}</td>
-                                            <td className=" px-6 whitespace-nowrap">
-                                                <button
-                                                    onClick={() => editItem(item._id)}
-                                                    className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
-                                                >
-                                                    <EditIcon className="mr-1" />
-                                                    Editar
-                                                </button>
-                                                <button
-                                                    onClick={() => deleteItem(item._id)}
-                                                    className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-                                                >
-                                                    <DeleteForeverIcon className="mr-1" />
-                                                    Deletar
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </tbody>
-                        </table>
+                    <table className="w-full table-auto text-sm text-left">
+                        <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                            <tr>
+                                <th className="py-3 px-6">Usuário</th>
+                                <th className="py-3 px-6">Senha</th>
+                                <th className="py-3 px-6">Nível de Acesso</th>
+                                <th className="py-3 px-6">Email</th>
+                                <th className="py-3 px-6">Telefone</th>
+                                <th className="py-3 px-6">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-600 divide-y">
+                            {items
+                                .filter((item) => {
+                                    const searchTermUnidecoded = unidecode(
+                                        searchTerm?.toLowerCase() || ""
+                                    );
+                                    const itemUserUnidecoded = unidecode(
+                                        item.username?.toLowerCase() || ""
+                                    );
+                                    if (searchTermUnidecoded === "") {
+                                        return true;
+                                    } else if (
+                                        itemUserUnidecoded.includes(searchTermUnidecoded)
+                                    ) {
+                                        return true;
+                                    }
+                                    return false;
+                                })
+                                .map((item, index) => (
+                                    <tr key={item._id || index}>
+                                        <td className="px-6 py-4">{item.username}</td>
+                                        <td className="px-6 py-4 text-[0.5rem]">{item.password}</td>
+                                        <td className="px-6 py-4">{item.level}</td>
+                                        <td className="px-6 py-4 ">{item.email}</td>
+                                        <td className="px-6 py-4 ">{item.phone}</td>
+                                        <td className=" px-6 whitespace-nowrap">
+                                            <button
+                                                onClick={() => editItem(item._id)}
+                                                className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
+                                            >
+                                                <EditIcon className="mr-1" />
+                                                Editar
+                                            </button>
+                                            <button
+                                                onClick={() => deleteItem(item._id)}
+                                                className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+                                            >
+                                                <DeleteForeverIcon className="mr-1" />
+                                                Deletar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

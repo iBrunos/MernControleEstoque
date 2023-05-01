@@ -3,20 +3,37 @@ import userService from "../services/user.service.js";
 const createService = async (req, res) => {
   try {
     const { username, password, level, email, phone } = req.body;
+
     // Verificando se todos os campos foram enviados
     if (!username || !password || !level || !email || !phone) {
-      res.status(400).send({
+      return res.status(400).send({
         message: "Submit all fields for resgistration",
       });
     }
 
-    const createUser = await userService.createService(req.body).catch((err) => console.log(err.message));
+    // Obtendo o buffer da imagem
+    const avatar = req.file ? req.file.buffer : null;
+
+    if (avatar) {
+      console.log("Avatar received");
+    }
+
+    const createUser = await userService.createService({
+      username,
+      password,
+      level,
+      email,
+      phone,
+      avatar, // Passa o buffer do arquivo para a propriedade "avatar"
+    });
+
+
     if (!createUser) {
       return res.status(400).send({
         message: "Error creating User",
       });
     }
-   
+
     res.status(201).send({
       message: "User created successfully",
       user: {
@@ -32,14 +49,15 @@ const createService = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
 const deleteUser = async (req, res) => {
   const { id } = req.params;
 
   try {
-      await userService.deleteService(id);
-      res.status(204).end();
+    await userService.deleteService(id);
+    res.status(204).end();
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 const findAll = async (req, res) => {
@@ -61,7 +79,7 @@ const findById = async (req, res) => {
     const id = req.params.id;
     const user = await userService.findByIdService(id);
     if (!user) {
-        return res.status(404).send({ message: "User not found" });
+      return res.status(404).send({ message: "User not found" });
     }
     res.send(user);
   } catch (err) {
@@ -70,28 +88,28 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
   //try {
-    const { _id, username, password, level, email, phone } = req.body;
+  const { _id, username, password, level, email, phone } = req.body;
 
-    // Verificando se todos os campos foram enviados
-    if (!username && !password && !level && !email && !phone) {
-      res.status(400).send({
-        message: "Submit at least one field for update",
-      });
-    }
-
-    await userService.updateService(
-      _id,
-      username,
-      password,
-      level,
-      email,
-      phone
-    );
-    res.send({
-      message: "User successfully updated",
+  // Verificando se todos os campos foram enviados
+  if (!username && !password && !level && !email && !phone) {
+    res.status(400).send({
+      message: "Submit at least one field for update",
     });
+  }
+
+  await userService.updateService(
+    _id,
+    username,
+    password,
+    level,
+    email,
+    phone
+  );
+  res.send({
+    message: "User successfully updated",
+  });
   //} //catch (err) {
-    //res.status(500).send({ message: err.message });
+  //res.status(500).send({ message: err.message });
   //}
 };
-export default { createService, findAll, findById, update , deleteUser};
+export default { createService, findAll, findById, update, deleteUser };

@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    image: {
+    avatar: {
         type: Buffer,
     }
 });
@@ -36,19 +36,30 @@ UserSchema.pre("save", async function (next) {
 
 const User = mongoose.model("Users", UserSchema);
 
-// Cria o usuário admin
-const adminUser = new User({
-    username: "admin",
-    password: "admin",
-    level: "Gerente",
-    email: "admin@gmail.com",
-    phone: "(71) 98799-8888",
-});
+// Verifica se o usuário admin já existe
+User.findOne({ username: "admin" })
+  .then((existingUser) => {
+    if (existingUser) {
+      console.log("Usuário admin já existe no banco de dados!");
+    } else {
+      // Cria o usuário admin
+      const adminUser = new User({
+        username: "admin",
+        password: "admin",
+        level: "Gerente",
+        email: "admin@gmail.com",
+        phone: "(71) 98799-8888",
+      });
 
-// Salva o usuário no banco de dados
-adminUser.save()
-  .then(() => {
-    console.log("Usuário admin criado com sucesso!");
+      // Salva o usuário no banco de dados
+      adminUser.save()
+        .then(() => {
+          console.log("Usuário admin criado com sucesso!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   })
   .catch((err) => {
     console.log(err);
