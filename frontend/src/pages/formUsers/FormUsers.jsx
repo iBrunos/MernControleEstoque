@@ -14,7 +14,7 @@ export default function FormUsers() {
     const [phone, setPhone] = useState("");
     const [editingItem, setEditingItem] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
-    const [avatar, setAvatar] = useState(null);
+    const [avatar, setAvatar] = useState();
 
     const changePageTitle = (newTitle) => {
         document.title = newTitle;
@@ -47,17 +47,17 @@ export default function FormUsers() {
 
     const addItem = async (e) => {
         e.preventDefault();
-      
+
         const token = localStorage.getItem("token");
-      
+
         const newItem = {
-          username,
-          password,
-          level,
-          email,
-          phone,
+            username,
+            password,
+            level,
+            email,
+            phone,
         };
-      
+
         // Create a new FormData object
         const formData = new FormData();
         formData.append("avatar", avatar); // Add the image file to the form data
@@ -66,27 +66,27 @@ export default function FormUsers() {
         formData.append("level", newItem.level);
         formData.append("email", newItem.email);
         formData.append("phone", newItem.phone);
-      
+
         try {
-          const response = await axios.post(API_URL, formData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
-            },
-          });
-          setItems([...items, response.data]);
-          setUsername("");
-          setPassword("");
-          setLevel("");
-          setEmail("");
-          setPhone("");
-          setAvatar(null); // Reset the selected image file
-          fetchItems();
+            const response = await axios.post(API_URL, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+                },
+            });
+            setItems([...items, response.data]);
+            setUsername("");
+            setPassword("");
+            setLevel("");
+            setEmail("");
+            setPhone("");
+            setAvatar(null); // Reset the selected image file
+            fetchItems();
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
-      
+    };
+
     const deleteItem = async (id) => {
         const token = localStorage.getItem("token");
         try {
@@ -212,10 +212,8 @@ export default function FormUsers() {
                 />
                 <input
                     type="file"
-                    value={avatar}
                     accept="image/*"
                     onChange={(e) => setAvatar(e.target.files[0])}
-                    class="hidden"
                     placeholder="Insira sua Imagem"
                     className="mr-2 border-gray-300 border rounded-md outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500 pr-[21rem] pb-0"
                 />

@@ -49,6 +49,7 @@ User.findOne({ username: "admin" })
         level: "Gerente",
         email: "admin@gmail.com",
         phone: "(71) 98799-8888",
+        avatar: ""
       });
 
       // Salva o usuário no banco de dados
