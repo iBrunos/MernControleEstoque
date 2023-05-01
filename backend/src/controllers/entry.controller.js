@@ -18,7 +18,6 @@ const createService = async (req, res) => {
             });
         }
 
-
         res.status(201).send({
             message: "Entry created successfully",
             user: {
