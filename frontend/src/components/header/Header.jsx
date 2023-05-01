@@ -28,8 +28,8 @@ const Header = () => {
     navigate("/");
   };
 
-  const API_URL = 'http://localhost:3000/user/';
-  //const API_URL = 'https://api-happy-makeup.onrender.com/user';
+  //const API_URL = 'http://localhost:3000/user/';
+  const API_URL = 'https://api-happy-makeup.onrender.com/user';
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
