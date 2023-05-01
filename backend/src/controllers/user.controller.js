@@ -14,10 +14,6 @@ const createService = async (req, res) => {
     // Obtendo o buffer da imagem
     const avatar = req.file ? req.file.buffer : null;
 
-    if (avatar) {
-      console.log("Avatar received");
-    }
-
     const createUser = await userService.createService({
       username,
       password,
@@ -26,7 +22,6 @@ const createService = async (req, res) => {
       phone,
       avatar, // Passa o buffer do arquivo para a propriedade "avatar"
     });
-
 
     if (!createUser) {
       return res.status(400).send({
@@ -87,29 +82,35 @@ const findById = async (req, res) => {
   }
 };
 const update = async (req, res) => {
-  //try {
-  const { _id, username, password, level, email, phone } = req.body;
+  try {
+    const { _id, username, password, level, email, phone } = req.body;
 
-  // Verificando se todos os campos foram enviados
-  if (!username && !password && !level && !email && !phone) {
-    res.status(400).send({
-      message: "Submit at least one field for update",
+    // Verificando se todos os campos foram enviados
+    if (!username || !password || !level || !email || !phone) {
+      res.status(400).send({
+        message: "Submit at least one field for update",
+      });
+    }
+
+    const avatar = req.file ? req.file.buffer : null;
+
+    await userService.updateService(
+      _id,
+      username,
+      password,
+      level,
+      email,
+      phone,
+      avatar
+    );
+
+    res.send({
+      message: "User successfully updated",
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: err.message });
   }
-
-  await userService.updateService(
-    _id,
-    username,
-    password,
-    level,
-    email,
-    phone
-  );
-  res.send({
-    message: "User successfully updated",
-  });
-  //} //catch (err) {
-  //res.status(500).send({ message: err.message });
-  //}
 };
+
 export default { createService, findAll, findById, update, deleteUser };

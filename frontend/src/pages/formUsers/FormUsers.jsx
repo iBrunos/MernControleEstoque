@@ -20,8 +20,8 @@ export default function FormUsers() {
         document.title = newTitle;
     };
     changePageTitle("Happy Makeup | Usuários");
-    //const API_URL = 'http://localhost:3000/user/';
-    const API_URL = 'https://api-happy-makeup.onrender.com/user';
+    const API_URL = 'http://localhost:3000/user/';
+    //const API_URL = 'https://api-happy-makeup.onrender.com/user';
 
     changePageTitle("Happy Makeup | Cadastro");
 
@@ -80,7 +80,7 @@ export default function FormUsers() {
             setLevel("");
             setEmail("");
             setPhone("");
-            setAvatar(null); // Reset the selected image file
+            setAvatar(""); // Reset the selected image file
             fetchItems();
         } catch (error) {
             console.error(error);
@@ -124,12 +124,23 @@ export default function FormUsers() {
             level,
             email,
             phone,
+            avatar
         };
-
+        const formData = new FormData();
+        formData.append("_id", updatedItem._id)
+        formData.append("avatar", updatedItem.avatar); // Add the image file to the form data
+        formData.append("username", updatedItem.username);
+        formData.append("password", updatedItem.password);
+        formData.append("level", updatedItem.level);
+        formData.append("email", updatedItem.email);
+        formData.append("phone", updatedItem.phone);
         const token = localStorage.getItem("token");
 
-        const response = await axios.put(`${API_URL}/${editingItem}`, updatedItem, {
-            headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.put(`${API_URL}/${editingItem}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            },
         });
         setItems(
             items.map((item) => (item._id === editingItem ? response.data : item))
@@ -139,6 +150,7 @@ export default function FormUsers() {
         setLevel("");
         setEmail("");
         setPhone("");
+        setAvatar("");
         setEditingItem(null);
         fetchItems();
     };

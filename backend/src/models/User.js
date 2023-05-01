@@ -34,13 +34,18 @@ UserSchema.pre("save", async function (next) {
     next();
 });
 
+UserSchema.pre("findOneAndUpdate", async function (next) {
+  this._update.password = await bcrypt.hash(this._update.password, 10);
+  next();
+});
+
+
 const User = mongoose.model("Users", UserSchema);
 
 // Verifica se o usuário admin já existe
 User.findOne({ username: "admin" })
   .then((existingUser) => {
     if (existingUser) {
-      console.log("Usuário admin já existe no banco de dados!");
     } else {
       // Cria o usuário admin
       const adminUser = new User({
@@ -55,7 +60,6 @@ User.findOne({ username: "admin" })
       // Salva o usuário no banco de dados
       adminUser.save()
         .then(() => {
-          console.log("Usuário admin criado com sucesso!");
         })
         .catch((err) => {
           console.log(err);

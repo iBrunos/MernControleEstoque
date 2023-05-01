@@ -27,24 +27,33 @@ const Header = () => {
     localStorage.removeItem("userId");
     navigate("/");
   };
-  useEffect(() => {
-    setIsGerente(level === "Gerente");
-  }, [level]);
+
+  const API_URL = 'http://localhost:3000/user/';
+  //const API_URL = 'https://api-happy-makeup.onrender.com/user';
 
   useEffect(() => {
+    setIsGerente(level === "Gerente");
+    fetchItems();
+  }, [level]);
+
+  const fetchItems = async () => {
     const token = localStorage.getItem("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    // Faz uma chamada para sua API para obter a imagem do MongoDB
-    axios.get(`https://api-happy-makeup.onrender.com/user/${userId}`,config).then((response) => {
+  
+    try {
+      const response = await axios.get(`${API_URL}/${userId}`, config);
       // Converte o buffer da imagem em um array de bytes
-    const imageBuffer = response.data.avatar.data; // obtém o buffer de imagem do response
-    const blob = new Blob([new Uint8Array(imageBuffer)], { type: "image/png" }); // cria um objeto Blob a partir do buffer
-    const imageUrl = URL.createObjectURL(blob); // cria um URL para o objeto Blob
-    setImageSrc(imageUrl); // define a URL como a fonte da imagem
-    });
-  }, []);
+      const imageBuffer = response.data.avatar.data; // obtém o buffer de imagem do response
+      const blob = new Blob([new Uint8Array(imageBuffer)], { type: "image/png" }); // cria um objeto Blob a partir do buffer
+      const imageUrl = URL.createObjectURL(blob); // cria um URL para o objeto Blob
+      setImageSrc(imageUrl); // define a URL como a fonte da imagem
+  
+    } catch (error) {
+      console.error(error);
+    }
+  }; 
   
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
