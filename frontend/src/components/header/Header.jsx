@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-import avatar from "./../../assets/imgs/avatar.png";
 import StoreIcon from "@mui/icons-material/Store";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
@@ -10,6 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +18,8 @@ const Header = () => {
   const user = localStorage.getItem("username");
   const email = localStorage.getItem("email");
   const level = localStorage.getItem("level");
+  const userId = localStorage.getItem("userId");
+  const [imageSrc, setImageSrc] = useState("");
   const navigateToLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
@@ -29,6 +31,21 @@ const Header = () => {
     setIsGerente(level === "Gerente");
   }, [level]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    // Faz uma chamada para sua API para obter a imagem do MongoDB
+    axios.get(`http://localhost:3000/user/${userId}`,config).then((response) => {
+      // Converte o buffer da imagem em um array de bytes
+    const imageBuffer = response.data.avatar.data; // obtém o buffer de imagem do response
+    const blob = new Blob([new Uint8Array(imageBuffer)], { type: "image/png" }); // cria um objeto Blob a partir do buffer
+    const imageUrl = URL.createObjectURL(blob); // cria um URL para o objeto Blob
+    setImageSrc(imageUrl); // define a URL como a fonte da imagem
+    });
+  }, []);
+  
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -117,11 +134,7 @@ const Header = () => {
                 <div
                   className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-pink-500 ring-4 z-40"
                 >
-                  <img
-                    src={avatar}
-                    className="w-full h-full rounded-full"
-                    alt="Avatar do Usuário"
-                  />
+                   <img src={imageSrc} alt="Avatar" />
                 </div>
                 <div className="">
                   <span className="block font-semibold text-black m-0">
