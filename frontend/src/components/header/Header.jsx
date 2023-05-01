@@ -37,7 +37,7 @@ const Header = () => {
       headers: { Authorization: `Bearer ${token}` },
     };
     // Faz uma chamada para sua API para obter a imagem do MongoDB
-    axios.get(`https://api-happy-makeup.onrender.com/${userId}`,config).then((response) => {
+    axios.get(`https://api-happy-makeup.onrender.com/user/${userId}`,config).then((response) => {
       // Converte o buffer da imagem em um array de bytes
     const imageBuffer = response.data.avatar.data; // obtém o buffer de imagem do response
     const blob = new Blob([new Uint8Array(imageBuffer)], { type: "image/png" }); // cria um objeto Blob a partir do buffer
