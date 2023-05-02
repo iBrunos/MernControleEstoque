@@ -325,10 +325,10 @@ export default function FormProducts() {
                         {item.inserted_by}
                       </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
-                        {formatDateHours(item.created_at)}
+                        {formatDateHours(item.createdAt)}
                       </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
-                        {formatDateHours(item.updated_at)}
+                        {formatDateHours(item.updatedAt)}
                       </td>
                       <td className=" px-6 whitespace-nowrap">
                         <button
