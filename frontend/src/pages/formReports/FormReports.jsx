@@ -14,8 +14,8 @@ export default function FormReports() {
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tipo, setTipo] = useState("todos");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [entryCount, setEntryCount] = useState(0);
   const [exitCount, setExitCount] = useState(0);
 
@@ -28,8 +28,8 @@ export default function FormReports() {
     setSearchTerm("");
     setTipo("");
     setUser("");
-    setStartDate(null);
-    setEndDate(null);
+    setStartDate("");
+    setEndDate("");
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function FormReports() {
       const userMatches = user === "todos" || entry.inserted_by === user;
       const dateMatches =
         (!startDate ||
-          moment(entry.created_at).isSameOrAfter(moment(startDate))) &&
+          moment(entry.createdAt).isSameOrAfter(moment(startDate))) &&
         (!endDate || moment(entry.created_at).isSameOrBefore(moment(endDate)));
 
       return searchTermMatches && typeMatches && userMatches && dateMatches;
@@ -73,7 +73,7 @@ export default function FormReports() {
       const dateMatches =
         (!startDate ||
           moment(exit.created_at).isSameOrAfter(moment(startDate))) &&
-        (!endDate || moment(exit.created_at).isSameOrBefore(moment(endDate)));
+        (!endDate || moment(exit.createdAt).isSameOrBefore(moment(endDate)));
 
       return searchTermMatches && typeMatches && userMatches && dateMatches;
     });
@@ -293,10 +293,10 @@ export default function FormReports() {
                       {item.inserted_by}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.created_at)}
+                      {formatDateHours(item.createdAt)}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.updated_at)}
+                      {formatDateHours(item.updatedAt)}
                     </td>
                     <td className=" px-6 whitespace-nowrap"></td>
                   </tr>
