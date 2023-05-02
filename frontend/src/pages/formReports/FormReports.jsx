@@ -26,8 +26,8 @@ export default function FormReports() {
 
   const handleClearFilters = () => {
     setSearchTerm("");
-    setTipo("");
-    setUser("");
+    setTipo("todos");
+    setUser("todos");
     setStartDate("");
     setEndDate("");
   };
