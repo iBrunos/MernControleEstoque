@@ -27,6 +27,10 @@ export default function FormReports() {
   const handleClearFilters = () => {
     location.reload()
   };
+  
+  const handlePrint = () => {
+    window.print();
+  };
 
   useEffect(() => {
     fetchItems();
@@ -184,6 +188,12 @@ export default function FormReports() {
           onClick={handleClearFilters}
         >
           Limpar Filtros
+        </button>
+        <button
+          className="ml-2 mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          onClick={handlePrint}
+        >
+          Imprimir
         </button>
       </form>
       <div className="p-0 m-2 mb-0 text-center">
