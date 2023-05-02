@@ -14,8 +14,8 @@ export default function FormReports() {
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tipo, setTipo] = useState("todos");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [entryCount, setEntryCount] = useState(0);
   const [exitCount, setExitCount] = useState(0);
 
@@ -28,8 +28,8 @@ export default function FormReports() {
     setSearchTerm("");
     setTipo("todos");
     setUser("todos");
-    setStartDate("");
-    setEndDate("");
+    setStartDate(null);
+    setEndDate(null);
   };
 
   useEffect(() => {
