@@ -25,7 +25,7 @@ export default function FormReports() {
   changePageTitle("Happy Makeup | Estoque");
 
   const handleClearFilters = () => {
-    document.window.reload()
+    location.reload()
   };
 
   useEffect(() => {
