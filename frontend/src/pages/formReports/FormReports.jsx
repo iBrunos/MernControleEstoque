@@ -14,8 +14,8 @@ export default function FormReports() {
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tipo, setTipo] = useState("todos");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [entryCount, setEntryCount] = useState(0);
   const [exitCount, setExitCount] = useState(0);
 
@@ -25,11 +25,7 @@ export default function FormReports() {
   changePageTitle("Happy Makeup | Estoque");
 
   const handleClearFilters = () => {
-    setSearchTerm("");
-    setTipo("todos");
-    setUser("todos");
-    setStartDate(null);
-    setEndDate(null);
+    document.window.reload()
   };
 
   useEffect(() => {
