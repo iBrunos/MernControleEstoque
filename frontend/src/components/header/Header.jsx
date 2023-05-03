@@ -195,29 +195,57 @@ const Header = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
           <Link
-            to="/pt-br/sobre"
+            to="/user/estoque"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Sobre a Archei
+            Estoque
           </Link>
           <Link
-            to="/pt-br/oque-fazemos"
+            to="/user/cadastro"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            O que fazemos
+            Cadastro
           </Link>
           <Link
-            to="/pt-br/nosso-trabalho"
+            to="/user/entradas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Nosso trabalho
+            Entradas
           </Link>
           <Link
-            to="/pt-br/contato"
+            to="/user/saidas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Entre em contato
+            Saídas
           </Link>
+          {isGerente ? (
+                <Link
+                  to="/user/usuarios"
+                  className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+                >
+                  
+                  Usuários
+                </Link>
+              ) : (
+                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                  
+                  Usuários
+                </span>
+              )}
+              {isGerente ? (
+                <NavLink
+                  to="/user/relatorios"
+                  className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
+                >
+                  
+                  Relatórios
+                </NavLink>
+              ) : (
+                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden">
+                  
+                  Relatórios
+                </span>
+              )}
         </div>
       </nav>
     </header>

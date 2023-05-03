@@ -74,7 +74,7 @@ export default function Login() {
     <nav className="bg-pink-500">
         <div className="flex items-center space-x-8 py-[1.3rem] px-4 max-w-screen-2xl mx-auto md:px-8 ml-48">
           <div className="flex-none lg:flex-initial">
-            <h1 className="text-4xl font-bold text-white">
+            <h1 className="text-4xl font-bold text-black">
               HAPPY MAKEUP
             </h1>
           </div>
