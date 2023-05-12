@@ -156,7 +156,7 @@ const Header = () => {
                 />
               </div>
               <div className="">
-                <span className="lg:block hidden font-semibold text-black m-0">
+                <span className="lg:block hidden font-semibold text-white m-0">
                   {user}
                 </span>
                 <span className="lg:block hidden text-sm text-black">{email}</span>
@@ -164,7 +164,7 @@ const Header = () => {
             </div>
             <button
               onClick={navigateToLogout}
-              className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[18rem] hidden lg:block mt-4 mb-4"
+              className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[18rem] hidden lg:block mt-4 mb-4"
             >
               <LogoutIcon className="mr-1 font-bold" />
               Sair

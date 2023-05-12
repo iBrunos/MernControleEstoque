@@ -3,9 +3,9 @@ import axios from "axios";
 import unidecode from "unidecode";
 import Header from "../../components/header/Header";
 import moment from "moment";
-import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-import PaidIcon from '@mui/icons-material/Paid';
+import ContentPasteGoIcon from "@mui/icons-material/ContentPasteGo";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import PaidIcon from "@mui/icons-material/Paid";
 
 export default function FormReports() {
   const [itemsEntrys, setItemsEntrys] = useState([]);
@@ -22,12 +22,12 @@ export default function FormReports() {
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
-  changePageTitle("Happy Makeup | Estoque");
+  changePageTitle("Happy Makeup | Relatórios");
 
   const handleClearFilters = () => {
-    location.reload()
+    location.reload();
   };
-  
+
   const handlePrint = () => {
     window.print();
   };
@@ -120,8 +120,8 @@ export default function FormReports() {
   return (
     <>
       <Header />
-      <form className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0">
-        <section className="flex items-center space-x-2 border rounded-md p-2 ">
+      <form className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0">
+        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 lg:w-64 w-[20rem] ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -137,7 +137,7 @@ export default function FormReports() {
             />
           </svg>
           <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-64 "
+            className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-64 w-[20rem]"
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
             placeholder="Pesquisar"
@@ -145,7 +145,7 @@ export default function FormReports() {
           />
         </section>
         <select
-          className="ml-2 flex items-center space-x-2 border rounded-md p-2 text-gray-500"
+          className="lg:ml-2 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 w-44"
           onChange={(e) => setTipo(e.target.value)}
           value={tipo}
         >
@@ -155,7 +155,7 @@ export default function FormReports() {
         </select>
 
         <select
-          className="ml-2 flex items-center space-x-2 border rounded-md p-2 text-gray-500"
+          className="lg:ml-2 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 w-44"
           onChange={(e) => setUser(e.target.value)}
           value={user}
         >
@@ -171,26 +171,26 @@ export default function FormReports() {
           ))}
         </select>
         <input
-          className="ml-2 border rounded-md p-2 text-gray-500"
+          className="lg:ml-2 ml-0 border rounded-md p-2 text-gray-500 w-36 lg:mt-0 mt-2"
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
         <p className="p-2 ml-2">até</p>
         <input
-          className="ml-2 border rounded-md p-2 text-gray-500"
+          className="lg:ml-2 ml-0 border rounded-md p-2 text-gray-500 w-36"
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
         <button
-          className="ml-2 mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          className="block mr-1 lg:mt-0 mt-2 w-[10rem] border rounded-md lg:ml-2 ml-0 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
           onClick={handleClearFilters}
         >
           Limpar Filtros
         </button>
         <button
-          className="ml-2 mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          className="block mr-1 lg:mt-0 mt-2 w-[10rem] border rounded-md lg:ml-2 ml-0 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
           onClick={handlePrint}
         >
           Imprimir
@@ -201,58 +201,58 @@ export default function FormReports() {
           RELÁTORIOS
         </h3>
       </div>
-      <div className="m-1 flex flex-row items-center justify-center">
-        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div className="p-4 flex items-center">
-            <div className="p-3 rounded-full text-red-500 dark:text-red-100 bg-red-100 dark:bg-red-500 mr-4">
+      <div className="m-1 flex flex-row items-center justify-center ">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border lg:mr-4 mr-0 lg:ml-7 ml-0 lg:pr-16 pr-8 lg:pb-8 pb-4">
+          <div className="lg:p-4 p-1 flex items-center">
+            <div className="lg:p-3 p-1 rounded-full text-red-500 dark:text-red-100 bg-red-100 dark:bg-red-500 lg:mr-4 mr-2">
               <ContentPasteGoIcon></ContentPasteGoIcon>
             </div>
             <div>
-              <p className="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 lg:text-lg text-xs font-normal text-gray-500">
                 Entradas
               </p>
-              <p className="text-3xl font-bold text-red-700">
-              {"R$: " + entryCount }
+              <p className="lg:text-3xl text-xs font-bold text-red-700">
+                {"R$: " + entryCount}
               </p>
             </div>
           </div>
         </div>
-        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div className="p-4 flex items-center">
-            <div className="p-3 rounded-full text-green-500 dark:text-green-100 bg-green-100 dark:bg-green-500 mr-4">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border lg:mr-4 mr-0 lg:ml-7 ml-1 lg:pr-16 pr-8 lg:pb-8 pb-4">
+          <div className="lg:p-4 p-1 flex items-center">
+            <div className="lg:p-3 p-1 rounded-full text-green-500 dark:text-green-100 bg-green-100 dark:bg-green-500 lg:mr-4 mr-2">
               <RequestQuoteIcon></RequestQuoteIcon>
             </div>
             <div>
-              <p className="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 lg:text-lg text-xs font-normal text-gray-500">
                 Saídas
               </p>
-              <p className="text-3xl font-bold text-green-700">
-              {"R$: " + exitCount }
+              <p className="lg:text-3xl text-xs font-bold text-green-700">
+                {"R$: " + exitCount}
               </p>
             </div>
           </div>
         </div>
-        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border mr-4 ml-7 pr-16 pb-8">
-          <div className="p-4 flex items-center">
-            <div className="p-3 rounded-full text-blue-500 dark:text-blue-100 bg-blue-100 dark:bg-blue-500 mr-4">
+        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white border-gray-200 border lg:mr-4 mr-0 lg:ml-7 ml-1 lg:pr-16 pr-8 lg:pb-8 pb-4">
+          <div className="lg:p-4 p-1 flex items-center">
+            <div className="lg:p-3 p-1 rounded-full text-blue-500 dark:text-blue-100 bg-blue-100 dark:bg-blue-500 lg:mr-4 mr-2">
               <PaidIcon></PaidIcon>
             </div>
             <div>
-              <p className="mb-2 text-lg font-normal text-gray-500">
+              <p className="mb-2 lg:text-lg text-xs font-normal text-gray-500">
                 Lucro
               </p>
-              <p className="text-3xl font-bold text-grey-700">
-              {"R$: " + (exitCount - entryCount)}
+              <p className="lg:text-3xl text-xs font-bold text-grey-700">
+                {"R$: " + (exitCount - entryCount)}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-white mx-auto w-[116rem]">
+      <div className="overflow-x-auto max-h-[44rem]">
         <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[39rem] ">
           <table className="w-full table-auto text-sm text-left">
             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-              <tr>
+              <tr className="">
                 <th className="py-3 px-6">Produto</th>
                 <th className="py-3 px-6">Quantidade</th>
                 <th className="py-3 px-6">Tipo</th>
@@ -262,7 +262,7 @@ export default function FormReports() {
                 <th className="py-3 px-6">Data Modificação</th>
               </tr>
             </thead>
-            <tbody className="text-gray-600 divide-y">
+            <tbody className="text-gray-600 divide-y border-b-[0.05rem] border-t-[0.1rem]">
               {itemsEntrys
                 .filter((item) => {
                   const searchTermUnidecoded = unidecode(
@@ -308,7 +308,7 @@ export default function FormReports() {
                   </tr>
                 ))}
             </tbody>
-            <tbody className="text-gray-600 divide-y border-t-[0.1rem] border-gray-200">
+            <tbody className="text-gray-600 divide-y border-t-[0.05rem] border-gray-200">
               {itemsExits
                 .filter((item) => {
                   const searchTermUnidecoded = unidecode(
