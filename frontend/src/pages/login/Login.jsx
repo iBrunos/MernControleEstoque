@@ -86,7 +86,7 @@ export default function Login() {
           <p className="text-4xl font-bold text-gray-900">
             Bem vindo,
           </p>
-          <p className="text-2xl font-semibold text-gray-900 mt-1 mb-3">
+          <p className="text-2xl font-sans text-gray-900 mt-1 mb-3">
             Para continuar realize o login.
           </p>
           <div className="flex flex-col">

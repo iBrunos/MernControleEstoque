@@ -160,199 +160,198 @@ export default function FormProducts() {
 
   return (
     <>
-      <Header />
-      <form
-        onSubmit={editingItem !== null ? updateItem : addItem}
-        className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
-      >
-        <div className="relative w-80 mr-2 ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-          {items2.length === 0 ? (
-            <p className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer">Cadastre um produto. </p>
-          ) : (
-            <div>
-              <select
-                className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
-                required // adicionado o atributo required
-              >
-                <option value="">Selecione um produto</option>
-                {items2.map((item2) => (
-                  <option
-                    key={item2.id}
-                    className="hover:text-pink-500 hover:bg-pink-50"
-                    value={item2.product}
-                  >
-                    {item2.product}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-        </div>
-
-        <input
-          type="text"
-          value={observation}
-          placeholder="Observação"
-          onChange={(e) => setObservation(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[30rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
-        />
-        <input
-          type="number"
-          value={amount}
-          placeholder="Quantidade"
-          onChange={(e) => setAmount(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
-          min="0"
-          max="9999.99"
-          required
-        />
-        <input
-          type="number"
-          inputMode="decimal"
-          value={exit_price}
-          placeholder="Preço de Saída"
-          onChange={(e) => setExit_price(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
-          min="0"
-          max="9999.99"
-          step="0.01"
-          required
-        />
-
-        <button
-          type="submit"
-          className="mr-10 border rounded-md p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+    <Header />
+    <form
+      onSubmit={editingItem !== null ? updateItem : addItem}
+      className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
+    >
+      <div className="relative w-80 mr-2 ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
-          {editingItem !== null ? "Salvar Saída" : "Adicionar Saída"}
-        </button>
-        <section className="flex items-center space-x-2 border rounded-md p-2 ml-36 focus:border-pink-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 flex-none text-gray-300"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-          <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-64 "
-            onChange={(e) => setSearchTerm(e.target.value)}
-            type="text"
-            placeholder="Pesquisar"
-            id="input__pesquisar"
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
           />
-        </section>
-      </form>
-      <div className="p-0 m-2 text-center">
-        <h3 className="text-gray-800 text-4xl font-bold text-center ">
-          SAÍDA DE PRODUTOS
-        </h3>
+        </svg>
+        {items2.length === 0 ? (
+          <p className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer">Cadastre um produto. </p>
+        ) : (
+          <div>
+            <select
+              className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+              required // adicionado o atributo required
+            >
+              <option value="">Selecione um produto</option>
+              {items2.map((item2) => (
+                <option
+                  key={item2.id}
+                  className="hover:text-pink-500 hover:bg-pink-50"
+                  value={item2.product}
+                >
+                  {item2.product}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
-      <div className="bg-white mx-auto px-4 md:px-8">
-        <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
-          {items.length === 0 ? (
-            <p className="text-gray-800 text-4xl font-extralight text-center ">
-              {" "}
-              Nenhuma saída encontrada.
-            </p>
-          ) : (
-            <table className="w-full table-auto text-sm text-left">
-              <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-                <tr>
-                  <th className="py-3 px-6">Produto</th>
-                  <th className="py-3 px-6">Observação</th>
-                  <th className="py-3 px-6">Quantidade</th>
-                  <th className="py-3 px-2">Preço de Saida</th>
-                  <th className="py-3 px-6">Funcionário</th>
-                  <th className="py-3 px-6">Criado</th>
-                  <th className="py-3 px-6">Editado</th>
-                  <th className="py-3 px-6">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 divide-y">
-                {items
-                  .filter((item) => {
-                    const searchTermUnidecoded = unidecode(
-                      searchTerm?.toLowerCase() || ""
-                    );
-                    const itemUserUnidecoded = unidecode(
-                      item.product?.toLowerCase() || ""
-                    ); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
-                    if (searchTermUnidecoded === "") {
-                      return item;
-                    } else if (
-                      itemUserUnidecoded.includes(searchTermUnidecoded)
-                    ) {
-                      return item;
-                    }
-                    return null;
-                  })
-                  .map((item) => (
-                    <tr key={item.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {item.product}
-                      </td>
-                      <td className="px-6 py-4 whitespace-normal break-words w-[40rem]">
-                        {item.observation}
-                      </td>
-                      <td className="px-6 py-4 whitespace-normal break-words">
-                        {item.amount}
-                      </td>
-                      <td className="px-6 py-4 whitespace-normal break-words">
-                        R$: {item.exit_price}
-                      </td>
-                      <td className="px-8 py-4 whitespace-nowrap">
-                        {item.inserted_by}
-                      </td>
-                      <td className="px-6 py-4 whitespace-normal break-words">
-                        {formatDateHours(item.createdAt)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-normal break-words">
-                        {formatDateHours(item.updatedAt)}
-                      </td>
-                      <td className=" px-6 whitespace-nowrap">
-                        <button
-                          onClick={() => editItem(item._id)}
-                          className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
-                        >
-                          <EditIcon className="mr-1" />
-                          Editar
-                        </button>
-                        <button
-                          onClick={() => deleteItem(item._id)}
-                          className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
-                        >
-                          <DeleteForeverIcon className="mr-1" />
-                          Deletar
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+
+      <input
+        type="text"
+        value={observation}
+        placeholder="Observação"
+        onChange={(e) => setObservation(e.target.value)}
+        className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+      />
+      <input
+        type="number"
+        value={amount}
+        placeholder="Quantidade"
+        onChange={(e) => setAmount(e.target.value)}
+        className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+        min="0"
+        max="9999"
+        required
+      />
+      <input
+        type="number"
+        inputMode="decimal"
+        value={exit_price}
+        placeholder="Preço de Saída"
+        onChange={(e) => setExit_price(e.target.value)}
+        className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+        min="0"
+        max="9999.99"
+        step="0.01"
+        required
+      />
+      <button
+        type="submit"
+        className="mr-10 border rounded-md p-2 lg:mt-0 mt-2 bg-pink-500 text-white font-medium hover:bg-pink-600 w-40 lg:w-52"
+      >
+        {editingItem !== null ? "Salvar Saída" : "Adicionar Saída"}
+      </button>
+      <section className="flex items-center border rounded-md p-2 lg:ml-36 ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 flex-none text-gray-300"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <input
+          className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-64 w-32 "
+          onChange={(e) => setSearchTerm(e.target.value)}
+          type="text"
+          placeholder="Pesquisar"
+          id="input__pesquisar"
+        />
+      </section>
+    </form>
+    <div className="p-0 m-2 text-center">
+      <h3 className="text-gray-800 text-4xl font-bold text-center ">
+        SAÍDA DE PRODUTOS
+      </h3>
+    </div>
+    <div className="bg-white mx-auto px-4 md:px-8">
+      <div className="mt-1 shadow-sm border rounded-lg overflow-x-auto max-h-[44rem]">
+        {items.length === 0 ? (
+          <p className="text-gray-800 text-4xl font-extralight text-center ">
+            {" "}
+            Nenhuma saída encontrada.
+          </p>
+        ) : (
+          <table className="w-full table-auto text-sm text-left">
+            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+              <tr>
+                <th className="py-3 px-6">Produto</th>
+                <th className="py-3 px-6">Observação</th>
+                <th className="py-3 px-6">Quantidade</th>
+                <th className="py-3 px-6">Preço de Saída</th>
+                <th className="py-3 px-6">Funcionário</th>
+                <th className="py-3 px-6">Criado</th>
+                <th className="py-3 px-6">Editado</th>
+                <th className="py-3 px-6">Ações</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-600 divide-y">
+              {items
+                .filter((item) => {
+                  const searchTermUnidecoded = unidecode(
+                    searchTerm?.toLowerCase() || ""
+                  );
+                  const itemUserUnidecoded = unidecode(
+                    item.product?.toLowerCase() || ""
+                  ); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
+                  if (searchTermUnidecoded === "") {
+                    return item;
+                  } else if (
+                    itemUserUnidecoded.includes(searchTermUnidecoded)
+                  ) {
+                    return item;
+                  }
+                  return null;
+                })
+                .map((item) => (
+                  <tr key={item.id}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.product}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words w-[40rem]">
+                      {item.observation}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {item.amount}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      R$: {item.exit_price}
+                    </td>
+                    <td className="px-8 py-4 whitespace-nowrap">
+                      {item.inserted_by}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {formatDateHours(item.created_at)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {formatDateHours(item.updated_at)}
+                    </td>
+                    <td className=" px-6 whitespace-nowrap">
+                      <button
+                        onClick={() => editItem(item._id)}
+                        className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
+                      >
+                        <EditIcon className="mr-1" />
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => deleteItem(item._id)}
+                        className="py-1 leading-none px-2 font-medium text-white duration-150 bg-red-600 hover:bg-red-700 rounded-lg"
+                      >
+                        <DeleteForeverIcon className="mr-1" />
+                        Deletar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
       </div>
-    </>
+    </div>
+  </>
   );
 }
