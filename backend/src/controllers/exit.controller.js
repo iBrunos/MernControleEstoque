@@ -92,7 +92,6 @@ const update = async (req, res) => {
             inserted_by,
             type
         );
-        console.log("a")
         res.send({
             message: "Exit successfully updated",
         });
