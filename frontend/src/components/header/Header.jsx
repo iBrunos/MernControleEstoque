@@ -57,12 +57,12 @@ const Header = () => {
       console.error(error);
     }
   };
-  
+
   const checkImageSrc = () => {
     if (!imageSrc) {
-    setImageSrc(avatarDefault);
+      setImageSrc(avatarDefault);
     }
-    };
+  };
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -147,28 +147,28 @@ const Header = () => {
           </div>
           <div className="flex">
             <div className="flex items-center space-x-4 ml-10">
-                  <div className="relative w-14 h-14 lg:w-16 sm:h-16">
-                    <span className="absolute -bottom-px right-1 lg:w-4 lg:h-4 w-3 h-3 rounded-full border border-white bg-green-500"></span>
-                    <img
-                      src={imageSrc}
-                      alt="Avatar do Usúario"
-                      className="w-full h-full rounded-full border lg:border-2"
-                    />
-                  </div>
-                  <div className="">
-                    <span className="lg:block hidden font-semibold text-black m-0">
-                      {user}
-                    </span>
-                    <span className="lg:block hidden text-sm text-black">{email}</span>
-                  </div>
-                </div>
-                <button
-                  onClick={navigateToLogout}
-                  className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[18rem] hidden lg:block mt-4 mb-4"
-                >
-                  <LogoutIcon className="mr-1 font-bold" />
-                  Sair
-                </button>
+              <div className="relative w-14 h-14 lg:w-16 sm:h-16">
+                <span className="absolute -bottom-px right-1 lg:w-4 lg:h-4 w-3 h-3 rounded-full border border-white bg-green-500"></span>
+                <img
+                  src={imageSrc}
+                  alt="Avatar do Usúario"
+                  className="w-full h-full rounded-full border lg:border-2"
+                />
+              </div>
+              <div className="">
+                <span className="lg:block hidden font-semibold text-black m-0">
+                  {user}
+                </span>
+                <span className="lg:block hidden text-sm text-black">{email}</span>
+              </div>
+            </div>
+            <button
+              onClick={navigateToLogout}
+              className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[18rem] hidden lg:block mt-4 mb-4"
+            >
+              <LogoutIcon className="mr-1 font-bold" />
+              Sair
+            </button>
           </div>
           <div className="flex items-center sm:hidden">
             <button
@@ -198,54 +198,62 @@ const Header = () => {
             to="/user/estoque"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Estoque
+            <StoreIcon className="mr-1 font-bold" /> Estoque
           </Link>
           <Link
             to="/user/cadastro"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Cadastro
+            <AppRegistrationIcon className="mr-1 font-bold" /> Cadastro
           </Link>
           <Link
             to="/user/entradas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Entradas
+            <AddShoppingCartIcon className="mr-1 font-bold" /> Entradas
           </Link>
           <Link
             to="/user/saidas"
             className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
-            Saídas
+            <RemoveShoppingCartIcon className="mr-1 font-bold" /> Saídas
           </Link>
+
+
           {isGerente ? (
-                <Link
-                  to="/user/usuarios"
-                  className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
-                >
-                  
-                  Usuários
-                </Link>
-              ) : (
-                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
-                  
-                  Usuários
-                </span>
-              )}
-              {isGerente ? (
-                <NavLink
-                  to="/user/relatorios"
-                  className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
-                >
-                  
-                  Relatórios
-                </NavLink>
-              ) : (
-                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden">
-                  
-                  Relatórios
-                </span>
-              )}
+            <Link
+              to="/user/usuarios"
+              className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+            >
+
+              <AccountCircleIcon className="mr-1 font-bold" /> Usuários
+            </Link>
+          ) : (
+            <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+
+              Usuários
+            </span>
+          )}
+          {isGerente ? (
+            <NavLink
+              to="/user/relatorios"
+              className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
+            >
+
+              <StickyNote2Icon className="mr-1 font-bold" /> Relatórios
+            </NavLink>
+          ) : (
+            <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden">
+
+              Relatórios
+            </span>
+          )}
+          <button
+            onClick={navigateToLogout}
+            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+          >
+            <LogoutIcon className="mr-1 font-bold" /> Sair
+          </button>
         </div>
       </nav>
     </header>
