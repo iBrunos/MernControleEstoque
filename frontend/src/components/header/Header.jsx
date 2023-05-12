@@ -193,10 +193,10 @@ const Header = () => {
         className={`sm:hidden ${isMenuOpen ? "block" : "hidden"}`}
         id="mobile-menu"
       >
-        <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className=" px-2 pt-2 pb-3 space-y-1 grid grid-cols-2">
           <Link
             to="/user/estoque"
-            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+            className=" block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
             <StoreIcon className="mr-1 font-bold" /> Estoque
           </Link>
@@ -250,7 +250,7 @@ const Header = () => {
           )}
           <button
             onClick={navigateToLogout}
-            className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+            className=" ml-[-7rem] block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
           >
             <LogoutIcon className="mr-1 font-bold" /> Sair
           </button>
