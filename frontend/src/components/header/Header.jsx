@@ -75,7 +75,7 @@ const Header = () => {
           <div className="flex items-center">
             <Link
               to="/user/estoque"
-              className="flex-shrink-0 flex items-center ml-10 mr-40"
+              className="flex-shrink-0 flex items-center ml-10 mr-20 lg:mr-40"
             >
               <h1 className="text-2xl font-bold text-black lg:hidden block">
                 HAPPY MAKEUP
