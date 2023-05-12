@@ -158,7 +158,7 @@ export default function FormUsers() {
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
-        className="flex flex-row mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
+        className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
       >
         <input
           type="text"
@@ -166,7 +166,7 @@ export default function FormUsers() {
           placeholder="Usuário"
           onChange={(e) => setUsername(e.target.value)}
           required
-          className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           id="input__product"
         />
         <input
@@ -175,9 +175,9 @@ export default function FormUsers() {
           placeholder="Senha"
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="mr-2 border-gray-300 border rounded-md p-2 w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
-        <div className="relative w-40 mr-2 text-pink-500">
+        <div className="relative w-40 mr-2 text-pink-500 lg:mt-0 mt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
@@ -211,18 +211,18 @@ export default function FormUsers() {
           value={email}
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
         <input
           type="text"
           value={phone}
           placeholder="Telefone"
           onChange={(e) => setPhone(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 w-[10rem] outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
         <label
           htmlFor="meuArquivo"
-          className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-3 rounded cursor-pointer"
+          className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded cursor-pointer lg:mt-0 mt-2 w-[9rem]"
         >
           Escolher Foto
         </label>
@@ -235,12 +235,12 @@ export default function FormUsers() {
         />
         <button
           type="submit"
-          className=" block mr-16 border rounded-md ml-2 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          className=" block mr-16 lg:mt-0 mt-2 w-[10rem] border rounded-md lg:ml-2 ml-0 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
         >
           {editingItem !== null ? "Salvar Usuário" : "Adicionar Usuário"}
         </button>
 
-        <section className="flex items-center space-x-2 border rounded-md p-2 ml-[0rem] focus:border-pink-500">
+        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 lg:w-64 w-[20rem] focus:border-pink-500 ml-[24rem]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -256,7 +256,7 @@ export default function FormUsers() {
             />
           </svg>
           <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 w-64"
+            className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-64 w-[20rem]"
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
             placeholder="Pesquisar"
