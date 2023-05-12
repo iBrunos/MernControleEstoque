@@ -87,14 +87,14 @@ const Header = () => {
             <div className="hidden sm:ml-6 sm:flex">
               <Link
                 to="/user/estoque"
-                className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <StoreIcon className="mr-1 font-bold" />
                 Estoque
               </Link>
               <Link
                 to="/user/cadastro"
-                className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <AppRegistrationIcon className="mr-1 font-bold" />
                 Cadastro
@@ -102,14 +102,14 @@ const Header = () => {
 
               <Link
                 to="/user/entradas"
-                className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <AddShoppingCartIcon className="mr-1 font-bold" />
                 Entradas
               </Link>
               <Link
                 to="/user/saidas"
-                className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <RemoveShoppingCartIcon className="mr-1 font-bold" />
                 Saídas
@@ -118,13 +118,13 @@ const Header = () => {
               {isGerente ? (
                 <Link
                   to="/user/usuarios"
-                  className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
                 </Link>
               ) : (
-                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                <span className="px-3 py-2 text-pink-bg-pink-400 rounded-md font-medium mr-2 text-lg cursor-auto hidden">
                   <AccountCircleIcon className="mr-1 font-bold" />
                   Usuários
                 </span>
@@ -132,13 +132,13 @@ const Header = () => {
               {isGerente ? (
                 <NavLink
                   to="/user/relatorios"
-                  className="text-white hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium "
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium "
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
                 </NavLink>
               ) : (
-                <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden">
+                <span className="px-3 py-2 text-pink-bg-pink-400 rounded-md font-medium mr-2 text-lg cursor-default hidden">
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
                 </span>
