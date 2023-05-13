@@ -49,7 +49,7 @@ export default function FormReports() {
       const dateMatches =
         (!startDate ||
           moment(entry.createdAt).isSameOrAfter(moment(startDate))) &&
-        (!endDate || moment(entry.created_at).isSameOrBefore(moment(endDate)));
+        (!endDate || moment(entry.createdAt).isSameOrBefore(moment(endDate)));
 
       return searchTermMatches && typeMatches && userMatches && dateMatches;
     });
@@ -271,7 +271,7 @@ export default function FormReports() {
                   const itemUserUnidecoded = unidecode(
                     item.product?.toLowerCase() || ""
                   );
-                  const itemDate = moment(item.created_at);
+                  const itemDate = moment(item.createdAt);
                   return (
                     (tipo === "todos" || tipo === item.type) &&
                     (user === "todos" || user === item.inserted_by) &&
@@ -317,7 +317,7 @@ export default function FormReports() {
                   const itemUserUnidecoded = unidecode(
                     item.product?.toLowerCase() || ""
                   );
-                  const itemDate = moment(item.created_at);
+                  const itemDate = moment(item.createdAt);
                   return (
                     (tipo === "todos" || tipo === item.type) &&
                     (user === "todos" || user === item.inserted_by) &&
@@ -345,10 +345,10 @@ export default function FormReports() {
                       {item.inserted_by}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.created_at)}
+                      {formatDateHours(item.createdAt)}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {formatDateHours(item.updated_at)}
+                      {formatDateHours(item.updatedAt)}
                     </td>
                     <td className=" px-6 whitespace-nowrap"></td>
                   </tr>
