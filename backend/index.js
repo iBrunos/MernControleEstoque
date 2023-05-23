@@ -1,13 +1,13 @@
 import express from "express";
-import connectDatabase from "./database/db.js"
+import connectDatabase from "./src/database/db.js"
 import dotenv from "dotenv"
 
-import authRoute from "./routes/auth.routes.js"
-import entryRoute from "./routes/entry.routes.js"
-import exitRoute from "./routes/exit.routes.js"
-import stockRoute from "./routes/stock.routes.js"
-import productRoute from "./routes/product.routes.js"
-import userRoute from "./routes/user.routes.js"
+import authRoute from "./src/routes/auth.routes.js"
+import entryRoute from "./src/routes/entry.routes.js"
+import exitRoute from "./src/routes/exit.routes.js"
+import stockRoute from "./src/routes/stock.routes.js"
+import productRoute from "./src/routes/product.routes.js"
+import userRoute from "./src/routes/user.routes.js"
 import cors from 'cors';
 
 dotenv.config();
