@@ -18,7 +18,7 @@ export default function FormProducts() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const API_URL = 'https://api-happy-makeup.onrender.com/entry';
+  const API_URL = 'https://happy-archei.vercel.app/entry';
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
@@ -54,7 +54,7 @@ export default function FormProducts() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response2 = await axios.get(
-        "https://api-happy-makeup.onrender.com/product",
+        "https://happy-archei.vercel.app/product",
         config2
       );
       setItems2(response2.data);

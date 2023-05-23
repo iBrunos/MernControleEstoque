@@ -21,7 +21,7 @@ export default function FormUsers() {
   };
   changePageTitle("Happy Makeup | Usuários");
   //const API_URL = 'http://localhost:3000/user/';
-  const API_URL = "https://api-happy-makeup.onrender.com/user";
+  const API_URL = "https://happy-archei.vercel.app/user";
 
   const fetchItems = async () => {
     const token = localStorage.getItem("token");

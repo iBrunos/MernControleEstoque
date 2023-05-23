@@ -23,7 +23,7 @@ export default function FormProducts() {
     };
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
-      const response = await axios.get("https://api-happy-makeup.onrender.com/stock", config);
+      const response = await axios.get("https://happy-archei.vercel.app/stock", config);
       setItems(response.data);
     } catch (error) {
       console.error(error);
