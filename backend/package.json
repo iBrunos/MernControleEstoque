@@ -8,9 +8,12 @@
     "node": "18.x"
   },
   "scripts": {
+    "install": "npm install && npm rebuild bcrypt --build-from-source",
     "start": "node src/index",
     "dev": "nodemon src/index"
   },
+  
+
   "keywords": [],
   "author": "Bruno Seixas",
   "license": "ISC",
