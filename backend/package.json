@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "scripts": {
-    "install": "npm install && npm rebuild bcrypt --build-from-source",
+    "install": "npm install",
     "start": "node src/index",
     "dev": "nodemon src/index"
   },
