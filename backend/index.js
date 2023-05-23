@@ -16,7 +16,10 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-  origin: 'https://happy-makeup.vercel.app'
+  origin: [
+    'https://happy-makeup.vercel.app',
+    'http://localhost:5173'
+  ]
 }));
 
 connectDatabase();
