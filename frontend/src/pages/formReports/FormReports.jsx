@@ -14,6 +14,7 @@ export default function FormReports() {
   const [user, setUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tipo, setTipo] = useState("todos");
+  const [loja, setLoja] = useState("todos");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [entryCount, setEntryCount] = useState(0);
@@ -35,6 +36,7 @@ export default function FormReports() {
   useEffect(() => {
     fetchItems();
     setTipo("todos");
+    setLoja("todos");
     setUser("todos");
   }, []);
 
@@ -144,6 +146,16 @@ export default function FormReports() {
             id="input__pesquisar"
           />
         </section>
+        <select
+          className="lg:ml-2 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 w-44"
+          onChange={(e) => setLoja(e.target.value)}
+          value={loja}
+        >
+          <option value="todos">Todas Lojas</option>
+          <option value="Loja 01">Loja 01</option>
+          <option value="Loja 02">Loja 02</option>
+        </select>
+
         <select
           className="lg:ml-2 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 w-44"
           onChange={(e) => setTipo(e.target.value)}

@@ -15,6 +15,7 @@ export default function FormProducts() {
   const [amount, setAmount] = useState("");
   const [exit_price, setExit_price] = useState("");
   const [type, setType] = useState("");
+  const [pagamento, setPagamento] = useState('');
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -81,6 +82,7 @@ export default function FormProducts() {
       amount,
       exit_price,
       inserted_by,
+      pagamento,
       type,
     };
     newItem.inserted_by = username;
@@ -94,6 +96,7 @@ export default function FormProducts() {
     setObservation("");
     setAmount("");
     setExit_price("");
+    setPagamento("");
     setType("Saída");
     fetchItems();
   };
@@ -124,6 +127,7 @@ export default function FormProducts() {
     setObservation(item.observation);
     setAmount(item.amount);
     setExit_price(item.exit_price);
+    setPagamento(item.pagamento);
     setInserted_by(item.inserted_by);
   };
   const updateItem = async (e) => {
@@ -136,6 +140,7 @@ export default function FormProducts() {
       amount,
       exit_price,
       inserted_by,
+      pagamento,
       type,
     };
     updatedItem.inserted_by = username;
@@ -153,6 +158,7 @@ export default function FormProducts() {
     setAmount("");
     setExit_price("");
     setInserted_by("");
+    setPagamento("");
     setType("Saída");
     setEditingItem(null);
     fetchItems();
@@ -220,6 +226,17 @@ export default function FormProducts() {
         max="9999"
         required
       />
+      <select
+          className="lg:ml-0 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-52 cursor-pointer"
+          onChange={(e) => setPagamento(e.target.value)}
+          value={pagamento}
+        >
+          <option value="todos">Forma de Pagamento</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Crédito">Crédito</option>
+          <option value="Crédito">Débito</option>
+          <option value="Crédito">Pix</option>
+      </select>
       <input
         type="number"
         inputMode="decimal"
@@ -238,7 +255,7 @@ export default function FormProducts() {
       >
         {editingItem !== null ? "Salvar Saída" : "Adicionar Saída"}
       </button>
-      <section className="flex items-center border rounded-md p-2  ml-0 lg:w-64 w-40 lg:mt-0 mt-2 lg:ml-[15rem] focus:border-pink-500">
+      <section className="flex items-center border rounded-md p-2  ml-0 lg:w-64 w-40 lg:mt-0 mt-2 lg:ml-[15rem] mr-[2rem] focus:border-pink-500">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 flex-none text-gray-300"
@@ -281,6 +298,7 @@ export default function FormProducts() {
                 <th className="py-3 px-6">Produto</th>
                 <th className="py-3 px-6">Observação</th>
                 <th className="py-3 px-6">Quantidade</th>
+                <th className="py-3 px-6">Forma de Pagamento</th>
                 <th className="py-3 px-6">Preço de Saída</th>
                 <th className="py-3 px-6">Funcionário</th>
                 <th className="py-3 px-6">Criado</th>
@@ -311,11 +329,14 @@ export default function FormProducts() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.product}
                     </td>
-                    <td className="px-6 py-4 whitespace-normal break-words w-[40rem]">
+                    <td className="px-6 py-4 whitespace-normal break-words w-[30rem]">
                       {item.observation}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       {item.amount}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {item.pagamento}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       R$: {item.exit_price}

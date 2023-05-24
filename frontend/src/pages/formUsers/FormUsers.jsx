@@ -11,6 +11,7 @@ export default function FormUsers() {
   const [password, setPassword] = useState("");
   const [level, setLevel] = useState("");
   const [email, setEmail] = useState("");
+  const [loja, setLoja] = useState("");
   const [phone, setPhone] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,6 +54,7 @@ export default function FormUsers() {
       password,
       level,
       email,
+      loja,
       phone,
     };
 
@@ -62,6 +64,7 @@ export default function FormUsers() {
     formData.append("username", newItem.username);
     formData.append("password", newItem.password);
     formData.append("level", newItem.level);
+    formData.append("loja", newItem.loja);
     formData.append("email", newItem.email);
     formData.append("phone", newItem.phone);
 
@@ -78,6 +81,7 @@ export default function FormUsers() {
       setLevel("");
       setEmail("");
       setPhone("");
+      setLoja("");
       setAvatar(""); // Reset the selected image file
       fetchItems();
     } catch (error) {
@@ -110,6 +114,7 @@ export default function FormUsers() {
     setPassword("");
     setLevel(item.level);
     setEmail(item.email);
+    setLoja(item.loja);
     setPhone(item.phone);
   };
 
@@ -121,6 +126,7 @@ export default function FormUsers() {
       password,
       level,
       email,
+      loja,
       phone,
       avatar,
     };
@@ -130,6 +136,7 @@ export default function FormUsers() {
     formData.append("username", updatedItem.username);
     formData.append("password", updatedItem.password);
     formData.append("level", updatedItem.level);
+    formData.append("loja", updatedItem.loja);
     formData.append("email", updatedItem.email);
     formData.append("phone", updatedItem.phone);
     const token = localStorage.getItem("token");
@@ -147,6 +154,7 @@ export default function FormUsers() {
     setPassword("");
     setLevel("");
     setEmail("");
+    setLoja("");
     setPhone("");
     setAvatar("");
     setEditingItem(null);
@@ -213,6 +221,34 @@ export default function FormUsers() {
           onChange={(e) => setEmail(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
+        <div className="relative w-16 mr-2 text-pink-500 lg:mt-0 mt-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <select
+            className="w-full py-2 pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+            value={loja}
+            onChange={(e) => setLoja(e.target.value)}
+            required
+          >
+            <option value="">Loja</option>
+            <option className="hover:text-pink-500 hover:bg-pink-50">
+              Loja 01
+            </option>
+            <option className="hover:text-pink-500 hover:bg-pink-50">
+              Loja 02
+            </option>
+          </select>
+        </div>
         <input
           type="text"
           value={phone}
@@ -240,7 +276,7 @@ export default function FormUsers() {
           {editingItem !== null ? "Salvar Usuário" : "Adicionar Usuário"}
         </button>
 
-        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 lg:w-64 w-[20rem] focus:border-pink-500 lg:ml-[24rem]">
+        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 lg:w-64 w-[20rem] focus:border-pink-500 lg:ml-[20rem]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -278,6 +314,7 @@ export default function FormUsers() {
                 <th className="py-3 px-6">Senha</th>
                 <th className="py-3 px-6">Nível de Acesso</th>
                 <th className="py-3 px-6">Email</th>
+                <th className="py-3 px-6">Loja</th>
                 <th className="py-3 px-6">Telefone</th>
                 <th className="py-3 px-6">Ações</th>
               </tr>
@@ -306,6 +343,7 @@ export default function FormUsers() {
                     <td className="px-6 py-4 text-[0.5rem]">{item.password}</td>
                     <td className="px-6 py-4">{item.level}</td>
                     <td className="px-6 py-4 ">{item.email}</td>
+                    <td className="px-6 py-4 ">{item.loja}</td>
                     <td className="px-6 py-4 ">{item.phone}</td>
                     <td className=" px-6 whitespace-nowrap">
                       <button

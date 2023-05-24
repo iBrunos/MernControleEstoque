@@ -92,21 +92,34 @@ const Header = () => {
                 <StoreIcon className="mr-1 font-bold" />
                 Estoque
               </Link>
-              <Link
-                to="/user/cadastro"
-                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                <AppRegistrationIcon className="mr-1 font-bold" />
-                Cadastro
-              </Link>
 
-              <Link
-                to="/user/entradas"
-                className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                <AddShoppingCartIcon className="mr-1 font-bold" />
-                Entradas
-              </Link>
+              {isGerente ? (
+                <Link
+                  to="/user/cadastro"
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  <AppRegistrationIcon className="mr-1 font-bold" />
+                  Cadastro
+                </Link>
+              ) : (
+                <span className="px-3 py-2 text-pink-bg-pink-400 rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                  Null
+                </span>
+              )}
+
+              {isGerente ? (
+                <Link
+                  to="/user/entradas"
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  <AddShoppingCartIcon className="mr-1 font-bold" />
+                  Entradas
+                </Link>
+              ) : (
+                <span className="px-3 py-2 text-pink-bg-pink-400 rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                  Null
+                </span>
+              )}
               <Link
                 to="/user/saidas"
                 className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -114,7 +127,6 @@ const Header = () => {
                 <RemoveShoppingCartIcon className="mr-1 font-bold" />
                 Saídas
               </Link>
-
               {isGerente ? (
                 <Link
                   to="/user/usuarios"
@@ -159,7 +171,9 @@ const Header = () => {
                 <span className="lg:block hidden font-semibold text-white m-0">
                   {user}
                 </span>
-                <span className="lg:block hidden text-sm text-black">{email}</span>
+                <span className="lg:block hidden text-sm text-black">
+                  {email}
+                </span>
               </div>
             </div>
             <button
@@ -219,18 +233,15 @@ const Header = () => {
             <RemoveShoppingCartIcon className="mr-1 font-bold" /> Saídas
           </Link>
 
-
           {isGerente ? (
             <Link
               to="/user/usuarios"
               className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
             >
-
               <AccountCircleIcon className="mr-1 font-bold" /> Usuários
             </Link>
           ) : (
             <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
-
               Usuários
             </span>
           )}
@@ -239,12 +250,10 @@ const Header = () => {
               to="/user/relatorios"
               className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
             >
-
               <StickyNote2Icon className="mr-1 font-bold" /> Relatórios
             </NavLink>
           ) : (
             <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-default hidden">
-
               Relatórios
             </span>
           )}
