@@ -116,8 +116,10 @@ export default function Login() {
               </label>
               <input
                 id="LoggingEmailAddress"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-pink-400 focus:ring-opacity-40 dark:focus:border-pink-300 focus:outline-none focus:ring focus:ring-pink-300"
-                type="email"placeholder="seuemail@exemplo.com"
+                type="email" placeholder="seuemail@exemplo.com"
               />
             </div>
 
@@ -145,7 +147,7 @@ export default function Login() {
                     >
                       <div className="max-w-md shadow-2xl p-4 mx-auto bg-white border-2 border-pink-200 rounded-2xl">
                         <h2 className="font-semibold text-gray-800 ">
-                        🔒 Esqueceu a sua senha? 🔑
+                          🔒 Esqueceu a sua senha? 🔑
                         </h2>
 
                         <p className="mt-4 text-sm text-gray-600">
@@ -173,6 +175,8 @@ export default function Login() {
 
               <input
                 id="loggingPassword"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-pink-400 focus:ring-opacity-40 dark:focus:border-pink-300 focus:outline-none focus:ring focus:ring-pink-300 font-black"
                 type="password"
                 placeholder="●●●●●●●●"
@@ -221,7 +225,7 @@ export default function Login() {
                 className="lg:mt-[1rem] lg:mb-[0rem] lg:w-full sm:w-48 sm:mt-[1rem] sm:mb-[0rem]"
                 src={logoArchei}
                 alt="logo"
-                
+
               />
             </a>
           </form>
