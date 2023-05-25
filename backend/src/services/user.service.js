@@ -6,7 +6,7 @@ const findAllService = () => User.find();
 
 const findByIdService = (id) => User.findById(id);
 
-const updateService = (id, username, password, level, email, phone, avatar) => User.findOneAndUpdate({_id: id},{username, password, level, email, phone, avatar});
+const updateService = (id, username, password, level, email, phone, store, avatar) => User.findOneAndUpdate({_id: id},{username, password, level, email, phone, store, avatar});
 
 const deleteService = (id) => User.findOneAndDelete({_id: id});
 

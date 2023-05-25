@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
     avatar: {
         type: Buffer,
     },
-    loja: {
+    store: {
         type: String,
         enum: ['Loja 01', 'Loja 02'],
         required: true,

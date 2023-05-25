@@ -2,10 +2,10 @@ import userService from "../services/user.service.js";
 
 const createService = async (req, res) => {
   try {
-    const { username, password, level, email, phone } = req.body;
+    const { username, password, level, email, store, phone } = req.body;
 
     // Verificando se todos os campos foram enviados
-    if (!username || !password || !level || !email || !phone) {
+    if (!username || !password || !level || !store || !email || !phone) {
       return res.status(400).send({
         message: "Submit all fields for resgistration",
       });
@@ -20,6 +20,7 @@ const createService = async (req, res) => {
       level,
       email,
       phone,
+      store,
       avatar, // Passa o buffer do arquivo para a propriedade "avatar"
     });
 
@@ -38,6 +39,7 @@ const createService = async (req, res) => {
         level,
         email,
         phone,
+        store,
       },
     });
   } catch (err) {
@@ -83,10 +85,10 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
   try {
-    const { _id, username, password, level, email, phone } = req.body;
+    const { _id, username, password, level, email,store, phone } = req.body;
 
     // Verificando se todos os campos foram enviados
-    if (!username || !password || !level || !email || !phone) {
+    if (!username || !password || !level || !email || !store || !phone) {
       res.status(400).send({
         message: "Submit at least one field for update",
       });
@@ -101,6 +103,7 @@ const update = async (req, res) => {
       level,
       email,
       phone,
+      store,
       avatar
     );
 

@@ -15,18 +15,17 @@ export default function FormProducts() {
   const [amount, setAmount] = useState("");
   const [exit_price, setExit_price] = useState("");
   const [type, setType] = useState("");
-  const [pagamento, setPagamento] = useState('');
+  const [payment, setpayment] = useState('');
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [pagamento2, setPagamento2] = useState("");
   const [parcelas, setParcelas] = useState("");
 
   
 
   const API_URL = 'https://happy-archei.vercel.app/exit';
 
-  const handlePagamentoChange = (e) => {
-    setPagamento(e.target.value);
+  const handlepaymentChange = (e) => {
+    setpayment(e.target.value);
     if (e.target.value === "Crédito") {
       setParcelas("");
     }
@@ -95,7 +94,7 @@ export default function FormProducts() {
       amount,
       exit_price,
       inserted_by,
-      pagamento,
+      payment: payment + " " + parcelas,
       type,
     };
     newItem.inserted_by = username;
@@ -109,7 +108,7 @@ export default function FormProducts() {
     setObservation("");
     setAmount("");
     setExit_price("");
-    setPagamento("");
+    setpayment("");
     setType("Saída");
     fetchItems();
   };
@@ -140,7 +139,7 @@ export default function FormProducts() {
     setObservation(item.observation);
     setAmount(item.amount);
     setExit_price(item.exit_price);
-    setPagamento(item.pagamento);
+    setpayment(item.payment);
     setInserted_by(item.inserted_by);
   };
   const updateItem = async (e) => {
@@ -153,7 +152,7 @@ export default function FormProducts() {
       amount,
       exit_price,
       inserted_by,
-      pagamento,
+      payment,
       type,
     };
     updatedItem.inserted_by = username;
@@ -171,7 +170,7 @@ export default function FormProducts() {
     setAmount("");
     setExit_price("");
     setInserted_by("");
-    setPagamento("");
+    setpayment("");
     setType("Saída");
     setEditingItem(null);
     fetchItems();
@@ -243,8 +242,8 @@ export default function FormProducts() {
       <div className="flex flex-row">
       <select
         className="lg:ml-0 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-46 cursor-pointer"
-        onChange={handlePagamentoChange}
-        value={pagamento}
+        onChange={handlepaymentChange}
+        value={payment}
       >
         <option value="todos">Pagamento</option>
         <option value="Dinheiro">Dinheiro</option>
@@ -252,10 +251,10 @@ export default function FormProducts() {
         <option value="Débito">Débito</option>
         <option value="Pix">Pix</option>
       </select>
-      {pagamento === "Crédito" && (
+      {payment === "Crédito" && (
         <select
           className="lg:ml-0 ml-0 flex items-center border rounded-md py-2 pl-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-[6rem]"
-          value={parcelas}
+          value={parcelas + "x"}
           onChange={handleParcelasChange}
         >
           <option value="">Parcelas</option>
@@ -367,7 +366,7 @@ export default function FormProducts() {
                       {item.amount}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {item.pagamento}
+                      {item.payment}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       R$: {item.exit_price}
