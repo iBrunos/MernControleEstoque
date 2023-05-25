@@ -1,6 +1,6 @@
 const sex = async (req, res) => {
 
-    console.log("O sexo está online")
+    res.send("O sexo está online");
 }
 
 export {sex};
