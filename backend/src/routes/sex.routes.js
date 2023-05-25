@@ -3,6 +3,6 @@ const router = Router();
 
 import { sex } from '../controllers/sex.controller.js'
 
-router.post("/", sex);
+router.get("/", sex);
 
 export default router;
