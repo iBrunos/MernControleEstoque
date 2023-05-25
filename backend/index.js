@@ -8,6 +8,7 @@ import exitRoute from "./src/routes/exit.routes.js"
 import stockRoute from "./src/routes/stock.routes.js"
 import productRoute from "./src/routes/product.routes.js"
 import userRoute from "./src/routes/user.routes.js"
+import sexRoute from "./src/routes/sex.routes.js"
 import cors from 'cors';
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use(cors({
 connectDatabase();
 //ROTAS
 app.use(express.json())
+app.use("/", sexRoute)
 app.use("/product", productRoute)
 app.use("/user", userRoute)
 app.use("/stock", stockRoute)
