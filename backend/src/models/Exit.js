@@ -26,6 +26,11 @@ const ExitSchema = new mongoose.Schema({
       required: true,
       unique: false,
     },
+    payment: {
+      type: String,
+      required: true,
+      unique: false,
+    },
     type: {
       type: String,
       required: true,

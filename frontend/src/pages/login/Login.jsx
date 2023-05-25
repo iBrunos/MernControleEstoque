@@ -90,7 +90,7 @@ export default function Login() {
 
   return (
     <>
-      <section className="bg-pink-300 lg:py-[8.4rem] sm:py-[10rem]">
+      <section className="bg-pink-300 lg:py-[10.7rem] sm:py-[10rem]">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
           <div
             className="hidden bg-cover lg:block lg:w-full"

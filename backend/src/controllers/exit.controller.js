@@ -3,11 +3,11 @@ import exitService from "../services/exit.service.js";
 const createService = async (req, res) => {
     try {
 
-        const { product, observation, amount, exit_price, inserted_by, type } = req.body;
+        const { product, observation, amount, exit_price, inserted_by, payment, type } = req.body;
 
 
         // Verificando se todos os campos foram enviados
-        if (!product || !amount || !exit_price || !inserted_by || !type) {
+        if (!product || !amount || !exit_price || !inserted_by || !payment || !type) {
             res.status(400).send({
                 message: "Submit all fields for resgistration",
             });
@@ -29,6 +29,7 @@ const createService = async (req, res) => {
                 amount,
                 exit_price,
                 inserted_by,
+                payment,
                 type,
             },
         });
@@ -74,7 +75,7 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const { _id, product, observation, amount, exit_price, inserted_by, type } = req.body;
+        const { _id, product, observation, amount, exit_price, inserted_by, payment, type } = req.body;
 
         // Verificando se todos os campos foram enviados
         if (!product && !observation && !amount && !exit_price && !inserted_by && !type) {
@@ -90,6 +91,7 @@ const update = async (req, res) => {
             amount,
             exit_price,
             inserted_by,
+            payment,
             type
         );
         res.send({
