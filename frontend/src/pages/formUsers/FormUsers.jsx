@@ -11,7 +11,7 @@ export default function FormUsers() {
   const [password, setPassword] = useState("");
   const [level, setLevel] = useState("");
   const [email, setEmail] = useState("");
-  const [loja, setLoja] = useState("");
+  const [store, setStore] = useState("");
   const [phone, setPhone] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,7 +54,7 @@ export default function FormUsers() {
       password,
       level,
       email,
-      loja,
+      store,
       phone,
     };
 
@@ -64,7 +64,7 @@ export default function FormUsers() {
     formData.append("username", newItem.username);
     formData.append("password", newItem.password);
     formData.append("level", newItem.level);
-    formData.append("loja", newItem.loja);
+    formData.append("store", newItem.store);
     formData.append("email", newItem.email);
     formData.append("phone", newItem.phone);
 
@@ -81,7 +81,7 @@ export default function FormUsers() {
       setLevel("");
       setEmail("");
       setPhone("");
-      setLoja("");
+      setStore("");
       setAvatar(""); // Reset the selected image file
       fetchItems();
     } catch (error) {
@@ -114,7 +114,7 @@ export default function FormUsers() {
     setPassword("");
     setLevel(item.level);
     setEmail(item.email);
-    setLoja(item.loja);
+    setStore(item.store);
     setPhone(item.phone);
   };
 
@@ -126,7 +126,7 @@ export default function FormUsers() {
       password,
       level,
       email,
-      loja,
+      store,
       phone,
       avatar,
     };
@@ -136,7 +136,7 @@ export default function FormUsers() {
     formData.append("username", updatedItem.username);
     formData.append("password", updatedItem.password);
     formData.append("level", updatedItem.level);
-    formData.append("loja", updatedItem.loja);
+    formData.append("store", updatedItem.store);
     formData.append("email", updatedItem.email);
     formData.append("phone", updatedItem.phone);
     const token = localStorage.getItem("token");
@@ -154,7 +154,7 @@ export default function FormUsers() {
     setPassword("");
     setLevel("");
     setEmail("");
-    setLoja("");
+    setStore("");
     setPhone("");
     setAvatar("");
     setEditingItem(null);
@@ -236,8 +236,8 @@ export default function FormUsers() {
           </svg>
           <select
             className="w-full py-2 pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
-            value={loja}
-            onChange={(e) => setLoja(e.target.value)}
+            value={store}
+            onChange={(e) => setStore(e.target.value)}
             required
           >
             <option value="">Loja</option>
@@ -343,7 +343,7 @@ export default function FormUsers() {
                     <td className="px-6 py-4 text-[0.5rem]">{item.password}</td>
                     <td className="px-6 py-4">{item.level}</td>
                     <td className="px-6 py-4 ">{item.email}</td>
-                    <td className="px-6 py-4 ">{item.loja}</td>
+                    <td className="px-6 py-4 ">{item.store}</td>
                     <td className="px-6 py-4 ">{item.phone}</td>
                     <td className=" px-6 whitespace-nowrap">
                       <button
