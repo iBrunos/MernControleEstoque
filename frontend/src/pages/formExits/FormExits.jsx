@@ -18,10 +18,23 @@ export default function FormProducts() {
   const [pagamento, setPagamento] = useState('');
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [pagamento2, setPagamento2] = useState("");
+  const [parcelas, setParcelas] = useState("");
+
+  
 
   const API_URL = 'https://happy-archei.vercel.app/exit';
 
+  const handlePagamentoChange = (e) => {
+    setPagamento(e.target.value);
+    if (e.target.value === "Crédito") {
+      setParcelas("");
+    }
+  };
 
+  const handleParcelasChange = (e) => {
+    setParcelas(e.target.value);
+  };
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
@@ -226,24 +239,42 @@ export default function FormProducts() {
         max="9999"
         required
       />
+      <div>
+      <div className="flex flex-row">
       <select
-          className="lg:ml-0 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-52 cursor-pointer"
-          onChange={(e) => setPagamento(e.target.value)}
-          value={pagamento}
-        >
-          <option value="todos">Forma de Pagamento</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Crédito">Crédito</option>
-          <option value="Crédito">Débito</option>
-          <option value="Crédito">Pix</option>
+        className="lg:ml-0 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-46 cursor-pointer"
+        onChange={handlePagamentoChange}
+        value={pagamento}
+      >
+        <option value="todos">Pagamento</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Crédito">Crédito</option>
+        <option value="Débito">Débito</option>
+        <option value="Pix">Pix</option>
       </select>
+      {pagamento === "Crédito" && (
+        <select
+          className="lg:ml-0 ml-0 flex items-center border rounded-md py-2 pl-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-[6rem]"
+          value={parcelas}
+          onChange={handleParcelasChange}
+        >
+          <option value="">Parcelas</option>
+          {[...Array(10)].map((_, index) => (
+            <option key={index + 1} value={(index + 1).toString()}>
+              {(index + 1).toString()}x
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+    </div>
       <input
         type="number"
         inputMode="decimal"
         value={exit_price}
         placeholder="Preço de Saída"
         onChange={(e) => setExit_price(e.target.value)}
-        className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+        className="mr-2 border-gray-300 border rounded-md py-2 pl-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         min="0"
         max="9999.99"
         step="0.01"
