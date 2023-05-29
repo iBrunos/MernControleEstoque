@@ -356,11 +356,12 @@ export default function FormProducts() {
                         R$: {item.entry_price}
                       </td>
                       <td className="px-8 py-4 whitespace-nowrap">
-                        {item.inserted_by}
-                      </td>
-                      <td className="px-8 py-4 whitespace-nowrap">
                         {item.store}
                       </td>
+                      <td className="px-8 py-4 whitespace-nowrap">
+                        {item.inserted_by}
+                      </td>
+
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.created_at)}
                       </td>
