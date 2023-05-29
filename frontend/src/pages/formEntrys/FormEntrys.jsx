@@ -316,6 +316,7 @@ export default function FormProducts() {
                   <th className="py-3 px-6">Observação</th>
                   <th className="py-3 px-6">Quantidade</th>
                   <th className="py-3 px-6">Preço de Entrada</th>
+                  <th className="py-3 px-6">Loja Inserida</th>
                   <th className="py-3 px-6">Funcionário</th>
                   <th className="py-3 px-6">Criado</th>
                   <th className="py-3 px-6">Editado</th>
@@ -356,6 +357,9 @@ export default function FormProducts() {
                       </td>
                       <td className="px-8 py-4 whitespace-nowrap">
                         {item.inserted_by}
+                      </td>
+                      <td className="px-8 py-4 whitespace-nowrap">
+                        {item.store}
                       </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.created_at)}
