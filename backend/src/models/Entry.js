@@ -21,6 +21,11 @@ const EntrySchema = new mongoose.Schema({
       required: true,
       unique: false,
     },
+    store: {
+      type: String,
+      enum: ['Loja 01', 'Loja 02'],
+      required: true,
+  },
     inserted_by: {
       type: String,
       required: true,
