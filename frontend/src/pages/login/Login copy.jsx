@@ -51,7 +51,7 @@ export default function Login() {
   const login = async (e) => {
     e.preventDefault();
     const newItem = { email, password };
-    const response = await axios.post("https://happy-archei.vercel.app/auth", newItem);
+    const response = await axios.post("https://api-happymakeup.vercel.app/auth", newItem);
     const data = response.data;
     if (data.message === "Login realizado com sucesso.") {
       localStorage.setItem("token", data.token);

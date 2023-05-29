@@ -22,7 +22,7 @@ export default function FormProducts() {
 
   
 
-  const API_URL = 'https://happy-archei.vercel.app/exit';
+  const API_URL = 'https://api-happymakeup.vercel.app/exit';
 
   const handlepaymentChange = (e) => {
     setpayment(e.target.value);
@@ -68,7 +68,7 @@ export default function FormProducts() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response2 = await axios.get(
-        "https://happy-archei.vercel.app/product",
+        "https://api-happymakeup.vercel.app/product",
         config2
       );
       setItems2(response2.data);

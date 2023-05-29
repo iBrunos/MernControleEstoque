@@ -15,7 +15,7 @@ export default function FormProducts() {
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const API_URL = 'https://happy-archei.vercel.app/product';
+  const API_URL = 'https://api-happymakeup.vercel.app/product';
 
   const changePageTitle = (newTitle) => {
     document.title = newTitle;

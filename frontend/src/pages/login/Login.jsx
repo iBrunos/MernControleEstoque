@@ -70,7 +70,7 @@ export default function Login() {
     e.preventDefault();
     const newItem = { email, password };
     const response = await axios.post(
-      "https://happy-archei.vercel.app/auth",
+      "https://api-happymakeup.vercel.app/auth",
       newItem
     );
     const data = response.data;

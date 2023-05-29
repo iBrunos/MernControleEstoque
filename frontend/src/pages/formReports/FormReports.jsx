@@ -97,15 +97,15 @@ export default function FormReports() {
     // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const responseEntry = await axios.get(
-        "https://happy-archei.vercel.app/entry",
+        "https://api-happymakeup.vercel.app/entry",
         config
       );
       const responseExit = await axios.get(
-        "https://happy-archei.vercel.app/exit",
+        "https://api-happymakeup.vercel.app/exit",
         config
       );
       const responseUser = await axios.get(
-        "https://happy-archei.vercel.app/user",
+        "https://api-happymakeup.vercel.app/user",
         config
       );
       setItemsEntrys(responseEntry.data);
