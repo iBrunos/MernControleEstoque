@@ -15,6 +15,7 @@ export default function FormProducts() {
   const [amount, setAmount] = useState("");
   const [entry_price, setEntry_price] = useState("");
   const [type, setType] = useState("");
+  const [store, setStore] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -80,6 +81,7 @@ export default function FormProducts() {
       amount,
       entry_price,
       inserted_by,
+      store,
       type,
     };
     newItem.inserted_by = username;
@@ -95,6 +97,7 @@ export default function FormProducts() {
     setAmount("");
     setEntry_price("");
     setType("Entrada");
+    setStore('');
     fetchItems();
   };
 
@@ -125,6 +128,7 @@ export default function FormProducts() {
     setAmount(item.amount);
     setEntry_price(item.entry_price);
     setInserted_by(item.inserted_by);
+    setStore(item.store);
   };
   const updateItem = async (e) => {
     e.preventDefault();
@@ -136,6 +140,7 @@ export default function FormProducts() {
       amount,
       entry_price,
       inserted_by,
+      store,
       type,
     };
     updatedItem.inserted_by = username;
@@ -154,6 +159,7 @@ export default function FormProducts() {
     setEntry_price("");
     setInserted_by("");
     setType("Entrada");
+    setStore("");
     setEditingItem(null);
     fetchItems();
   };
@@ -232,6 +238,34 @@ export default function FormProducts() {
           step="0.01"
           required
         />
+        <div className="relative w-16 mr-2 text-pink-500 lg:mt-0 mt-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <select
+            className="w-full py-2 pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+            value={store}
+            onChange={(e) => setStore(e.target.value)}
+            required
+          >
+            <option value="">Loja</option>
+            <option className="hover:text-pink-500 hover:bg-pink-50">
+              Loja 01
+            </option>
+            <option className="hover:text-pink-500 hover:bg-pink-50">
+              Loja 02
+            </option>
+          </select>
+        </div>
         <button
           type="submit"
           className="mr-10 border rounded-md p-2 lg:mt-0 mt-2 bg-pink-500 text-white font-medium hover:bg-pink-600 w-40 lg:w-40"
