@@ -47,32 +47,6 @@ UserSchema.pre("findOneAndUpdate", async function (next) {
 const User = mongoose.model("Users", UserSchema);
 
 // Verifica se o usuário admin já existe
-User.findOne({ username: "admin" })
-  .then((existingUser) => {
-    if (existingUser) {
-    } else {
-      // Cria o usuário admin
-      const adminUser = new User({
-        username: "admin",
-        password: "admin",
-        level: "Gerente",
-        email: "admin@gmail.com",
-        phone: "(71) 98799-8888",
-        loja: "",
-        avatar: ""
-      });
 
-      // Salva o usuário no banco de dados
-      adminUser.save()
-        .then(() => {
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 export default User;
