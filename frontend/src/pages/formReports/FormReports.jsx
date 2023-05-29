@@ -52,8 +52,16 @@ export default function FormReports() {
         (!startDate ||
           moment(entry.createdAt).isSameOrAfter(moment(startDate))) &&
         (!endDate || moment(entry.createdAt).isSameOrBefore(moment(endDate)));
+      const storeMatches =
+        store === "todos" || entry.store.toLowerCase() === store.toLowerCase();
 
-      return searchTermMatches && typeMatches && userMatches && dateMatches;
+      return (
+        searchTermMatches &&
+        typeMatches &&
+        userMatches &&
+        dateMatches &&
+        storeMatches
+      );
     });
 
     const totalEntryPrice = filteredEntries.reduce((accumulator, entry) => {
@@ -62,7 +70,7 @@ export default function FormReports() {
     }, 0);
 
     setEntryCount(totalEntryPrice);
-  }, [itemsEntrys, searchTerm, tipo, user, startDate, endDate]);
+  }, [itemsEntrys, searchTerm, tipo, user, startDate, endDate, store]);
 
   useEffect(() => {
     const filteredEntries = itemsExits.filter((exit) => {
@@ -75,9 +83,17 @@ export default function FormReports() {
       const dateMatches =
         (!startDate ||
           moment(exit.created_at).isSameOrAfter(moment(startDate))) &&
-        (!endDate || moment(exit.createdAt).isSameOrBefore(moment(endDate)));
+        (!endDate || moment(exit.created_at).isSameOrBefore(moment(endDate)));
+      const storeMatches =
+        store === "todos" || exit.store.toLowerCase() === store.toLowerCase(); // Novo filtro de loja
 
-      return searchTermMatches && typeMatches && userMatches && dateMatches;
+      return (
+        searchTermMatches &&
+        typeMatches &&
+        userMatches &&
+        dateMatches &&
+        storeMatches
+      );
     });
 
     const totalExitPrice = filteredEntries.reduce((accumulator, exit) => {
@@ -86,7 +102,7 @@ export default function FormReports() {
     }, 0);
 
     setExitCount(totalExitPrice);
-  }, [itemsExits, searchTerm, tipo, user, startDate, endDate]);
+  }, [itemsExits, searchTerm, tipo, user, startDate, endDate, store]); // Adicione 'store' às dependências
 
   const fetchItems = async () => {
     const token = localStorage.getItem("token");
@@ -284,9 +300,13 @@ export default function FormReports() {
                     item.product?.toLowerCase() || ""
                   );
                   const itemDate = moment(item.createdAt);
+                  const typeMatches = tipo === "todos" || tipo === item.type;
+                  const userMatches =
+                    user === "todos" || user === item.inserted_by;
+
                   return (
-                    (tipo === "todos" || tipo === item.type) &&
-                    (user === "todos" || user === item.inserted_by) &&
+                    typeMatches &&
+                    userMatches &&
                     (searchTermUnidecoded === "" ||
                       itemUserUnidecoded.includes(searchTermUnidecoded)) &&
                     (!startDate || itemDate.isSameOrAfter(startDate, "day")) &&
@@ -330,13 +350,17 @@ export default function FormReports() {
                     item.product?.toLowerCase() || ""
                   );
                   const itemDate = moment(item.createdAt);
+                  const storeMatches =
+                    store === "todos" || store === item.store; // Novo filtro de loja
+
                   return (
                     (tipo === "todos" || tipo === item.type) &&
                     (user === "todos" || user === item.inserted_by) &&
                     (searchTermUnidecoded === "" ||
                       itemUserUnidecoded.includes(searchTermUnidecoded)) &&
                     (!startDate || itemDate.isSameOrAfter(startDate, "day")) &&
-                    (!endDate || itemDate.isSameOrBefore(endDate, "day"))
+                    (!endDate || itemDate.isSameOrBefore(endDate, "day")) &&
+                    storeMatches // Adicionando o filtro de loja
                   );
                 })
                 .map((item) => (
