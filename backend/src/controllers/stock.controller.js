@@ -48,7 +48,7 @@ const findAll = async (req, res) => {
 
     if (stock.length === 0) {
       return res.status(400).send({
-        message: "There are no registered users",
+        message: "There are no registered stock",
       });
     }
     res.send(stock);
