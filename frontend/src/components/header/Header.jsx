@@ -10,6 +10,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import moment from "moment";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { NavLink } from "react-router-dom";
 import axios from "axios";
@@ -23,8 +24,16 @@ const Header = () => {
   const level = localStorage.getItem("level");
   const userId = localStorage.getItem("userId");
   const [imageSrc, setImageSrc] = useState("");
-  const [nearExpirationItems, setNearExpirationItems] = useState([]);
 
+
+  const [expired, setExpired] = useState([]);
+  const [expiringSoon, setExpiringSoon] = useState([]);
+
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  const handleToggleNotification = () => {
+    setIsNotificationOpen(!isNotificationOpen);
+  };
 
   //Botão de logout
   const navigateToLogout = () => {
@@ -45,6 +54,7 @@ const Header = () => {
   useEffect(() => {
     setIsGerente(level === "Gerente");
     fetchItems();
+    fetchItemsEntrys();
     checkImageSrc();
   }, [level]);
 
@@ -70,29 +80,40 @@ const Header = () => {
 
   const fetchItemsEntrys = async () => {
     const token = localStorage.getItem("token");
-    // definir o cabeçalho `Authorization` com o token JWT
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
     try {
       const response = await axios.get(API_URL_ENTRY, config);
-      const currentDate = new Date(); // Data atual
-      const oneMonthFromNow = new Date();
-      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1); // Data atual + 1 mês
+      const items = response.data;
 
-      const items = response.data.filter((item) => {
-        // Verificar se a validade está dentro do intervalo de 1 mês
-        const expirationDate = new Date(item.expirationDate);
-        return expirationDate >= currentDate && expirationDate <= oneMonthFromNow;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const oneMonthFromNow = new Date();
+      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+      oneMonthFromNow.setHours(0, 0, 0, 0);
+
+      const expired = [];
+      const expiringSoon = [];
+
+      items.forEach(item => {
+        const expirationDate = new Date(item.expiration_date);
+        expirationDate.setHours(0, 0, 0, 0);
+
+        if (expirationDate < today) {
+          expired.push(item);
+        } else if (expirationDate < oneMonthFromNow) {
+          expiringSoon.push(item);
+        }
       });
 
-      setNearExpirationItems(items);
+      setExpired(expired);
+      setExpiringSoon(expiringSoon);
     } catch (error) {
       console.error(error);
     }
   };
-
 
   const checkImageSrc = () => {
     if (!imageSrc) {
@@ -194,18 +215,44 @@ const Header = () => {
               )}
             </div>
           </div>
-          <button
-            onClick={fetchItemsEntrys}
-            className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md mr-0 text-sm font-medium hidden lg:block mt-4 mb-4"
-          >
-            {nearExpirationItems.length > 0 ? (
-              <NotificationsActiveIcon className="mr-1 font-bold" />
-            ) : (
+          <div className="relative">
+            <button
+              onClick={handleToggleNotification}
+              className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md mr-0 text-sm font-medium hidden lg:block mt-4 mb-4"
+            >
               <NotificationsIcon className="mr-1 font-bold" />
-            )}
-            {nearExpirationItems.length} itens próximos ao vencimento
-          </button>
+              {(expired.length + expiringSoon.length) > 0 && (
+                <span className="px-1 py-1 bg-red-500 rounded-full text-white text-xs">
+                  {expired.length + expiringSoon.length}
+                </span>
+              )}
+            </button>
 
+            {isNotificationOpen && (
+              <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute right-0 p-2 ">
+                {expired.length > 0 && (
+                  <div className="mb-2">
+                    <h3 className="text-red-500 font-bold mb-1">Itens Expirados:</h3>
+                    <ul>
+                      {expired.map(item => (
+                        <li key={item._id}>{item.product}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {expiringSoon.length > 0 && (
+                  <div>
+                    <h3 className="text-yellow-500 font-bold mb-1">Itens Próximos ao Vencimento:</h3>
+                    <ul>
+                      {expiringSoon.map(item => (
+                        <li key={item._id}>{item.product}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           <div className="ml-2 flex">
             <div className="flex items-center space-x-4">
               <div className="relative w-14 h-14 lg:w-16 sm:h-16">
