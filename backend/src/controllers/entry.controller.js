@@ -74,7 +74,7 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const { _id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date } = req.body;
+        const { _id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date, in_stock } = req.body;
         // Verificando se todos os campos foram enviados
         if (!product && !observation && !amount && !entry_price && !store && !inserted_by && !type && !expiration_date) {
             res.status(400).send({
@@ -91,6 +91,7 @@ const update = async (req, res) => {
             store,
             inserted_by,
             expiration_date,
+            in_stock,
             type
         );
         res.send({

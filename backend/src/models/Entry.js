@@ -36,6 +36,12 @@ const EntrySchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  in_stock: {
+    type: Boolean,
+    required: true,
+    unique: false,
+    default: true,
+  },
   expiration_date: {
     type: Date,
     required: true,

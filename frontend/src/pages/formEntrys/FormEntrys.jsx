@@ -17,6 +17,7 @@ export default function FormProducts() {
   const [entry_price, setEntry_price] = useState("");
   const [type, setType] = useState("");
   const [store, setStore] = useState("");
+  const [expiration_date, setExpiration_date] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -69,6 +70,10 @@ export default function FormProducts() {
     const date = moment(dateString).format("DD/MM/YYYY [às] HH:mm");
     return date;
   }
+  function formatDate(dateString) {
+    const date = moment(dateString).format("DD/MM/YYYY");
+    return date;
+  }
 
   const addItem = async (e) => {
     e.preventDefault();
@@ -83,6 +88,7 @@ export default function FormProducts() {
       entry_price,
       inserted_by,
       store,
+      expiration_date,
       type,
     };
     newItem.inserted_by = username;
@@ -98,7 +104,8 @@ export default function FormProducts() {
     setAmount("");
     setEntry_price("");
     setType("Entrada");
-    setStore('');
+    setExpiration_date("");
+    setStore("");
     fetchItems();
   };
 
@@ -129,6 +136,7 @@ export default function FormProducts() {
     setAmount(item.amount);
     setEntry_price(item.entry_price);
     setInserted_by(item.inserted_by);
+    setExpiration_date(item.expiration_date);
     setStore(item.store);
   };
   const updateItem = async (e) => {
@@ -141,6 +149,7 @@ export default function FormProducts() {
       amount,
       entry_price,
       inserted_by,
+      expiration_date,
       store,
       type,
     };
@@ -161,13 +170,14 @@ export default function FormProducts() {
     setInserted_by("");
     setType("Entrada");
     setStore("");
+    setExpiration_date("")
     setEditingItem(null);
     fetchItems();
   };
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}
@@ -268,12 +278,28 @@ export default function FormProducts() {
             </option>
           </select>
         </div>
+        <label
+          htmlFor="validade"
+          className="mr-2 text-gray-400 align-middle px-4 py-2 rounded lg:mt-0 mt-2 w-[9rem]"
+        >
+          Validade: 
+        </label>
+        <input
+          id="validade"
+          className=" lg:ml-2 ml-0 border rounded-md p-2 text-gray-500 w-36 lg:mt-0 mt-2 mr-2"
+          type="date"
+          value={expiration_date}
+          onChange={(e) => setExpiration_date(e.target.value)}
+          placeholder="Data de validade"
+          required
+        />
         <button
           type="submit"
           className="mr-10 border rounded-md p-2 lg:mt-0 mt-2 bg-pink-500 text-white font-medium hover:bg-pink-600 w-40 lg:w-40"
         >
           {editingItem !== null ? "Salvar Entrada" : "Adicionar Entrada"}
         </button>
+
         <section className="flex items-center border rounded-md p-2 lg:ml-[15rem] ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -320,6 +346,7 @@ export default function FormProducts() {
                   <th className="py-3 px-6">Preço de Entrada</th>
                   <th className="py-3 px-6">Loja Inserida</th>
                   <th className="py-3 px-6">Funcionário</th>
+                  <th className="py-3 px-6">Validade</th>
                   <th className="py-3 px-6">Criado</th>
                   <th className="py-3 px-6">Editado</th>
                   <th className="py-3 px-6">Ações</th>
@@ -363,7 +390,9 @@ export default function FormProducts() {
                       <td className="px-8 py-4 whitespace-nowrap">
                         {item.inserted_by}
                       </td>
-
+                      <td className="px-8 py-4 whitespace-nowrap">
+                        {formatDate(item.expiration_date)}
+                      </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.created_at)}
                       </td>
@@ -394,4 +423,5 @@ export default function FormProducts() {
         </div>
       </div>
     </>
-  )}
+  )
+}

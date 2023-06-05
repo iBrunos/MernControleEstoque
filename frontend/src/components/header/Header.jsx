@@ -9,6 +9,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
@@ -21,6 +23,10 @@ const Header = () => {
   const level = localStorage.getItem("level");
   const userId = localStorage.getItem("userId");
   const [imageSrc, setImageSrc] = useState("");
+  const [nearExpirationItems, setNearExpirationItems] = useState([]);
+
+
+  //Botão de logout
   const navigateToLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
@@ -34,6 +40,7 @@ const Header = () => {
 
   //const API_URL = 'http://localhost:3000/user/';
   const API_URL = "https://api-happy-makeup.onrender.com/user";
+  const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
@@ -61,6 +68,32 @@ const Header = () => {
     }
   };
 
+  const fetchItemsEntrys = async () => {
+    const token = localStorage.getItem("token");
+    // definir o cabeçalho `Authorization` com o token JWT
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    // fazer uma solicitação HTTP GET para a rota protegida com o token JWT
+    try {
+      const response = await axios.get(API_URL_ENTRY, config);
+      const currentDate = new Date(); // Data atual
+      const oneMonthFromNow = new Date();
+      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1); // Data atual + 1 mês
+
+      const items = response.data.filter((item) => {
+        // Verificar se a validade está dentro do intervalo de 1 mês
+        const expirationDate = new Date(item.expirationDate);
+        return expirationDate >= currentDate && expirationDate <= oneMonthFromNow;
+      });
+
+      setNearExpirationItems(items);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   const checkImageSrc = () => {
     if (!imageSrc) {
       setImageSrc(avatarDefault);
@@ -70,6 +103,7 @@ const Header = () => {
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
 
   return (
     <header className="bg-pink-500 border-b border-pink-500">
@@ -147,7 +181,7 @@ const Header = () => {
               {isGerente ? (
                 <NavLink
                   to="/user/relatorios"
-                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium "
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-12"
                 >
                   <StickyNote2Icon className="mr-1 font-bold" />
                   Relatórios
@@ -160,8 +194,20 @@ const Header = () => {
               )}
             </div>
           </div>
-          <div className="flex">
-            <div className="flex items-center space-x-4 ml-10">
+          <button
+            onClick={fetchItemsEntrys}
+            className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md mr-0 text-sm font-medium hidden lg:block mt-4 mb-4"
+          >
+            {nearExpirationItems.length > 0 ? (
+              <NotificationsActiveIcon className="mr-1 font-bold" />
+            ) : (
+              <NotificationsIcon className="mr-1 font-bold" />
+            )}
+            {nearExpirationItems.length} itens próximos ao vencimento
+          </button>
+
+          <div className="ml-2 flex">
+            <div className="flex items-center space-x-4">
               <div className="relative w-14 h-14 lg:w-16 sm:h-16">
                 <span className="absolute -bottom-px right-1 lg:w-4 lg:h-4 w-3 h-3 rounded-full border border-white bg-green-500"></span>
                 <img
