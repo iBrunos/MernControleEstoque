@@ -113,6 +113,43 @@ const Header = () => {
     }
   };
 
+  const updateItem = async (e) => {
+    e.preventDefault();
+    const username = localStorage.getItem("username");
+    const updatedItem = {
+      _id: editingItem,
+      product,
+      observation,
+      amount,
+      entry_price,
+      inserted_by,
+      expiration_date: moment(expiration_date).format("YYYY-MM-DD"),
+      store,
+      type,
+    };
+    updatedItem.inserted_by = username;
+    updatedItem.type = "Entrada";
+
+    const token = localStorage.getItem("token");
+
+    const response = await axios.put(`${API_URL}/${editingItem}`, updatedItem, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setItems(
+      items.map((item) => (item._id === editingItem ? response.data : item))
+    );
+    setObservation("");
+    setAmount("");
+    setEntry_price("");
+    setInserted_by("");
+    setType("Entrada");
+    setStore("");
+    setExpiration_date("")
+    setEditingItem(null);
+    fetchItems();
+    toast.success("Item removido com sucesso!");
+  };
+
   const checkImageSrc = () => {
     if (!imageSrc) {
       setImageSrc(avatarDefault);

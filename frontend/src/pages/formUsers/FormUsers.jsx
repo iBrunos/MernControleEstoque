@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import unidecode from "unidecode";
+import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function FormUsers() {

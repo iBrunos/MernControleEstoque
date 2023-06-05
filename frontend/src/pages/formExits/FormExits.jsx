@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
 import unidecode from "unidecode";
+import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function FormProducts() {
@@ -115,7 +116,7 @@ export default function FormProducts() {
     setPayment("");
     setType("Saída");
     fetchItems();
-    toast.success("Entrada criada com sucesso!");
+    toast.success("Saída criada com sucesso!");
   };
 
   const deleteItem = async (id) => {
@@ -125,7 +126,7 @@ export default function FormProducts() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item._id !== id));
-      toast.success("Entrada apagada com sucesso!");
+      toast.success("Saída apagada com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -182,7 +183,7 @@ export default function FormProducts() {
     setType("Saída");
     setEditingItem(null);
     fetchItems();
-    toast.success("Entrada atualizada com sucesso!");
+    toast.success("Saída atualizada com sucesso!");
   };
 
   return (
