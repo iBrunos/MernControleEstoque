@@ -227,10 +227,15 @@ const Header = () => {
             </button>
 
             {isNotificationOpen && (
-              <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute right-0 p-2 ">
+              <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute lef-0 top-[04.5rem] hidden lg:block z-30 p-2 ">
+                {expired.length == 0 && expiringSoon.length == 0 &&(
+                  <div className="mb-2">
+                    <h3 className="text-green-500 font-bold mb-1">Não há produtos expirados.</h3>
+                  </div>
+                )}
                 {expired.length > 0 && (
                   <div className="mb-2">
-                    <h3 className="text-red-500 font-bold mb-1">Itens Expirados:</h3>
+                    <h3 className="text-red-500 font-bold mb-1">Produtos expirados:</h3>
                     <ul>
                       {expired.map(item => (
                         <li key={item._id}>{item.product}</li>
@@ -240,7 +245,7 @@ const Header = () => {
                 )}
                 {expiringSoon.length > 0 && (
                   <div>
-                    <h3 className="text-yellow-500 font-bold mb-1">Itens Próximos ao Vencimento:</h3>
+                    <h3 className="text-yellow-500 font-bold mb-1">Produtos próximos ao vencimento:</h3>
                     <ul>
                       {expiringSoon.map(item => (
                         <li key={item._id}>{item.product}</li>
@@ -351,13 +356,57 @@ const Header = () => {
               Relatórios
             </span>
           )}
-          <button
+          
+            <div className="relative">
+              <button
+                onClick={handleToggleNotification}
+                className="block mr-[4.3rem] px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+              >
+                <NotificationsIcon className="mr-1 font-bold" /> Notificações
+                {(expired.length + expiringSoon.length) > 0 && (
+                  <span className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md">
+                    {expired.length + expiringSoon.length}
+                  </span>
+                )}
+              </button>
+              {isNotificationOpen && (
+                <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute left-0 top-[02.5rem] lg:hidden block z-30 p-2 ">
+                  {expired.length == 0 && expiringSoon.length == 0 &&(
+                    <div className="mb-2">
+                      <h3 className="text-green-500 font-bold mb-1">Não há produtos expirados.</h3>
+                    </div>
+                  )}
+                  {expired.length > 0 && (
+                    <div className="mb-2">
+                      <h3 className="text-red-500 font-bold mb-1">Produtos expirados:</h3>
+                      <ul>
+                        {expired.map(item => (
+                          <li key={item._id}>{item.product}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {expiringSoon.length > 0 && (
+                    <div>
+                      <h3 className="text-yellow-500 font-bold mb-1">Produtos próximos ao vencimento:</h3>
+                      <ul>
+                        {expiringSoon.map(item => (
+                          <li key={item._id}>{item.product}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+            
+              
+            )}</div>
+            <button
             onClick={navigateToLogout}
-            className=" ml-[-7rem] block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+            className="mr-[8rem] block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
           >
             <LogoutIcon className="mr-1 font-bold" /> Sair
           </button>
-        </div>
+          </div>
       </nav>
     </header>
   );

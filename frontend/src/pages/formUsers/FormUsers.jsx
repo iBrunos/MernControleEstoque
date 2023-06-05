@@ -85,6 +85,7 @@ export default function FormUsers() {
       setStore("");
       setAvatar(""); // Reset the selected image file
       fetchItems();
+      toast.success("Usuário criado com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -97,6 +98,7 @@ export default function FormUsers() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item._id !== id));
+      toast.success("Usuário apagado com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -160,6 +162,7 @@ export default function FormUsers() {
     setAvatar("");
     setEditingItem(null);
     fetchItems();
+    toast.success("Usuário atualizado com sucesso!");
   };
 
   return (

@@ -107,6 +107,7 @@ export default function FormProducts() {
     setExpiration_date("");
     setStore("");
     fetchItems();
+    toast.success("Saída criada com sucesso!");
   };
 
   const deleteItem = async (id) => {
@@ -116,6 +117,7 @@ export default function FormProducts() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item._id !== id));
+      toast.success("Saída apagada com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -173,6 +175,7 @@ export default function FormProducts() {
     setExpiration_date("")
     setEditingItem(null);
     fetchItems();
+    toast.success("Saída atualizada com sucesso!");
   };
 
   return (

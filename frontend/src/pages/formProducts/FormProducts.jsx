@@ -68,7 +68,7 @@ export default function FormProducts() {
     setBrand("");
     setDescription("");
     fetchItems();
-    
+    toast.success("Produto criado com sucesso!");
   };
   const deleteItem = async (id) => {
     const token = localStorage.getItem("token");
@@ -77,6 +77,7 @@ export default function FormProducts() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item._id !== id));
+      toast.success("Produto apagado com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -126,6 +127,7 @@ export default function FormProducts() {
     setInserted_by("");
     setEditingItem(null);
     fetchItems();
+    toast.success("Produto Atualizado com sucesso!");
   };
 
   return (

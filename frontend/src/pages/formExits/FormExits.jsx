@@ -115,6 +115,7 @@ export default function FormProducts() {
     setPayment("");
     setType("Saída");
     fetchItems();
+    toast.success("Entrada criada com sucesso!");
   };
 
   const deleteItem = async (id) => {
@@ -124,6 +125,7 @@ export default function FormProducts() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(items.filter((item) => item._id !== id));
+      toast.success("Entrada apagada com sucesso!");
     } catch (error) {
       console.error(error);
     }
@@ -180,6 +182,7 @@ export default function FormProducts() {
     setType("Saída");
     setEditingItem(null);
     fetchItems();
+    toast.success("Entrada atualizada com sucesso!");
   };
 
   return (
