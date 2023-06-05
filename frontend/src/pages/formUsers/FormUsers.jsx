@@ -242,6 +242,9 @@ export default function FormUsers() {
           >
             <option value="">Loja</option>
             <option className="hover:text-pink-500 hover:bg-pink-50">
+              Todas
+            </option>
+            <option className="hover:text-pink-500 hover:bg-pink-50">
               Loja 01
             </option>
             <option className="hover:text-pink-500 hover:bg-pink-50">

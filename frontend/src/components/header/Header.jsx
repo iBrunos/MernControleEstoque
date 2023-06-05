@@ -24,8 +24,11 @@ const Header = () => {
   const navigateToLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    localStorage.removeItem("user");
+    localStorage.removeItem("username");
+    localStorage.removeItem("credentials");
+    localStorage.removeItem("level");
     localStorage.removeItem("userId");
+    localStorage.removeItem("store");
     navigate("/");
   };
 

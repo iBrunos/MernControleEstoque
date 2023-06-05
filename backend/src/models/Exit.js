@@ -33,7 +33,7 @@ const ExitSchema = new mongoose.Schema({
     },
     store: {
       type: String,
-      enum: ['Loja 01', 'Loja 02'],
+      enum: ['Todas','Loja 01', 'Loja 02'],
       required: true,
   },
     type: {

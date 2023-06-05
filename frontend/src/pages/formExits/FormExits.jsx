@@ -21,8 +21,6 @@ export default function FormProducts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [parcelas, setParcelas] = useState("");
 
-
-
   const API_URL = 'https://api-happymakeup.vercel.app/exit';
 
   const handlepaymentChange = (e) => {
@@ -45,7 +43,9 @@ export default function FormProducts() {
     dropDown();
   }, []);
 
+
   const fetchItems = async () => {
+    const getStore = localStorage.getItem("store");
     const token = localStorage.getItem("token");
     // definir o cabeçalho `Authorization` com o token JWT
     const config = {
@@ -238,12 +238,25 @@ export default function FormProducts() {
             className="lg:ml-0 ml-0 flex items-center space-x-2 border rounded-md p-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-46 cursor-pointer"
             onChange={(e) => setStore(e.target.value)}
             value={store}
+            required
+
           >
-            <option value="todos">Loja</option>
-            <option value="Loja 01">Loja 01</option>
-            <option value="Loja 02">Loja 02</option>
+             <option value="" disabled selected>Loja</option>
+            {localStorage.getItem("store") === "Loja 01" && (
+              <option value="Loja 01">Loja 01</option>
+            )}
+            {localStorage.getItem("store") === "Loja 02" && (
+              <option value="Loja 02">Loja 02</option>
+            )}
+            {localStorage.getItem("store") === "Todas" && (
+              <>
+                <option value="Loja 01">Loja 01</option>
+                <option value="Loja 02">Loja 02</option>
+              </>
+            )}
           </select>
         </div>
+
         <input
           type="number"
           value={amount}
@@ -356,16 +369,19 @@ export default function FormProducts() {
               <tbody className="text-gray-600 divide-y">
                 {items
                   .filter((item) => {
+                    const getStore = localStorage.getItem("store");
                     const searchTermUnidecoded = unidecode(
                       searchTerm?.toLowerCase() || ""
                     );
+                    const storeMatches =
+                      getStore === "Todas" || getStore === item.store; // Novo filtro de loja corrigido
                     const itemUserUnidecoded = unidecode(
                       item.product?.toLowerCase() || ""
                     ); // aqui foi adicionado o teste para item.product ser nulo ou indefinido
-                    if (searchTermUnidecoded === "") {
+                    if (searchTermUnidecoded === "" && storeMatches) {
                       return item;
                     } else if (
-                      itemUserUnidecoded.includes(searchTermUnidecoded)
+                      itemUserUnidecoded.includes(searchTermUnidecoded) && storeMatches
                     ) {
                       return item;
                     }
@@ -400,7 +416,7 @@ export default function FormProducts() {
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.updated_at)}
                       </td>
-                      <td className=" px-6 whitespace-nowrap">
+                      <td className="px-6 whitespace-nowrap">
                         <button
                           onClick={() => editItem(item._id)}
                           className="py-1 px-2 font-medium text-white duration-150 hover:bg-indigo-700 bg-indigo-600 rounded-lg mr-1"
@@ -419,6 +435,8 @@ export default function FormProducts() {
                     </tr>
                   ))}
               </tbody>
+
+
             </table>
           )}
         </div>
