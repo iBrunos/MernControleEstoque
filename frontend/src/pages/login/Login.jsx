@@ -80,6 +80,7 @@ export default function Login() {
       localStorage.setItem("username", data.username);
       localStorage.setItem("userId", data.id);
       localStorage.setItem("level", data.level);
+      localStorage.setItem("store", data.store);
       navigate("/user/estoque");
     } else {
       setPassword("");

@@ -240,8 +240,9 @@ export default function FormReports() {
                 Entradas
               </p>
               <p className="lg:text-3xl text-xs font-bold text-red-700">
-                {"R$: " + entryCount}
+                {"R$: " + entryCount.toFixed(2)}
               </p>
+
             </div>
           </div>
         </div>
@@ -255,7 +256,7 @@ export default function FormReports() {
                 Saídas
               </p>
               <p className="lg:text-3xl text-xs font-bold text-green-700">
-                {"R$: " + exitCount}
+                {"R$: " + exitCount.toFixed(2)}
               </p>
             </div>
           </div>
@@ -270,7 +271,7 @@ export default function FormReports() {
                 Lucro
               </p>
               <p className="lg:text-3xl text-xs font-bold text-grey-700">
-                {"R$: " + (exitCount - entryCount)}
+                {"R$: " + ((exitCount - entryCount).toFixed(2))}
               </p>
             </div>
           </div>
@@ -301,17 +302,19 @@ export default function FormReports() {
                     item.product?.toLowerCase() || ""
                   );
                   const itemDate = moment(item.createdAt);
+                  const storeMatches =
+                    store === "todos" || store === item.store; // Novo filtro de loja
                   const typeMatches = tipo === "todos" || tipo === item.type;
                   const userMatches =
                     user === "todos" || user === item.inserted_by;
-
                   return (
                     typeMatches &&
                     userMatches &&
                     (searchTermUnidecoded === "" ||
                       itemUserUnidecoded.includes(searchTermUnidecoded)) &&
                     (!startDate || itemDate.isSameOrAfter(startDate, "day")) &&
-                    (!endDate || itemDate.isSameOrBefore(endDate, "day"))
+                    (!endDate || itemDate.isSameOrBefore(endDate, "day")) &&
+                    storeMatches // Adicionando o filtro de loja
                   );
                 })
                 .map((item) => (
@@ -326,13 +329,13 @@ export default function FormReports() {
                       {item.type}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
-                      {item.store}
-                    </td>
-                    <td className="px-6 py-4 whitespace-normal break-words">
                       R$: {item.entry_price}
                     </td>
                     <td className="px-8 py-4 whitespace-nowrap">
                       {item.inserted_by}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {item.store}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       {formatDateHours(item.createdAt)}
@@ -383,6 +386,9 @@ export default function FormReports() {
                     </td>
                     <td className="px-8 py-4 whitespace-nowrap">
                       {item.inserted_by}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {item.store}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       {formatDateHours(item.createdAt)}
