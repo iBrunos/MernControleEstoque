@@ -73,6 +73,6 @@ EntrySchema.post('findOneAndUpdate', async function (doc) {
   await stock.save();
 });
 
-const Entry = mongoose.model("Entries", EntrySchema);
+const Entry = mongoose.model("Entrys", EntrySchema);
 
 export default Entry;
