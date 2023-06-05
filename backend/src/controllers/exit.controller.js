@@ -3,11 +3,11 @@ import exitService from "../services/exit.service.js";
 const createService = async (req, res) => {
     try {
 
-        const { product, observation, amount, exit_price, inserted_by, payment, type } = req.body;
+        const { product, observation, amount, exit_price, inserted_by, payment, store, type } = req.body;
 
 
         // Verificando se todos os campos foram enviados
-        if (!product || !amount || !exit_price || !inserted_by || !payment || !type) {
+        if (!product || !amount || !exit_price || !inserted_by || !payment || !store || !type) {
             res.status(400).send({
                 message: "Submit all fields for resgistration",
             });
@@ -30,6 +30,7 @@ const createService = async (req, res) => {
                 exit_price,
                 inserted_by,
                 payment,
+                store,
                 type,
             },
         });
@@ -75,10 +76,10 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const { _id, product, observation, amount, exit_price, inserted_by, payment, type } = req.body;
+        const { _id, product, observation, amount, exit_price, inserted_by, payment, store, type } = req.body;
 
         // Verificando se todos os campos foram enviados
-        if (!product && !observation && !amount && !exit_price && !inserted_by && !type) {
+        if (!product && !observation && !amount && !exit_price  && !inserted_by && !store && !type) {
             res.status(400).send({
                 message: "Submit at least one field for update",
             });
@@ -92,6 +93,7 @@ const update = async (req, res) => {
             exit_price,
             inserted_by,
             payment,
+            store,
             type
         );
         res.send({

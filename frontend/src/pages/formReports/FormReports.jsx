@@ -286,6 +286,7 @@ export default function FormReports() {
                 <th className="py-3 px-6">Tipo</th>
                 <th className="py-3 px-6">Preço</th>
                 <th className="py-3 px-6">Funcionário</th>
+                <th className="py-3 px-6">Loja</th>
                 <th className="py-3 px-6">Data Criação</th>
                 <th className="py-3 px-6">Data Modificação</th>
               </tr>
@@ -323,6 +324,9 @@ export default function FormReports() {
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       {item.type}
+                    </td>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      {item.store}
                     </td>
                     <td className="px-6 py-4 whitespace-normal break-words">
                       R$: {item.entry_price}

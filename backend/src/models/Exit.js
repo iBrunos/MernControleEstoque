@@ -31,6 +31,11 @@ const ExitSchema = new mongoose.Schema({
       required: true,
       unique: false,
     },
+    store: {
+      type: String,
+      enum: ['Loja 01', 'Loja 02'],
+      required: true,
+  },
     type: {
       type: String,
       required: true,
