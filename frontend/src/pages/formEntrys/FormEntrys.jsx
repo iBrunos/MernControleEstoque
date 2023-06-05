@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import moment from "moment";
 import unidecode from "unidecode";
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function FormProducts() {
   const [items, setItems] = useState([]);
@@ -166,6 +167,7 @@ export default function FormProducts() {
 
   return (
     <>
+     <ToastContainer />
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}

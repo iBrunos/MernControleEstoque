@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import unidecode from "unidecode";
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function FormUsers() {
   const [items, setItems] = useState([]);
@@ -163,6 +164,7 @@ export default function FormUsers() {
 
   return (
     <>
+      <ToastContainer />
       <Header />
       <form
         onSubmit={editingItem !== null ? updateItem : addItem}

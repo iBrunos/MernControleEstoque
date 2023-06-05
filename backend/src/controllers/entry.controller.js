@@ -3,9 +3,9 @@ import entryService from "../services/entry.service.js";
 const createService = async (req, res) => {
     try {
 
-        const { product, observation, amount, entry_price, store, inserted_by, type } = req.body;
+        const { product, observation, amount, entry_price, store, inserted_by, type, expiration_date } = req.body;
         // Verificando se todos os campos foram enviados
-        if (!product || !amount || !entry_price || !store || !inserted_by || !type) {
+        if (!product || !amount || !entry_price || !store || !inserted_by || !type, !expiration_date) {
             res.status(400).send({
                 message: "Submit all fields for resgistration",
             });
@@ -28,6 +28,7 @@ const createService = async (req, res) => {
                 entry_price,
                 store,
                 inserted_by,
+                expiration_date,
                 type,
             },
         });
@@ -73,9 +74,9 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const { _id, product, observation, amount, entry_price, store, inserted_by, type } = req.body;
+        const { _id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date } = req.body;
         // Verificando se todos os campos foram enviados
-        if (!product && !observation && !amount && !entry_price && !store && !inserted_by && !type) {
+        if (!product && !observation && !amount && !entry_price && !store && !inserted_by && !type && !expiration_date) {
             res.status(400).send({
                 message: "Submit at least one field for update",
             });
@@ -89,6 +90,7 @@ const update = async (req, res) => {
             entry_price,
             store,
             inserted_by,
+            expiration_date,
             type
         );
         res.send({
