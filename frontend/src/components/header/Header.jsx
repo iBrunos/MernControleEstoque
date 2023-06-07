@@ -51,7 +51,7 @@ const Header = () => {
 
   const API_URL_STOCK = 'http://localhost:3000/stock';
   const API_URL = "https://api-happy-makeup.onrender.com/user";
-  //const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/stock";
+  const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
@@ -119,7 +119,7 @@ const Header = () => {
 
   const updateItem = async (id) => {
     try {
-      const quantityRemoved = window.prompt("Quantas unidades de " + product + " serão retiradas do estoque?");
+      const quantityRemoved = window.prompt("Quantas unidades serão retiradas do estoque?");
   
       const updatedItem = {
         quantity: quantityRemoved,

@@ -10,10 +10,13 @@ const updateService = (id, quantity) => Stock.findOneAndUpdate({ _id: id }, { qu
 
 const deleteService = (id) => Stock.findOneAndDelete({ _id: id });
 
+const findByProductService = (productName) => Stock.findOne({ product: productName });
+
 export default {
-    createService,
-    findAllService,
-    findByIdService,
-    updateService,
-    deleteService
+  createService,
+  findAllService,
+  findByIdService,
+  updateService,
+  deleteService,
+  findByProductService,
 };

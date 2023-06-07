@@ -1,5 +1,5 @@
 import stockService from "../services/stock.service.js";
-
+import entryService from "../services/entry.service.js";
 const createService = async (req, res) => {
   try {
     const { product, quantity} = req.body;
@@ -63,10 +63,9 @@ const findById = async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
-};
-const update = async (req, res) => {
+};const update = async (req, res) => {
   try {
-    const { id } = req.params; // Obtenha o ID do produto dos parâmetros da requisição
+    const { id } = req.params; // Obtenha o ID da entrada dos parâmetros da requisição
     const { quantity } = req.body; // Obtenha a quantidade a ser atualizada do corpo da requisição
 
     // Verifique se a quantidade é um número válido
@@ -74,11 +73,27 @@ const update = async (req, res) => {
       return res.status(400).send({ message: "Quantity must be a valid number" });
     }
 
-    const updatedItem = {
-      quantity: Number(quantity),
-    };
+    // Obtenha a entrada (Entry) com base no ID
+    const entry = await entryService.findByIdService(id);
 
-    await stockService.updateService(id, updatedItem.quantity);
+    if (!entry) {
+      return res.status(404).send({ message: "Entry not found" });
+    }
+
+    const productName = entry.product; // Obtenha o nome do produto associado à entrada
+
+    // Obtenha o documento do estoque com base no nome do produto
+    const stock = await stockService.findByProductService(productName);
+
+    if (!stock) {
+      return res.status(404).send({ message: "Stock not found" });
+    }
+
+    // Atualize a quantidade no estoque
+    stock.quantity -= Number(quantity);
+
+    // Salve as alterações no documento do estoque
+    await stock.save();
 
     res.send({
       message: "Stock successfully updated",
@@ -87,5 +102,6 @@ const update = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
 
 export default { createService, findAll, findById, update, deleteProduct};
