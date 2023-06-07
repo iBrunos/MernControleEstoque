@@ -49,9 +49,9 @@ const Header = () => {
     navigate("/");
   };
 
-  const API_URL_STOCK = 'http://api-happy-makeup.vercel/stock';
-  const API_URL = "http://api-happy-makeup.vercel/user";
-  const API_URL_ENTRY = "http://api-happy-makeup.vercel/entry";
+  const API_URL_STOCK = 'http://api-happymakeup.vercel.app/stock';
+  const API_URL = "http://api-happymakeup.vercel.app/user";
+  const API_URL_ENTRY = "http://api-happymakeup.vercel.app/entry";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
