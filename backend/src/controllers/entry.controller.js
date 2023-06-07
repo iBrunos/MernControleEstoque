@@ -5,7 +5,7 @@ const createService = async (req, res) => {
 
         const { product, observation, amount, entry_price, store, inserted_by, type, expiration_date } = req.body;
         // Verificando se todos os campos foram enviados
-        if (!product || !amount || !entry_price || !store || !inserted_by || !type, !expiration_date) {
+        if (!product || !amount || !entry_price || !store || !inserted_by || !type || !expiration_date) {
             res.status(400).send({
                 message: "Submit all fields for resgistration",
             });
@@ -74,31 +74,35 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
     try {
-        const { _id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date, in_stock } = req.body;
-        // Verificando se todos os campos foram enviados
-        if (!product && !observation && !amount && !entry_price && !store && !inserted_by && !type && !expiration_date) {
-            res.status(400).send({
-                message: "Submit at least one field for update",
-            });
-        }
-
-        await entryService.updateService(
-            _id,
-            product,
-            observation,
-            amount,
-            entry_price,
-            store,
-            inserted_by,
-            expiration_date,
-            in_stock,
-            type
-        );
-        res.send({
-            message: "Entry successfully updated",
+      const { _id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date, in_stock } = req.body;
+      // Verificando se todos os campos foram enviados
+      if (!product && !observation && !amount && !entry_price && !store && !inserted_by && !type && !expiration_date) {
+        res.status(400).send({
+          message: "Submit at least one field for update",
         });
+      }
+  
+      await entryService.updateService(
+        _id,
+        product,
+        observation,
+        amount,
+        entry_price,
+        inserted_by,
+        store,
+        type,
+        expiration_date,
+        in_stock
+      );
+  
+      res.send({
+        message: "Entry successfully updated",
+      });
     } catch (err) {
-        res.status(500).send({ message: err.message });
+      console.log(err);
+      res.status(500).send({ message: err.message });
     }
-};
+  };
+  
+
 export default { createService, findAll, findById, update, deleteEntry };

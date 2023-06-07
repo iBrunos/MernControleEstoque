@@ -43,11 +43,13 @@ const EntrySchema = new mongoose.Schema({
     default: true,
   },
   expiration_date: {
-    type: Date,
+    type: String,
     required: true,
     unique: false,
   },
-}, { timestamps: true });
+}, );
+
+
 
 // hook de pós-salvamento para atualizar a quantidade no estoque (Create)
 EntrySchema.post('save', async function (doc) {

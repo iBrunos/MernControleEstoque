@@ -18,12 +18,13 @@ export default function FormProducts() {
   const [entry_price, setEntry_price] = useState("");
   const [type, setType] = useState("");
   const [store, setStore] = useState("");
+  const [in_stock, setIn_stock] = useState("");
   const [expiration_date, setExpiration_date] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const API_URL = 'https://api-happymakeup.vercel.app/entry';
-
+  //const API_URL = 'https://api-happymakeup.vercel.app/entry';
+  const API_URL = 'http://localhost:3000/entry';
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };
@@ -154,9 +155,12 @@ export default function FormProducts() {
       inserted_by,
       expiration_date: formatDate(expiration_date),
       store,
+      type,
+      in_stock
     };
     updatedItem.inserted_by = username;
-
+    updatedItem.type = "Entrada";
+    updatedItem.in_stock = true;
     const token = localStorage.getItem("token");
 
     const response = await axios.put(`${API_URL}/${editingItem}`, updatedItem, {
@@ -393,7 +397,7 @@ export default function FormProducts() {
                         {item.inserted_by}
                       </td>
                       <td className="px-8 py-4 whitespace-nowrap">
-                        {formatDate(item.expiration_date)}
+                        {item.expiration_date}
                       </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.created_at)}

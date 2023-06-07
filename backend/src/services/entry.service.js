@@ -6,7 +6,7 @@ const findAllService = () => Entry.find();
 
 const findByIdService = (id) => Entry.findById(id);
 
-const updateService = (id, product, observation, amount, entry_price, store, inserted_by, type, in_stock, expiration_date) => Entry.findOneAndUpdate({_id: id}, {product, observation, amount, entry_price, store, inserted_by, type, in_stock, expiration_date });
+const updateService = (id, product, observation, amount, entry_price, store, inserted_by, type, expiration_date, in_stock ) => Entry.findOneAndUpdate({_id: id}, {product, observation, amount, entry_price, store, inserted_by, type, expiration_date, in_stock });
 
 const deleteService = (id) => Entry.findOneAndDelete({_id: id});
 export default {

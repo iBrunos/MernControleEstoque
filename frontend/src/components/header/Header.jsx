@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import moment from "moment";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,34 +88,36 @@ const Header = () => {
     try {
       const response = await axios.get(API_URL_ENTRY, config);
       const items = response.data;
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const oneMonthFromNow = new Date();
-      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
-      oneMonthFromNow.setHours(0, 0, 0, 0);
-
+  
+      const today = moment().startOf("day");
+      const oneMonthFromNow = moment().add(1, "month").startOf("day");
+  
       const expired = [];
       const expiringSoon = [];
-
+  
       items.forEach((item) => {
-        const expirationDate = new Date(item.expiration_date);
-        expirationDate.setHours(0, 0, 0, 0);
-
-        if (expirationDate < today) {
+        const expirationDate = moment(item.expiration_date, "DD/MM/YYYY").startOf("day");
+  
+        console.log("Expiration date:", expirationDate.format("DD/MM/YYYY"));
+  
+        if (expirationDate.isBefore(today)) {
           expired.push(item);
-        } else if (expirationDate < oneMonthFromNow) {
+        } else if (expirationDate.isBefore(oneMonthFromNow)) {
           expiringSoon.push(item);
         }
       });
-
+  
+      console.log("Expired items:", expired);
+      console.log("Expiring soon items:", expiringSoon);
+  
       setExpired(expired);
       setExpiringSoon(expiringSoon);
     } catch (error) {
       console.error(error);
     }
   };
+  
+  
 
   const updateItem = async (id) => {
     const username = localStorage.getItem("username");
