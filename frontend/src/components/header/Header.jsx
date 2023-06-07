@@ -49,9 +49,9 @@ const Header = () => {
     navigate("/");
   };
 
-  const API_URL_STOCK = 'http://localhost:3000/stock';
-  const API_URL = "https://api-happy-makeup.onrender.com/user";
-  const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
+  const API_URL_STOCK = 'http://api-happy-makeup.vercel/stock';
+  const API_URL = "http://api-happy-makeup.vercel/user";
+  const API_URL_ENTRY = "http://api-happy-makeup.vercel/entry";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
@@ -98,17 +98,15 @@ const Header = () => {
       items.forEach((item) => {
         const expirationDate = moment(item.expiration_date);
 
-        console.log("Expiration date:", item.expiration_date);
-
-        if (expirationDate.isBefore(today)) {
+        if (expirationDate.isBefore(today) && item.in_stock === true) {
           expired.push(item);
-        } else if (expirationDate.isSameOrBefore(oneMonthFromNow)) {
+        } else if (
+          expirationDate.isSameOrBefore(oneMonthFromNow) &&
+          item.in_stock === true
+        ) {
           expiringSoon.push(item);
         }
       });
-
-      console.log("Expired items:", expired);
-      console.log("Expiring soon items:", expiringSoon);
 
       setExpired(expired);
       setExpiringSoon(expiringSoon);
@@ -118,14 +116,28 @@ const Header = () => {
   };
 
   const updateItem = async (id) => {
+    const username = localStorage.getItem("username");
     try {
       const quantityRemoved = window.prompt("Quantas unidades serão retiradas do estoque?");
   
       const updatedItem = {
         quantity: quantityRemoved,
       };
-  
+
+      const updatedItem2 = {
+        _id: id,
+        username,
+        in_stock: false,
+        inserted_by,
+      };
+      updatedItem2.inserted_by = username;
       const token = localStorage.getItem("token");
+  
+      await axios.put(`${API_URL_ENTRY}/${id}`, updatedItem2, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+  
   
       await axios.put(`${API_URL_STOCK}/${id}`, updatedItem, {
         headers: { Authorization: `Bearer ${token}` },

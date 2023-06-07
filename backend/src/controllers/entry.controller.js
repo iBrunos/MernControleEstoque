@@ -82,7 +82,6 @@ const update = async (req, res) => {
         });
       }
       
-      console.log("in_stock:", in_stock);
   
       await entryService.updateService(
         _id,
