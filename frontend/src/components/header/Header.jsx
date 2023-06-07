@@ -49,9 +49,9 @@ const Header = () => {
     navigate("/");
   };
 
-  //const API_URL = 'http://localhost:3000/user/';
+  const API_URL_ENTRY = 'http://localhost:3000/entry';
   const API_URL = "https://api-happy-makeup.onrender.com/user";
-  const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
+  //const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
@@ -96,13 +96,13 @@ const Header = () => {
       const expiringSoon = [];
   
       items.forEach((item) => {
-        const expirationDate = moment(item.expiration_date, "DD/MM/YYYY").startOf("day");
+        const expirationDate = moment(item.expiration_date);
   
-        console.log("Expiration date:", expirationDate.format("DD/MM/YYYY"));
+        console.log("Expiration date:", item.expiration_date);
   
         if (expirationDate.isBefore(today)) {
           expired.push(item);
-        } else if (expirationDate.isBefore(oneMonthFromNow)) {
+        } else if (expirationDate.isSameOrBefore(oneMonthFromNow)) {
           expiringSoon.push(item);
         }
       });

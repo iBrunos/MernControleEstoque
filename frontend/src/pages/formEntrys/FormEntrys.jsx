@@ -397,7 +397,7 @@ export default function FormProducts() {
                         {item.inserted_by}
                       </td>
                       <td className="px-8 py-4 whitespace-nowrap">
-                        {item.expiration_date}
+                        {formatDate(item.expiration_date)}
                       </td>
                       <td className="px-6 py-4 whitespace-normal break-words">
                         {formatDateHours(item.created_at)}
