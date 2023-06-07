@@ -47,7 +47,6 @@ export default function FormProducts() {
 
 
   const fetchItems = async () => {
-    const getStore = localStorage.getItem("store");
     const token = localStorage.getItem("token");
     // definir o cabeçalho `Authorization` com o token JWT
     const config = {

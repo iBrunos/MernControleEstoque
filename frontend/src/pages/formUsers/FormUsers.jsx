@@ -227,7 +227,7 @@ export default function FormUsers() {
           onChange={(e) => setEmail(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
-        <div className="relative w-16 mr-2 text-pink-500 lg:mt-0 mt-2">
+        <div className="relative w-[6rem] mr-2 text-pink-500 lg:mt-0 mt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
@@ -241,7 +241,7 @@ export default function FormUsers() {
             />
           </svg>
           <select
-            className="w-full py-2 pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+            className="w-24 mr-2 py-2 pl-2 pr-2 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
             value={store}
             onChange={(e) => setStore(e.target.value)}
             required

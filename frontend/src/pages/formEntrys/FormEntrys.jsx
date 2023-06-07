@@ -152,12 +152,10 @@ export default function FormProducts() {
       amount,
       entry_price,
       inserted_by,
-      expiration_date: moment(expiration_date).format("YYYY-MM-DD"),
+      expiration_date: formatDate(expiration_date),
       store,
-      type,
     };
     updatedItem.inserted_by = username;
-    updatedItem.type = "Entrada";
 
     const token = localStorage.getItem("token");
 
@@ -187,7 +185,7 @@ export default function FormProducts() {
         onSubmit={editingItem !== null ? updateItem : addItem}
         className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
       >
-        <div className="relative w-80 mr-2 ">
+        <div className="relative w-[20rem] mr-2 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
@@ -230,7 +228,7 @@ export default function FormProducts() {
           value={observation}
           placeholder="Observação"
           onChange={(e) => setObservation(e.target.value)}
-          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[30rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[20rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
         />
         <input
           type="number"
@@ -254,7 +252,7 @@ export default function FormProducts() {
           step="0.01"
           required
         />
-        <div className="relative w-16 mr-2 text-pink-500 lg:mt-0 mt-2">
+        <div className="relative w-20 mr-2 text-pink-500 lg:mt-0 mt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
@@ -268,7 +266,7 @@ export default function FormProducts() {
             />
           </svg>
           <select
-            className="w-full py-2 pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+            className="w-20 py-2 pl-1 pr-5 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
             value={store}
             onChange={(e) => setStore(e.target.value)}
             required
@@ -284,13 +282,13 @@ export default function FormProducts() {
         </div>
         <label
           htmlFor="validade"
-          className="mr-2 text-gray-400 align-middle px-4 py-2 rounded lg:mt-0 mt-2 w-[9rem]"
+          className=" text-gray-400 align-middle px-2 py-2 rounded lg:mt-0 mt-2 w-[5rem]"
         >
-          Validade: 
+          Validade:
         </label>
         <input
           id="validade"
-          className=" lg:ml-2 ml-0 border rounded-md p-2 text-gray-500 w-36 lg:mt-0 mt-2 mr-2"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[8rem] w-[10rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           type="date"
           value={expiration_date}
           onChange={(e) => setExpiration_date(e.target.value)}
@@ -304,7 +302,7 @@ export default function FormProducts() {
           {editingItem !== null ? "Salvar Entrada" : "Adicionar Entrada"}
         </button>
 
-        <section className="flex items-center border rounded-md p-2 lg:ml-[15rem] ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
+        <section className="flex items-center border rounded-md p-2 lg:ml-[12rem] ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -320,7 +318,7 @@ export default function FormProducts() {
             />
           </svg>
           <input
-            className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-64 w-32 "
+            className="outline-none appearance-none placeholder-gray-500 text-gray-500 lg:w-44 w-32 "
             onChange={(e) => setSearchTerm(e.target.value)}
             type="text"
             placeholder="Pesquisar"
