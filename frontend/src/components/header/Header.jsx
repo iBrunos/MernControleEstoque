@@ -49,9 +49,9 @@ const Header = () => {
     navigate("/");
   };
 
-  const API_URL_ENTRY = 'http://localhost:3000/entry';
+  const API_URL_STOCK = 'http://localhost:3000/stock';
   const API_URL = "https://api-happy-makeup.onrender.com/user";
-  //const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/entry";
+  //const API_URL_ENTRY = "https://api-happy-makeup.onrender.com/stock";
 
   useEffect(() => {
     setIsGerente(level === "Gerente");
@@ -88,56 +88,57 @@ const Header = () => {
     try {
       const response = await axios.get(API_URL_ENTRY, config);
       const items = response.data;
-  
+
       const today = moment().startOf("day");
       const oneMonthFromNow = moment().add(1, "month").startOf("day");
-  
+
       const expired = [];
       const expiringSoon = [];
-  
+
       items.forEach((item) => {
         const expirationDate = moment(item.expiration_date);
-  
+
         console.log("Expiration date:", item.expiration_date);
-  
+
         if (expirationDate.isBefore(today)) {
           expired.push(item);
         } else if (expirationDate.isSameOrBefore(oneMonthFromNow)) {
           expiringSoon.push(item);
         }
       });
-  
+
       console.log("Expired items:", expired);
       console.log("Expiring soon items:", expiringSoon);
-  
+
       setExpired(expired);
       setExpiringSoon(expiringSoon);
     } catch (error) {
       console.error(error);
     }
   };
-  
-  
 
   const updateItem = async (id) => {
-    const username = localStorage.getItem("username");
-    const updatedItem = {
-      _id: id,
-      username,
-      in_stock: false,
-      inserted_by,
-    };
-    updatedItem.inserted_by = username;
-    const token = localStorage.getItem("token");
-
-    await axios.put(`${API_URL_ENTRY}/${id}`, updatedItem, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    fetchItems();
-    toast.success("Produto vencido removido!");
+    try {
+      const quantityRemoved = window.prompt("Quantas unidades de " + product + " serão retiradas do estoque?");
+  
+      const updatedItem = {
+        quantity: quantityRemoved,
+      };
+  
+      const token = localStorage.getItem("token");
+  
+      await axios.put(`${API_URL_STOCK}/${id}`, updatedItem, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      fetchItems();
+      toast.success("Produto vencido removido!");
+    } catch (error) {
+      console.error(error);
+      // Lide com o erro adequadamente (exemplo: exibindo uma mensagem de erro na interface do usuário).
+    }
   };
-
+  
   const checkImageSrc = () => {
     if (!imageSrc) {
       setImageSrc(avatarDefault);

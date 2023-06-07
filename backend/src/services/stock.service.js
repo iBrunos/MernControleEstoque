@@ -6,14 +6,14 @@ const findAllService = () => Stock.find();
 
 const findByIdService = (id) => Stock.findById(id);
 
-const updateService = (id, product, quantity) => Stock.findOneAndUpdate({_id: id}, {product, quantity});
+const updateService = (id, quantity) => Stock.findOneAndUpdate({ _id: id }, { quantity }, { new: true });
 
-const deleteService = (id) => Stock.findOneAndDelete({_id: id});
+const deleteService = (id) => Stock.findOneAndDelete({ _id: id });
 
 export default {
     createService,
     findAllService,
     findByIdService,
     updateService,
-    deleteService // nova função de delete
+    deleteService
 };

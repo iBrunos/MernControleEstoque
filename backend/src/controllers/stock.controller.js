@@ -66,21 +66,20 @@ const findById = async (req, res) => {
 };
 const update = async (req, res) => {
   try {
-    const { product, quantity } = req.body;
+    const { id } = req.params; // Obtenha o ID do produto dos parâmetros da requisição
+    const { quantity } = req.body; // Obtenha a quantidade a ser atualizada do corpo da requisição
 
-    // Verificando se todos os campos foram enviados
-    if (!product && !quantity) {
-      res.status(400).send({
-        message: "Submit at least one field for update",
-      });
+    // Verifique se a quantidade é um número válido
+    if (isNaN(quantity)) {
+      return res.status(400).send({ message: "Quantity must be a valid number" });
     }
-    const { id, user } = req;
 
-    await userService.updateService(
-      id,
-      product,
-      quantity,
-    );
+    const updatedItem = {
+      quantity: Number(quantity),
+    };
+
+    await stockService.updateService(id, updatedItem.quantity);
+
     res.send({
       message: "Stock successfully updated",
     });
@@ -88,4 +87,5 @@ const update = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
 export default { createService, findAll, findById, update, deleteProduct};
