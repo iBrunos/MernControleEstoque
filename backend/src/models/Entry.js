@@ -51,36 +51,26 @@ const EntrySchema = new mongoose.Schema({
 
 // hook de pós-salvamento para atualizar a quantidade no estoque (Create)
 EntrySchema.post('save', async function (doc) {
-  if (doc.in_stock) {
-    const stock = await Stock.findOne({ product: doc.product });
-    stock.quantity += doc.amount;
-    await stock.save();
-  }
+  const stock = await Stock.findOne({ product: doc.product });
+  stock.quantity += doc.amount;
+  await stock.save();
 });
 
 // hook de pós-remoção para atualizar a quantidade no estoque (Delete)
 EntrySchema.post('findOneAndDelete', async function (doc, next) {
-  if (doc.in_stock) {
-    const stock = await Stock.findOne({ product: doc.product });
-    stock.quantity -= doc.amount;
-    await stock.save();
-  }
+  const stock = await Stock.findOne({ product: doc.product });
+  stock.quantity -= doc.amount;
+  await stock.save();
   next();
 });
 
 // hook de pós-atualização para atualizar a quantidade no estoque (Update)
 EntrySchema.post('findOneAndUpdate', async function (doc) {
-  const diffAmount = originalEntry.amount - doc.amount;
-
-  if (doc.in_stock) {
-    const stock = await Stock.findOne({ product: doc.product });
-    stock.quantity += diffAmount;
-    await stock.save();
-  } else {
-    const stock = await Stock.findOne({ product: doc.product });
-    stock.quantity -= diffAmount;
-    await stock.save();
-  }
+  const entry = await Entry.findById(doc._id);
+  const diffAmount = entry.amount - doc.amount;
+  const stock = await Stock.findOne({ product: entry.product });
+  stock.quantity += diffAmount;
+  await stock.save();
 });
 
 
