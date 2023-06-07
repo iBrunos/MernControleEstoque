@@ -145,6 +145,7 @@ const Header = () => {
   
       fetchItems();
       toast.success("Produto vencido removido!");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       // Lide com o erro adequadamente (exemplo: exibindo uma mensagem de erro na interface do usuário).
