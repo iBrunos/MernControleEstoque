@@ -123,6 +123,7 @@ const Header = () => {
     const username = localStorage.getItem("username");
     const updatedItem = {
       _id: id,
+      username,
       in_stock: false,
       inserted_by,
     };
@@ -409,8 +410,8 @@ const Header = () => {
                 )}
               </button>
               {isNotificationOpen && (
-                <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute left-0 top-[02.5rem] lg:hidden block z-30 p-2 ">
-                  {expired.length == 0 && expiringSoon.length == 0 && (
+                <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute lef-0 top-[04.5rem] hidden lg:block z-30 p-2">
+                  {expired.length === 0 && expiringSoon.length === 0 && (
                     <div className="mb-2">
                       <h3 className="text-green-500 font-bold mb-1">
                         Não há produtos expirados.
@@ -424,7 +425,15 @@ const Header = () => {
                       </h3>
                       <ul>
                         {expired.map((item) => (
-                          <li key={item._id}>{item.product}</li>
+                          <div className="flex" key={item._id}>
+                            <li>{item.product}</li>
+                            <button
+                              onClick={() => updateItem(item._id)}
+                              title="Remover item do estoque."
+                            >
+                              <DeleteForeverIcon className="text-red-500 hover:text-red-600 ml-44 mb-2" />
+                            </button>
+                          </div>
                         ))}
                       </ul>
                     </div>

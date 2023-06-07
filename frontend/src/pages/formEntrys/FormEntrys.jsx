@@ -18,13 +18,13 @@ export default function FormProducts() {
   const [entry_price, setEntry_price] = useState("");
   const [type, setType] = useState("");
   const [store, setStore] = useState("");
-  const [in_stock, setIn_stock] = useState("");
+  const [in_stock] = useState("");
   const [expiration_date, setExpiration_date] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  //const API_URL = 'https://api-happymakeup.vercel.app/entry';
-  const API_URL = 'http://localhost:3000/entry';
+  const API_URL = 'https://api-happymakeup.vercel.app/entry';
+  //const API_URL = 'http://localhost:3000/entry';
   const changePageTitle = (newTitle) => {
     document.title = newTitle;
   };

@@ -81,6 +81,8 @@ const update = async (req, res) => {
           message: "Submit at least one field for update",
         });
       }
+      
+      console.log("in_stock:", in_stock);
   
       await entryService.updateService(
         _id,
