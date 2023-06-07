@@ -70,16 +70,15 @@ EntrySchema.post('findOneAndDelete', async function (doc, next) {
 
 // hook de pós-atualização para atualizar a quantidade no estoque (Update)
 EntrySchema.post('findOneAndUpdate', async function (doc) {
-  const originalEntry = await Entry.findById(doc._id);
   const diffAmount = originalEntry.amount - doc.amount;
 
   if (doc.in_stock) {
-    const stock = await Stock.findOne({ product: originalEntry.product });
+    const stock = await Stock.findOne({ product: doc.product });
     stock.quantity += diffAmount;
     await stock.save();
   } else {
-    const stock = await Stock.findOne({ product: originalEntry.product });
-    stock.quantity -= stock.quantity;
+    const stock = await Stock.findOne({ product: doc.product });
+    stock.quantity -= diffAmount;
     await stock.save();
   }
 });
