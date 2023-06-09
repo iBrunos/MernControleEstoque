@@ -8,19 +8,19 @@ Bem-vindo ao repositório do projeto Happy Makeup! Este é um sistema de control
 
 ## Sobre a loja
 
-A Happy Makeup é uma loja de maquiagem que oferece uma ampla variedade de produtos de beleza. Eles têm uma presença ativa no Instagram, onde você pode conferir suas últimas novidades e promoções: [Instagram Happy Makeup](https://www.instagram.com/happymakeaup_/)
+A Happy Makeup é uma loja de maquiagem que oferece uma ampla variedade de produtos de beleza. Eles têm uma presença ativa no Instagram, onde você pode conferir suas últimas novidades e promoções: [Happy Makeup](https://www.instagram.com/happymakeaup_/)
 
 ## Sobre o projeto
 
 O projeto Happy Makeup - Controle de Estoque é um sistema web desenvolvido utilizando a stack MERN (MongoDB, Express.js, React.js, Node.js). Essa escolha foi baseada nas seguintes considerações:
 
-- **MongoDB**: Um banco de dados NoSQL orientado a documentos, foi escolhido por sua flexibilidade e escalabilidade. Ele permite armazenar e recuperar dados de forma eficiente, além de ser compatível com a linguagem JSON utilizada pelo JavaScript.
+- 💾 **MongoDB**: Um banco de dados NoSQL orientado a documentos, foi escolhido por sua flexibilidade e escalabilidade. Ele permite armazenar e recuperar dados de forma eficiente, além de ser compatível com a linguagem JSON utilizada pelo JavaScript.
 
-- **Express.js**: É um framework web rápido e minimalista para Node.js. Foi escolhido devido à sua simplicidade e facilidade de uso, fornecendo recursos essenciais para a criação de APIs robustas e escaláveis.
+- ⚡️ **Express.js**: É um framework web rápido e minimalista para Node.js. Foi escolhido devido à sua simplicidade e facilidade de uso, fornecendo recursos essenciais para a criação de APIs robustas e escaláveis.
 
-- **React.js**: É uma biblioteca JavaScript popular para a construção de interfaces de usuário interativas. A escolha do React.js se deu por sua eficiência no gerenciamento do estado da aplicação e na criação de componentes reutilizáveis, permitindo uma experiência de usuário fluida.
+- ⚛️ **React.js**: É uma biblioteca JavaScript popular para a construção de interfaces de usuário interativas. A escolha do React.js se deu por sua eficiência no gerenciamento do estado da aplicação e na criação de componentes reutilizáveis, permitindo uma experiência de usuário fluida.
 
-- **Node.js**: É um ambiente de execução JavaScript do lado do servidor. Sua escolha se deu pela familiaridade da equipe com a linguagem JavaScript, o que facilita a colaboração e o desenvolvimento consistente em todo o projeto.
+- 🚀 **Node.js**: É um ambiente de execução JavaScript do lado do servidor. Sua escolha se deu pela familiaridade da equipe com a linguagem JavaScript, o que facilita a colaboração e o desenvolvimento consistente em todo o projeto.
 
 ## Funcionalidades principais
 
