@@ -91,23 +91,22 @@ export default function Login() {
 
   return (
     <>
-      <section className="bg-pink-300 lg:py-[10.7rem] sm:py-[10rem]">
+      <section className="bg-pink-300 lg:py-[13rem] py-[7rem] overflow-y-hidden">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
           <div
             className="hidden bg-cover lg:block lg:w-full"
             style={{ backgroundImage: `url(${wallpaper})` }}
           ></div>
-
           <form onSubmit={login} className="w-full px-6 py-8 md:px-8 lg:w-1/2">
             <div className="flex justify-center mx-auto">
               <img className="w-auto h-44 my-[-2rem]" src={logo} alt="logo" />
             </div>
-            <h1 className="mt-2 text-2xl font-semibold tracking-wide text-center text-gray-800  md:text-3xl">
-              Bem vindo,
-            </h1>
-            <h1 className="mb-2 text-2xl font-normal tracking-wide text-center text-gray-800  md:text-3xl">
-              realize seu login.
-            </h1>
+            <h2 className="mt-2 text-2xl lg:w-80 w-[22rem] font-normal tracking-wide text-center text-gray-800  md:text-3xl">
+              Bem vindo a, Aplicação de Estoque
+            </h2>
+            <p className="my-2 text-2xl font-normal tracking-wide text-left text-gray-800  md:text-xl">
+              Realize seu login:
+            </p>
             <div className="">
               <label
                 className="block mb-2 text-sm font-medium text-gray-600"
@@ -231,12 +230,6 @@ export default function Login() {
             </a>
           </form>
         </div>
-        <span className="ml-[32rem] lg:block sm:hidden">
-          Image by{" "}
-          <a href="https://www.freepik.com/free-photo/makeup-brushes-with-pink-powder-splash_4912081.htm#query=make%20up&position=11&from_view=search&track=ais">
-            Freepik
-          </a>
-        </span>
       </section>
     </>
   );

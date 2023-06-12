@@ -181,13 +181,24 @@ const Header = () => {
                 </h1>
               </Link>
               <div className="hidden sm:ml-6 sm:flex">
-                <Link
+                
+                {isGerente ? (
+                  <Link
                   to="/user/estoque"
                   className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <StoreIcon className="mr-1 font-bold" />
                   Estoque
                 </Link>
+                ) : (
+                  <Link
+                  to="/user/estoque"
+                  className="text-white hover:bg-pink-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium ml-[30rem]"
+                >
+                  <StoreIcon className="mr-1 font-bold" />
+                  Estoque
+                </Link>
+                )}
 
                 {isGerente ? (
                   <Link
@@ -282,15 +293,16 @@ const Header = () => {
                       </h3>
                       <ul>
                         {expired.map((item) => (
-                          <div className="flex" key={item._id}>
-                            <li>{item.product}</li>
-                            <button
-                              onClick={() => updateItem(item._id)}
-                              title="Remover item do estoque."
-                            >
-                              <DeleteForeverIcon className="text-red-500 hover:text-red-600 ml-44 mb-2" />
-                            </button>
-                          </div>
+                          <div className="flex flex-row" key={item._id}>
+                          <li className=" mr-24">{item.product}</li>
+                          <button
+                            onClick={() => updateItem(item._id)}
+                            title="Remover item do estoque."
+                            className=""
+                          >
+                            <DeleteForeverIcon className="text-red-500 hover:text-red-600  mb-2" />
+                          </button>
+                        </div>
                         ))}
                       </ul>
                     </div>
@@ -367,18 +379,32 @@ const Header = () => {
             >
               <StoreIcon className="mr-1 font-bold" /> Estoque
             </Link>
-            <Link
+            
+            {isGerente ? (
+              <Link
               to="/user/cadastro"
               className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
             >
               <AppRegistrationIcon className="mr-1 font-bold" /> Cadastro
             </Link>
-            <Link
+            ) : (
+              <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                Usuários
+              </span>
+            )}
+            
+            {isGerente ? (
+              <Link
               to="/user/entradas"
               className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
             >
               <AddShoppingCartIcon className="mr-1 font-bold" /> Entradas
             </Link>
+            ) : (
+              <span className="px-3 py-2 text-black rounded-md font-medium mr-2 text-lg cursor-auto hidden">
+                Usuários
+              </span>
+            )}
             <Link
               to="/user/saidas"
               className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md"
@@ -411,20 +437,20 @@ const Header = () => {
               </span>
             )}
 
-            <div className="relative">
+            <div className="relative w-56">
               <button
                 onClick={handleToggleNotification}
-                className="block mr-[4.3rem] px-3 py-2 text-white hover:bg-pink-400 rounded-md"
+                className="block mr-[0rem] pl-3 pr-2 py-2 text-white hover:bg-pink-400 rounded-md"
               >
                 <NotificationsIcon className="mr-1 font-bold" /> Notificações
                 {expired.length + expiringSoon.length > 0 && (
-                  <span className="block px-3 py-2 text-white hover:bg-pink-400 rounded-md">
+                  <span className="block w-10 mt-2 px-1 py-1 text-white bg-red-500 rounded-md">
                     {expired.length + expiringSoon.length}
                   </span>
                 )}
               </button>
               {isNotificationOpen && (
-                <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute lef-0 top-[04.5rem] hidden lg:block z-30 p-2">
+                <div className="bg-white w-64 border border-gray-200 rounded-lg shadow-lg absolute left-0 top-[2.5rem] lg:block z-30 p-2">
                   {expired.length === 0 && expiringSoon.length === 0 && (
                     <div className="mb-2">
                       <h3 className="text-green-500 font-bold mb-1">
@@ -439,13 +465,14 @@ const Header = () => {
                       </h3>
                       <ul>
                         {expired.map((item) => (
-                          <div className="flex" key={item._id}>
-                            <li>{item.product}</li>
+                          <div className="flex flex-row" key={item._id}>
+                            <li className=" mr-24">{item.product}</li>
                             <button
                               onClick={() => updateItem(item._id)}
                               title="Remover item do estoque."
+                              className=""
                             >
-                              <DeleteForeverIcon className="text-red-500 hover:text-red-600 ml-44 mb-2" />
+                              <DeleteForeverIcon className="text-red-500 hover:text-red-600  mb-2" />
                             </button>
                           </div>
                         ))}
@@ -469,7 +496,7 @@ const Header = () => {
             </div>
             <button
               onClick={navigateToLogout}
-              className="mr-[8rem] block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
+              className="mr-[0rem] w-24 block px-3 py-2 text-white hover:bg-pink-400 rounded-md "
             >
               <LogoutIcon className="mr-1 font-bold" /> Sair
             </button>

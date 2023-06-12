@@ -285,7 +285,7 @@ export default function FormUsers() {
           {editingItem !== null ? "Salvar Usuário" : "Adicionar Usuário"}
         </button>
 
-        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 lg:w-64 w-[20rem] focus:border-pink-500 lg:ml-[20rem]">
+        <section className="flex items-center space-x-2 border rounded-md p-2 lg:mt-0 mt-2 mr-2 lg:w-64 w-[20rem] focus:border-pink-500 lg:ml-[20rem]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"
@@ -349,7 +349,7 @@ export default function FormUsers() {
                 .map((item, index) => (
                   <tr key={item._id || index}>
                     <td className="px-6 py-4">{item.username}</td>
-                    <td className="px-6 py-4 text-[0.5rem]">{item.password}</td>
+                    <td className="px-6 py-4 text-[1rem]">●●●●●●●●</td>
                     <td className="px-6 py-4">{item.level}</td>
                     <td className="px-6 py-4 ">{item.email}</td>
                     <td className="px-6 py-4 ">{item.store}</td>

@@ -250,7 +250,7 @@ export default function FormProducts() {
                     return false;
                   })
                   .map((item, index) => (
-                    <tr key={item._id || index}>
+                    <tr className="w-full" key={item._id || index}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.product}
                       </td>
@@ -260,7 +260,7 @@ export default function FormProducts() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.brand}
                       </td>
-                      <td className="px-6 py-4 whitespace-normal break-words w-[50rem]">
+                      <td className="px-6 py-4 whitespace-normal break-words w-96">
                         {item.description}
                       </td>
                       <td className="px-8 py-4 whitespace-nowrap">

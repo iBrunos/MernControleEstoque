@@ -293,7 +293,7 @@ export default function FormProducts() {
         </label>
         <input
           id="validade"
-          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[8rem] w-[10rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+          className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[8.7rem] w-[10rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
           type="date"
           value={expiration_date}
           onChange={(e) => setExpiration_date(e.target.value)}
@@ -307,7 +307,7 @@ export default function FormProducts() {
           {editingItem !== null ? "Salvar Entrada" : "Adicionar Entrada"}
         </button>
 
-        <section className="flex items-center border rounded-md p-2 lg:ml-[12rem] ml-0 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
+        <section className="flex items-center border rounded-md p-2 lg:ml-[12rem] ml-0 mr-2 lg:w-64 w-40 lg:mt-0 mt-2 focus:border-pink-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 flex-none text-gray-300"

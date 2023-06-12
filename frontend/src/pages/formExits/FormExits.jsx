@@ -160,7 +160,7 @@ export default function FormProducts() {
       store,
       exit_price,
       inserted_by,
-      payment,
+      payment: payment + " " + parcelas,
       type,
     };
     updatedItem.inserted_by = username;
@@ -193,7 +193,7 @@ export default function FormProducts() {
         onSubmit={editingItem !== null ? updateItem : addItem}
         className="flex lg:flex-row flex-col mb-0 mt-1 bg-white border-b-gray-200 border-b pl-8 pt-1 pb-2 ml-0"
       >
-        <div className="relative w-80 mr-2 ">
+        <div className="relative mr-2 w-60 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-0 bottom-0 w-6 h-6 my-auto text-pink-500 right-1"
@@ -207,11 +207,11 @@ export default function FormProducts() {
             />
           </svg>
           {items2.length === 0 ? (
-            <p className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer">Cadastre um produto. </p>
+            <p className="w-full py-2  pl-2 pr-8 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer">Cadastre um produto. </p>
           ) : (
             <div>
               <select
-                className="w-full py-2  pl-2 pr-6 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
+                className="w-full py-2 pl-2 pr-8 text-gray-500 border-gray-300 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-pink-500 cursor-pointer"
                 value={product}
                 onChange={(e) => setProduct(e.target.value)}
                 required // adicionado o atributo required
@@ -288,15 +288,22 @@ export default function FormProducts() {
             {payment === "Crédito" && (
               <select
                 className="lg:ml-0 ml-0 flex items-center border rounded-md py-2 pl-2 text-gray-500 lg:mt-0 mt-2 mr-2 w-[6rem]"
-                value={parcelas + "x"}
+                value={parcelas}
                 onChange={handleParcelasChange}
               >
                 <option value="">Parcelas</option>
-                {[...Array(10)].map((_, index) => (
-                  <option key={index + 1} value={(index + 1).toString()}>
-                    {(index + 1).toString()}x
-                  </option>
-                ))}
+                <option value="1x">1x </option>
+                <option value="2x">2x </option>
+                <option value="3x">3x </option>
+                <option value="4x">4x </option>
+                <option value="5x">5x </option>
+                <option value="6x">6x </option>
+                <option value="7x">7x </option>
+                <option value="8x">8x </option>
+                <option value="9x">9x </option>
+                <option value="10x">10x </option>
+                <option value="11x">11x </option>
+                <option value="12x">12x </option>
               </select>
             )}
           </div>
