@@ -118,12 +118,10 @@ const Header = () => {
   const updateItem = async (id) => {
     const username = localStorage.getItem("username");
     try {
-      const quantityRemoved = window.prompt("Quantas unidades serão retiradas do estoque?");
-  
-      const updatedItem = {
-        quantity: quantityRemoved,
-      };
-
+      const quantityRemoved = prompt("Quantas unidades serão retiradas do estoque?");
+      if (quantityRemoved == null || quantityRemoved == '0' ) {
+        return
+      }
       const updatedItem2 = {
         _id: id,
         username,
@@ -136,8 +134,6 @@ const Header = () => {
       await axios.put(`${API_URL_ENTRY}/${id}`, updatedItem2, {
         headers: { Authorization: `Bearer ${token}` },
       });
-  
-  
   
       await axios.put(`${API_URL_STOCK}/${id}`, updatedItem, {
         headers: { Authorization: `Bearer ${token}` },
