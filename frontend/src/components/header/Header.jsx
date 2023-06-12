@@ -128,6 +128,10 @@ const Header = () => {
         in_stock: false,
         inserted_by,
       };
+      const updatedItem = {
+        id_product: id,
+        quantity: quantityRemoved
+      };
       updatedItem2.inserted_by = username;
       const token = localStorage.getItem("token");
   

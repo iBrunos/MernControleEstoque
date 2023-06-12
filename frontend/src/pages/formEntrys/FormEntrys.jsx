@@ -82,7 +82,7 @@ export default function FormProducts() {
 
     const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
-
+    formatDate(expiration_date)
     const newItem = {
       product,
       observation,
@@ -146,6 +146,7 @@ export default function FormProducts() {
   const updateItem = async (e) => {
     e.preventDefault();
     const username = localStorage.getItem("username");
+    formatDate(expiration_date)
     const updatedItem = {
       _id: editingItem,
       product,
@@ -153,7 +154,7 @@ export default function FormProducts() {
       amount,
       entry_price,
       inserted_by,
-      expiration_date: formatDate(expiration_date),
+      expiration_date,
       store,
       type,
       in_stock
