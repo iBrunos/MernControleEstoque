@@ -40,6 +40,14 @@ ProductSchema.post('findOneAndDelete', async function (doc) {
     await Stock.deleteOne({ id_product: doc._id });
 });
 
+// Definir hook de pós-atualização para atualizar o documento de Stock correspondente
+ProductSchema.post('findOneAndUpdate', async function (doc) {
+    const updatedProduct = doc._update.product; // Obter os campos atualizados do produto
+
+    // Atualizar o documento de estoque correspondente com as informações atualizadas do produto
+    await Stock.updateOne({ id_product: doc._id }, { product: updatedProduct });
+});
+
 const Product = mongoose.model("Products", ProductSchema);
 
 export default Product;
