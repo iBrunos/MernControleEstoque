@@ -176,6 +176,7 @@ export default function FormProducts() {
           placeholder="Descrição"
           onChange={(e) => setDescription(e.target.value)}
           className="mr-2 border-gray-300 border rounded-md p-2 lg:w-[10rem] w-[20rem] lg:mt-0 mt-2 outline-none appearance-none placeholder-gray-500 text-gray-500 focus:border-pink-500"
+          
         />
         <button
           type="submit"
