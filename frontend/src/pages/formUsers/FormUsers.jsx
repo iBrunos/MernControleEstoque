@@ -280,7 +280,7 @@ export default function FormUsers() {
         />
         <button
           type="submit"
-          className=" block mr-16 lg:mt-0 mt-2 w-[10rem] border rounded-md lg:ml-2 ml-0 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
+          className=" block mr-10 lg:mt-0 mt-2 w-[10rem] border rounded-md lg:ml-2 ml-0 p-2 bg-pink-500 text-white font-medium hover:bg-pink-600"
         >
           {editingItem !== null ? "Salvar Usuário" : "Adicionar Usuário"}
         </button>
