@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     },
     store: {
         type: String,
-        enum: ['Loja 01', 'Loja 02'],
+        enum: ['Loja 01', 'Loja 02', 'Todas'],
         required: true,
     },
 });
